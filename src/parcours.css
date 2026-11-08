@@ -592,3 +592,12 @@ html[data-dir=prev]::view-transition-new(root){animation-name:vt-in-left}
 .qr>div{width:min(240px,70vw);background:#fff;border-radius:14px;padding:10px}
 .qr svg{display:block;width:100%;height:auto}
 .qr figcaption{font-size:.8rem;color:var(--sub)}
+.paste-link{display:grid;gap:6px}
+.paste-link label{font-size:.85rem;font-weight:650}
+.paste-link>div{display:flex;gap:8px}
+.paste-link input{flex:1;min-width:0;font-size:16px;padding:11px 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface-2);color:var(--ink)}
+.share-panel{grid-template-columns:minmax(0,1fr)}
+.share-panel .backup-actions{display:flex;flex-wrap:wrap;gap:8px}
+.share-panel .backup-actions button{flex:1 1 150px}
+.paste-link{grid-template-columns:minmax(0,1fr)}
+.paste-link input{width:100%}
