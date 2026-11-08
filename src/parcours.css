@@ -40,7 +40,7 @@ h1,h2,h3{color:var(--ink)}
 .mobile-brand{display:none}
 .brand{display:flex}
 .brand,.mobile-brand{font-family:var(--display);font-weight:800;font-size:1.7rem;letter-spacing:.01em;color:var(--ink);align-items:center;gap:9px;text-decoration:none}
-.brand-mark{width:26px;height:10px;display:inline-block;background:radial-gradient(circle at calc(100% - 5px) 50%,#ff3d4f 0 4.5px,transparent 5px),linear-gradient(90deg,transparent 0 2px,var(--ink) 2px 6px,transparent 6px 9px,var(--ink) 9px 13px,transparent 13px) 0 50%/100% 2px no-repeat}
+.brand-mark{width:30px;height:30px;border-radius:7px;display:inline-block;flex:none}
 
 /* ---------- schil ---------- */
 .sidebar{background:var(--bg);border-right:1px solid var(--border);width:228px;padding:30px 18px 24px;gap:6px}
@@ -92,8 +92,8 @@ footer{border-top:1px solid var(--border);color:var(--sub);font-size:.82rem;marg
 .hero-p h2>span:not(.vs){display:block}
 .hero-venue{margin:-4px 0 0;color:var(--sub);font-size:.92rem}
 .hero-time{display:flex;align-items:center;gap:14px}
-.hero-time strong{font-family:var(--display);font-weight:900;font-size:4.6rem;line-height:.8;color:var(--tone);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-.hero-time.is-date strong{font-size:3.4rem;white-space:nowrap}
+.hero-time strong{font-family:var(--display);font-weight:900;font-size:5.3rem;line-height:.8;color:var(--tone);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.hero-time.is-date strong{font-size:3.9rem;white-space:nowrap}
 .hero-time span{display:flex;flex-direction:column;font-size:.92rem;font-weight:600;border-left:2px solid var(--border);padding-left:14px;gap:2px}
 .hero-time small{color:var(--sub);font-weight:500;font-size:.82rem}
 .hero-watch{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-weight:650}
@@ -466,8 +466,8 @@ html[data-dir=prev]::view-transition-new(root){animation-name:vt-in-left}
 
 @media (max-width:420px){
  .hero-row{grid-template-columns:auto minmax(0,1fr);gap:12px}
- .hero-row .hero-time strong{font-size:3.9rem}
- .hero-row .hero-time.is-date strong{font-size:2.7rem}
+ .hero-row .hero-time strong{font-size:4.6rem}
+ .hero-row .hero-time.is-date strong{font-size:3.1rem}
  .ontv li{grid-template-columns:1fr}
  .ontv-sport{grid-row:auto}
  .ontv-early{grid-column:1}
