@@ -1,0 +1,4250 @@
+{
+  "entities": {
+    "Q1451505": {
+      "pageid": 1389683,
+      "ns": 0,
+      "title": "Q1451505",
+      "lastrevid": 2553257301,
+      "modified": "2026-10-05T01:36:38Z",
+      "type": "item",
+      "id": "Q1451505",
+      "labels": {
+        "zh-hans": {
+          "language": "zh-hans",
+          "value": "2028年夏季奥林匹克运动会"
+        },
+        "zh-hant": {
+          "language": "zh-hant",
+          "value": "2028年夏季奧林匹克運動會"
+        },
+        "zh-hk": {
+          "language": "zh-hk",
+          "value": "2028年夏季奧林匹克運動會"
+        },
+        "be": {
+          "language": "be",
+          "value": "Летнія Алімпійскія гульні 2028"
+        },
+        "mn": {
+          "language": "mn",
+          "value": "2028 оны зуны олимп"
+        },
+        "en": {
+          "language": "en",
+          "value": "2028 Summer Olympics"
+        },
+        "tr": {
+          "language": "tr",
+          "value": "2028 Yaz Olimpiyatları"
+        },
+        "th": {
+          "language": "th",
+          "value": "โอลิมปิกฤดูร้อน 2028"
+        },
+        "yo": {
+          "language": "yo",
+          "value": "Àwọn Ìdíje Òlímpíkì Ìgbà Oru 2028"
+        },
+        "ms": {
+          "language": "ms",
+          "value": "Sukan Olimpik Musim Panas 2028"
+        },
+        "lv": {
+          "language": "lv",
+          "value": "2028. gada Vasaras Olimpiskās spēles"
+        },
+        "uk": {
+          "language": "uk",
+          "value": "Літні Олімпійські ігри 2028"
+        },
+        "it": {
+          "language": "it",
+          "value": "Giochi della XXXIV Olimpiade"
+        },
+        "be-tarask": {
+          "language": "be-tarask",
+          "value": "Летнія Алімпійскія гульні 2028 году"
+        },
+        "mhr": {
+          "language": "mhr",
+          "value": "Кеҥеж Олимпий модмаш - 2028"
+        },
+        "bg": {
+          "language": "bg",
+          "value": "Летни олимпийски игри 2028"
+        },
+        "yue": {
+          "language": "yue",
+          "value": "2028年夏季奧林匹克運動會"
+        },
+        "ar": {
+          "language": "ar",
+          "value": "الألعاب الأولمبية الصيفية 2028"
+        },
+        "da": {
+          "language": "da",
+          "value": "sommer-OL 2028"
+        },
+        "nl": {
+          "language": "nl",
+          "value": "Olympische Zomerspelen 2028"
+        },
+        "kk-arab": {
+          "language": "kk-arab",
+          "value": "۲۰۲۸ جازعى ولىيمپىيادا ويىندارى"
+        },
+        "kk-cyrl": {
+          "language": "kk-cyrl",
+          "value": "2028 Жазғы Олимпиада ойындары"
+        },
+        "kk-latn": {
+          "language": "kk-latn",
+          "value": "2028 Jazğı Olïmpïada oýındarı"
+        },
+        "el": {
+          "language": "el",
+          "value": "Θερινοί Ολυμπιακοί Αγώνες 2028"
+        },
+        "en-ca": {
+          "language": "en-ca",
+          "value": "2028 Summer Olympics"
+        },
+        "en-gb": {
+          "language": "en-gb",
+          "value": "2028 Summer Olympics"
+        },
+        "kk": {
+          "language": "kk",
+          "value": "2028 Жазғы Олимпиада ойындары"
+        },
+        "nb": {
+          "language": "nb",
+          "value": "Sommer-OL 2028"
+        },
+        "zh": {
+          "language": "zh",
+          "value": "2028年夏季奥林匹克运动会"
+        },
+        "es": {
+          "language": "es",
+          "value": "Juegos Olímpicos de Los Ángeles de 2028"
+        },
+        "de": {
+          "language": "de",
+          "value": "Olympische Sommerspiele 2028"
+        },
+        "fr": {
+          "language": "fr",
+          "value": "Jeux olympiques d'été de 2028"
+        },
+        "ja": {
+          "language": "ja",
+          "value": "2028年ロサンゼルスオリンピック"
+        },
+        "ko": {
+          "language": "ko",
+          "value": "2028년 하계 올림픽"
+        },
+        "ru": {
+          "language": "ru",
+          "value": "Летние Олимпийские игры 2028"
+        },
+        "fa": {
+          "language": "fa",
+          "value": "بازی‌های المپیک تابستانی ۲۰۲۸"
+        },
+        "ga": {
+          "language": "ga",
+          "value": "Cluichí Oilimpeacha an tSamhraidh 2028"
+        },
+        "zh-cn": {
+          "language": "zh-cn",
+          "value": "2028年夏季奥林匹克运动会"
+        },
+        "zh-sg": {
+          "language": "zh-sg",
+          "value": "2028年夏季奥林匹克运动会"
+        },
+        "zh-my": {
+          "language": "zh-my",
+          "value": "2028年夏季奥林匹克运动会"
+        },
+        "zh-tw": {
+          "language": "zh-tw",
+          "value": "2028年夏季奧林匹克運動會"
+        },
+        "zh-mo": {
+          "language": "zh-mo",
+          "value": "2028年夏季奧林匹克運動會"
+        },
+        "sv": {
+          "language": "sv",
+          "value": "Olympiska sommarspelen 2028"
+        },
+        "fi": {
+          "language": "fi",
+          "value": "kesäolympialaiset 2028"
+        },
+        "ta": {
+          "language": "ta",
+          "value": "2028 கோடைகால ஒலிம்பிக் போட்டிகள்"
+        },
+        "cs": {
+          "language": "cs",
+          "value": "Letní olympijské hry 2028"
+        },
+        "he": {
+          "language": "he",
+          "value": "אולימפיאדת לוס אנג'לס (2028)"
+        },
+        "az": {
+          "language": "az",
+          "value": "2028 Yay Olimpiya Oyunları"
+        },
+        "ast": {
+          "language": "ast",
+          "value": "Xuegos Olímpicos de Los Angeles 2028"
+        },
+        "ca": {
+          "language": "ca",
+          "value": "Jocs Olímpics d'Estiu de 2028"
+        },
+        "pl": {
+          "language": "pl",
+          "value": "Letnie Igrzyska Olimpijskie 2028"
+        },
+        "eu": {
+          "language": "eu",
+          "value": "2028ko Udako Olinpiar Jokoak"
+        },
+        "pt": {
+          "language": "pt",
+          "value": "Jogos Olímpicos de Verão de 2028"
+        },
+        "af": {
+          "language": "af",
+          "value": "Olimpiese Somerspele 2028"
+        },
+        "lt": {
+          "language": "lt",
+          "value": "2028 m. vasaros olimpinės žaidynės"
+        },
+        "hu": {
+          "language": "hu",
+          "value": "2028. évi nyári olimpiai játékok"
+        },
+        "et": {
+          "language": "et",
+          "value": "2028. aasta suveolümpiamängud"
+        },
+        "ab": {
+          "language": "ab",
+          "value": "Лос-Анџьелес 2028"
+        },
+        "vi": {
+          "language": "vi",
+          "value": "Thế vận hội Mùa hè 2028"
+        },
+        "hy": {
+          "language": "hy",
+          "value": "Ամառային օլիմպիական խաղեր 2028"
+        },
+        "ky": {
+          "language": "ky",
+          "value": "Жайкы Олимпиада оюндары 2028"
+        },
+        "si": {
+          "language": "si",
+          "value": "2028 ගිම්හාන ඔලිම්පික්"
+        },
+        "tl": {
+          "language": "tl",
+          "value": "Palarong Olimpiko sa Tag-init 2028"
+        },
+        "bn": {
+          "language": "bn",
+          "value": "২০২৮ গ্রীষ্মকালীন অলিম্পিক"
+        },
+        "eo": {
+          "language": "eo",
+          "value": "Somera Olimpiko 2028"
+        },
+        "ml": {
+          "language": "ml",
+          "value": "ഒളിമ്പിക്സ് 2028 (ലോസ് ആഞ്ചെലെസ്)"
+        },
+        "br": {
+          "language": "br",
+          "value": "C'hoarioù Olimpek hañv 2028"
+        },
+        "sr": {
+          "language": "sr",
+          "value": "Летње олимпијске игре 2028."
+        },
+        "hi": {
+          "language": "hi",
+          "value": "2028 ग्रीष्मकालीन ओलंपिक"
+        },
+        "is": {
+          "language": "is",
+          "value": "Sumarólympíuleikarnir 2028"
+        },
+        "ka": {
+          "language": "ka",
+          "value": "ზაფხულის ოლიმპიური თამაშები 2028"
+        },
+        "wuu": {
+          "language": "wuu",
+          "value": "2028年夏季奥林匹克运动会"
+        },
+        "smn": {
+          "language": "smn",
+          "value": "kesiolympialiih 2028"
+        },
+        "sl": {
+          "language": "sl",
+          "value": "Poletne olimpijske igre 2028"
+        },
+        "bs": {
+          "language": "bs",
+          "value": "Olimpijske igre 2028."
+        },
+        "id": {
+          "language": "id",
+          "value": "Olimpiade Musim Panas 2028"
+        },
+        "ro": {
+          "language": "ro",
+          "value": "Jocurile Olimpice de vară din 2028"
+        },
+        "ms-arab": {
+          "language": "ms-arab",
+          "value": "سوکن اوليمڤيک موسيم ڤانس 2028"
+        },
+        "io": {
+          "language": "io",
+          "value": "Olimpiala Ludi en Los Angeles, 2028"
+        },
+        "sk": {
+          "language": "sk",
+          "value": "Letné olympijské hry 2028"
+        },
+        "ckb": {
+          "language": "ckb",
+          "value": "ئۆڵۆمپیادی ھاوینەی ٢٠٢٨"
+        },
+        "gl": {
+          "language": "gl",
+          "value": "Xogos Olímpicos de 2028"
+        },
+        "an": {
+          "language": "an",
+          "value": "Chuegos Olimpicos de Los Angeles 2028"
+        },
+        "ban": {
+          "language": "ban",
+          "value": "Olimpiade Masan Panes 2028"
+        },
+        "lb": {
+          "language": "lb",
+          "value": "Olympesch Summerspiller 2028"
+        },
+        "ur": {
+          "language": "ur",
+          "value": "2028ء گرمائی اولمپکس"
+        },
+        "hr": {
+          "language": "hr",
+          "value": "XXXIV. Olimpijske igre – Los Angeles 2028."
+        },
+        "uz": {
+          "language": "uz",
+          "value": "2028-yilgi Yozgi Olimpiada oʻyinlari"
+        },
+        "gpe": {
+          "language": "gpe",
+          "value": "2028 Summer Olympics"
+        },
+        "qu": {
+          "language": "qu",
+          "value": "Apuwasinyuq pukllaykuna 2028"
+        },
+        "arz": {
+          "language": "arz",
+          "value": "اوليمبياد صيف 2028"
+        },
+        "sah": {
+          "language": "sah",
+          "value": "2028 Сайыҥҥы Олимпия оонньуулара"
+        },
+        "te": {
+          "language": "te",
+          "value": "2028 వేసవి ఒలింపిక్ క్రీడలు"
+        },
+        "ha": {
+          "language": "ha",
+          "value": "Wasannin Olympics na bazara na 2028"
+        }
+      },
+      "descriptions": {
+        "en": {
+          "language": "en",
+          "value": "games of the XXXIV Olympiad, in Los Angeles, USA"
+        },
+        "de": {
+          "language": "de",
+          "value": "Sommerspiele der XXXIV. Olympiade, in Los Angeles, USA"
+        },
+        "fr": {
+          "language": "fr",
+          "value": "édition des JO d'été à Los Angeles"
+        },
+        "es": {
+          "language": "es",
+          "value": "juegos de verano de la trigésimo cuarta Olimpíada, en Los Ángeles, Estados Unidos"
+        },
+        "cs": {
+          "language": "cs",
+          "value": "hry XXXIV. Olympiády, konané v Los Angeles"
+        },
+        "ja": {
+          "language": "ja",
+          "value": "2028年にアメリカで行われる予定の第34回夏季オリンピック"
+        },
+        "ast": {
+          "language": "ast",
+          "value": "XXXIV edición de los xuegos olímpicos de branu"
+        },
+        "nl": {
+          "language": "nl",
+          "value": "Olympische Zomerspelen in Los Angeles"
+        },
+        "pl": {
+          "language": "pl",
+          "value": "XXXIV Letnie Igrzyska Olimpijskie"
+        },
+        "zh": {
+          "language": "zh",
+          "value": "將在美國洛杉磯舉行的第三十四屆現代夏季奧林匹克"
+        },
+        "tl": {
+          "language": "tl",
+          "value": "Palaro ng ika-XXXIIV Olimpiyada, na gaganapin sa Los Angeles, Estados Unidos"
+        },
+        "ml": {
+          "language": "ml",
+          "value": "34മത് ഒളിമ്പിയാട് ലോസ് ആഞ്ചലസിൽ (യുണൈറ്റഡ് സ്റ്റേറ്റ്സ്) നടക്കാൻ ഇരിക്കവെ"
+        },
+        "sv": {
+          "language": "sv",
+          "value": "2028 års upplaga av Olympiska sommarspelen"
+        },
+        "pt": {
+          "language": "pt",
+          "value": "evento multiesportivo realizado em Los Angeles, nos Estados Unidos"
+        },
+        "he": {
+          "language": "he",
+          "value": "אולימפיאדת הקיץ ה-34"
+        },
+        "zh-tw": {
+          "language": "zh-tw",
+          "value": "第34屆現代夏季奧林匹克運動會將在2028年於美國洛杉磯舉行"
+        },
+        "ru": {
+          "language": "ru",
+          "value": "34-е Летние Олимпийские игры"
+        },
+        "zh-cn": {
+          "language": "zh-cn",
+          "value": "第三十四届夏季奥林匹克运动会"
+        },
+        "it": {
+          "language": "it",
+          "value": "34ª edizione dei Giochi olimpici moderni, che si svolgeranno a Los Angeles (Stati Uniti d'America) nel 2028"
+        },
+        "hu": {
+          "language": "hu",
+          "value": "XXXIV. nyári olimpiai játékok"
+        },
+        "id": {
+          "language": "id",
+          "value": "Olimpiade Musim Panas ke-34 yang akan diadakan di Los Angeles, California, Amerika Serikat"
+        },
+        "lb": {
+          "language": "lb",
+          "value": "Spiller vun der XXXIV. Olympiad"
+        },
+        "gl": {
+          "language": "gl",
+          "value": "XXXIV edición dos xogos olímpicos de verán"
+        },
+        "eo": {
+          "language": "eo",
+          "value": "la Olimpiaj Ludoj de 2028 planataj okazi en Los-Anĝeleso, Usonio"
+        },
+        "fa": {
+          "language": "fa",
+          "value": "رویدادی چندورزشی در آمریکا"
+        },
+        "el": {
+          "language": "el",
+          "value": "Αγώνες της 34ης Ολυμπιάδας, προγραμματισμένοι να πραγματοποιηθούν το 2028 στο Λος Άντζελες, Καλιφόρνια, Ηνωμένες Πολιτείες"
+        },
+        "af": {
+          "language": "af",
+          "value": "Spele van die XXXIV Olimpiade, in Los Angeles, VSA"
+        },
+        "gpe": {
+          "language": "gpe",
+          "value": "upcoming multi-sport event insyd Los Angeles, California, US"
+        },
+        "fi": {
+          "language": "fi",
+          "value": "XXXIV olympiadin kisat Los Angelesissa, Yhdysvalloissa"
+        },
+        "sk": {
+          "language": "sk",
+          "value": "hry XXXIV. olympiády konanej v Los Angeles"
+        },
+        "uk": {
+          "language": "uk",
+          "value": "34-ті літні Олімпійські ігри"
+        },
+        "te": {
+          "language": "te",
+          "value": "2028 లో అమెరికాలో జరగనున్న ఒలింపిక్ క్రీడలు"
+        }
+      },
+      "aliases": {
+        "yo": [
+          {
+            "language": "yo",
+            "value": "2028 Summer Olympics"
+          }
+        ],
+        "kk": [
+          {
+            "language": "kk",
+            "value": "Жазғы Олимпиадалық Ойындар 2028"
+          }
+        ],
+        "en": [
+          {
+            "language": "en",
+            "value": "The Games of the XXXIV Olympiad"
+          },
+          {
+            "language": "en",
+            "value": "LA 2028"
+          },
+          {
+            "language": "en",
+            "value": "Los Angeles 2028 olímpicos juegos"
+          },
+          {
+            "language": "en",
+            "value": "Los Angeles 2028"
+          }
+        ],
+        "zh-cn": [
+          {
+            "language": "zh-cn",
+            "value": "2028年夏季奥运会"
+          },
+          {
+            "language": "zh-cn",
+            "value": "2028年奥运会"
+          }
+        ],
+        "zh-hans": [
+          {
+            "language": "zh-hans",
+            "value": "2028年夏季奥运会"
+          },
+          {
+            "language": "zh-hans",
+            "value": "2028年奥运会"
+          }
+        ],
+        "zh-sg": [
+          {
+            "language": "zh-sg",
+            "value": "2028年夏季奥运会"
+          },
+          {
+            "language": "zh-sg",
+            "value": "2028年奥运会"
+          }
+        ],
+        "zh-my": [
+          {
+            "language": "zh-my",
+            "value": "2028年夏季奥运会"
+          },
+          {
+            "language": "zh-my",
+            "value": "2028年奥运会"
+          }
+        ],
+        "zh-hant": [
+          {
+            "language": "zh-hant",
+            "value": "2028年夏季奧運會"
+          },
+          {
+            "language": "zh-hant",
+            "value": "2028年奧運會"
+          }
+        ],
+        "zh-tw": [
+          {
+            "language": "zh-tw",
+            "value": "2028年奧運會"
+          },
+          {
+            "language": "zh-tw",
+            "value": "2028年夏季奧運會"
+          }
+        ],
+        "zh-hk": [
+          {
+            "language": "zh-hk",
+            "value": "2028年奧運會"
+          },
+          {
+            "language": "zh-hk",
+            "value": "2028年夏季奧運會"
+          }
+        ],
+        "zh-mo": [
+          {
+            "language": "zh-mo",
+            "value": "2028年夏季奧運會"
+          },
+          {
+            "language": "zh-mo",
+            "value": "2028年奧運會"
+          }
+        ],
+        "yue": [
+          {
+            "language": "yue",
+            "value": "2028年夏季奧運會"
+          },
+          {
+            "language": "yue",
+            "value": "2028年奧運會"
+          }
+        ],
+        "zh": [
+          {
+            "language": "zh",
+            "value": "2028年夏季奧運會"
+          },
+          {
+            "language": "zh",
+            "value": "2028年奧運會"
+          }
+        ],
+        "cs": [
+          {
+            "language": "cs",
+            "value": "LOH 2028"
+          },
+          {
+            "language": "cs",
+            "value": "Los Angeles 2028"
+          },
+          {
+            "language": "cs",
+            "value": "LA 2028"
+          }
+        ],
+        "ja": [
+          {
+            "language": "ja",
+            "value": "ロサンゼルスオリンピック"
+          },
+          {
+            "language": "ja",
+            "value": "ロスオリンピック"
+          },
+          {
+            "language": "ja",
+            "value": "ロス五輪"
+          },
+          {
+            "language": "ja",
+            "value": "ロサンゼルス五輪"
+          }
+        ],
+        "nl": [
+          {
+            "language": "nl",
+            "value": "OS2028"
+          },
+          {
+            "language": "nl",
+            "value": "Spelen van 2028"
+          },
+          {
+            "language": "nl",
+            "value": "Zomerspelen 2028"
+          },
+          {
+            "language": "nl",
+            "value": "Olympische Spelen 2028"
+          }
+        ],
+        "es": [
+          {
+            "language": "es",
+            "value": "Juegos Olímpicos de Los Ángeles 2018"
+          },
+          {
+            "language": "es",
+            "value": "Juegos Olímpicos de Verano de 2018"
+          },
+          {
+            "language": "es",
+            "value": "Juegos Olímpicos de Los Ángeles 2028"
+          }
+        ],
+        "fr": [
+          {
+            "language": "fr",
+            "value": "Jeux de la XXXIVe olympiade"
+          },
+          {
+            "language": "fr",
+            "value": "JO 2028"
+          },
+          {
+            "language": "fr",
+            "value": "Los Angeles 2028"
+          }
+        ],
+        "ar": [
+          {
+            "language": "ar",
+            "value": "الألعاب الأولمبية الصيفية ٢٠٢٨"
+          }
+        ],
+        "ast": [
+          {
+            "language": "ast",
+            "value": "Los Angeles 2028"
+          },
+          {
+            "language": "ast",
+            "value": "Los Ánxeles 2028"
+          }
+        ],
+        "de": [
+          {
+            "language": "de",
+            "value": "Spiele der XXXIV. Olympiade"
+          },
+          {
+            "language": "de",
+            "value": "Olympische Spiele 2028"
+          }
+        ],
+        "id": [
+          {
+            "language": "id",
+            "value": "Los Angeles 2028"
+          },
+          {
+            "language": "id",
+            "value": "LA 2028"
+          },
+          {
+            "language": "id",
+            "value": "LA28"
+          }
+        ],
+        "bs": [
+          {
+            "language": "bs",
+            "value": "Los Angeles 2029."
+          },
+          {
+            "language": "bs",
+            "value": "LA 2029."
+          },
+          {
+            "language": "bs",
+            "value": "L.A. 2029."
+          },
+          {
+            "language": "bs",
+            "value": "L. A. 2029."
+          }
+        ],
+        "gl": [
+          {
+            "language": "gl",
+            "value": "Los Angeles 2028"
+          },
+          {
+            "language": "gl",
+            "value": "Os Ánxeles 2028"
+          },
+          {
+            "language": "gl",
+            "value": "LA 2028"
+          }
+        ],
+        "el": [
+          {
+            "language": "el",
+            "value": "Λος Άντζελες 2028"
+          },
+          {
+            "language": "el",
+            "value": "ΛΑ 2028"
+          },
+          {
+            "language": "el",
+            "value": "ΛΑ 28"
+          },
+          {
+            "language": "el",
+            "value": "LA 28"
+          },
+          {
+            "language": "el",
+            "value": "LA 2028"
+          },
+          {
+            "language": "el",
+            "value": "34η Ολυμπιάδα"
+          }
+        ],
+        "gpe": [
+          {
+            "language": "gpe",
+            "value": "The Games of the XXXIV Olympiad"
+          },
+          {
+            "language": "gpe",
+            "value": "Los Angeles 2028"
+          },
+          {
+            "language": "gpe",
+            "value": "LA 2028"
+          },
+          {
+            "language": "gpe",
+            "value": "Los Angeles 2028 olímpicos juegos"
+          }
+        ],
+        "fi": [
+          {
+            "language": "fi",
+            "value": "XXXIV olympiadin kisat"
+          }
+        ],
+        "qu": [
+          {
+            "language": "qu",
+            "value": "Ulimpiku pukllaykuna 2028"
+          }
+        ],
+        "it": [
+          {
+            "language": "it",
+            "value": "Los Angeles 2028"
+          },
+          {
+            "language": "it",
+            "value": "Olimpiadi di Los Angeles 2028"
+          }
+        ],
+        "sk": [
+          {
+            "language": "sk",
+            "value": "LOH 2028"
+          }
+        ]
+      },
+      "claims": {
+        "P646": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P646",
+              "hash": "e97ca9269a5ca8b5a3ede38556eb2dc2442faa86",
+              "datavalue": {
+                "value": "/m/02vq3dn",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$CE1DB388-010C-4BF0-B638-201FCA15D81A",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "2b00cb481cddcac7623114367489b5c194901c4a",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "a94b740202b097dd33355e0e6c00e54b9395e5e0",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 15241312,
+                          "id": "Q15241312"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ],
+                  "P577": [
+                    {
+                      "snaktype": "value",
+                      "property": "P577",
+                      "hash": "fde79ecb015112d2f29229ccc1ec514ed3e71fa2",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2013-10-28T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248",
+                  "P577"
+                ]
+              }
+            ]
+          }
+        ],
+        "P910": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P910",
+              "hash": "ca9f2f933d5d0b462cecac9c5aff66ec5e52dadc",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 9066874,
+                  "id": "Q9066874"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$3610BBF4-2F5E-4F56-8A72-ADF8D08BE120",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "732ec1c90a6f0694c7db9a71bf09fe7f2b674172",
+                "snaks": {
+                  "P143": [
+                    {
+                      "snaktype": "value",
+                      "property": "P143",
+                      "hash": "9123b0de1cc9c3954366ba797d598e4e1ea4146f",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 10000,
+                          "id": "Q10000"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P143"
+                ]
+              }
+            ]
+          }
+        ],
+        "P3417": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P3417",
+              "hash": "41c8a37936e67d8b26eee4b8cf1219509778cb62",
+              "datavalue": {
+                "value": "2028-Summer-Olympics-in-Los-Angeles",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$80CADC7F-096B-47B7-A653-5FC1E52DBEE0",
+            "rank": "normal"
+          }
+        ],
+        "P585": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P585",
+              "hash": "e5f5bc4a2b551ece6b8caea7e3e27d7dc158998c",
+              "datavalue": {
+                "value": {
+                  "time": "+2028-00-00T00:00:00Z",
+                  "timezone": 0,
+                  "before": 0,
+                  "after": 0,
+                  "precision": 9,
+                  "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                },
+                "type": "time"
+              },
+              "datatype": "time"
+            },
+            "type": "statement",
+            "id": "Q1451505$93c1c2aa-48c4-3497-5190-d3d14cf35c3a",
+            "rank": "normal"
+          }
+        ],
+        "P17": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P17",
+              "hash": "be4c6eafa2984964f04be85667263f5642ba1a72",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 30,
+                  "id": "Q30"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$706ec10b-4ca9-83f8-c6bc-7f1df3bb09f3",
+            "rank": "normal"
+          }
+        ],
+        "P276": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P276",
+              "hash": "3d0174413e758bc49e177729b75fac1ffe58b318",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 65,
+                  "id": "Q65"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$53383d9b-4cd5-0057-7967-4fd67819061e",
+            "rank": "normal"
+          }
+        ],
+        "P856": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P856",
+              "hash": "2b53f457fbd3c0a5eb2b985b881890b46dd51281",
+              "datavalue": {
+                "value": "https://olympics.com/ioc/la-2028",
+                "type": "string"
+              },
+              "datatype": "url"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P407": [
+                {
+                  "snaktype": "value",
+                  "property": "P407",
+                  "hash": "daf1c4fcb58181b02dff9cc89deb084004ddae4b",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 1860,
+                      "id": "Q1860"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P407"
+            ],
+            "id": "Q1451505$56a1225c-4ead-11ae-dd5c-1b5e0e10129d",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P856",
+              "hash": "326ae5a0b4d9b691a5e95def8dca222f002027c2",
+              "datavalue": {
+                "value": "https://la28.org",
+                "type": "string"
+              },
+              "datatype": "url"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P407": [
+                {
+                  "snaktype": "value",
+                  "property": "P407",
+                  "hash": "daf1c4fcb58181b02dff9cc89deb084004ddae4b",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 1860,
+                      "id": "Q1860"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                },
+                {
+                  "snaktype": "value",
+                  "property": "P407",
+                  "hash": "ffe70325d10cfc55f0dca807ed80ca0b5b97c472",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 1321,
+                      "id": "Q1321"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                },
+                {
+                  "snaktype": "value",
+                  "property": "P407",
+                  "hash": "d197d0a5efa4b4c23a302a829dd3ef43684fe002",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 150,
+                      "id": "Q150"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P407"
+            ],
+            "id": "Q1451505$ba151594-4588-4813-20c7-3c3eb224d783",
+            "rank": "preferred"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P856",
+              "hash": "cceb3d06b35e1965aaafc7f6aefa0c8ce7dcbb8a",
+              "datavalue": {
+                "value": "https://olympics.com/cio/la-2028",
+                "type": "string"
+              },
+              "datatype": "url"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P407": [
+                {
+                  "snaktype": "value",
+                  "property": "P407",
+                  "hash": "d197d0a5efa4b4c23a302a829dd3ef43684fe002",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 150,
+                      "id": "Q150"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P407"
+            ],
+            "id": "Q1451505$81b1c91e-4967-0e58-b3b1-b486691fcf5e",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P856",
+              "hash": "fa0cebe18690261df5a3041df6b29991cad7ed00",
+              "datavalue": {
+                "value": "https://olympics.com/en/olympic-games/los-angeles-2028",
+                "type": "string"
+              },
+              "datatype": "url"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P407": [
+                {
+                  "snaktype": "value",
+                  "property": "P407",
+                  "hash": "daf1c4fcb58181b02dff9cc89deb084004ddae4b",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 1860,
+                      "id": "Q1860"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P407"
+            ],
+            "id": "Q1451505$9aad2772-43be-f3f2-a844-af20b4875f5e",
+            "rank": "normal"
+          }
+        ],
+        "P948": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P948",
+              "hash": "532b46a611ad90433009ee45619e2edfd9b535b1",
+              "datavalue": {
+                "value": "Olympic flag Wikivoyage banner.jpg",
+                "type": "string"
+              },
+              "datatype": "commonsMedia"
+            },
+            "type": "statement",
+            "id": "Q1451505$ffff0926-41d6-0855-e2ec-35e9b4fbae4e",
+            "rank": "normal"
+          }
+        ],
+        "P373": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P373",
+              "hash": "7abb6f3567bd5fa57cc5c9a1e0109b191e1dd74a",
+              "datavalue": {
+                "value": "2028 Summer Olympics",
+                "type": "string"
+              },
+              "datatype": "string"
+            },
+            "type": "statement",
+            "id": "Q1451505$DAAFF5BF-A3C7-41A5-AB87-55C161582680",
+            "rank": "normal"
+          }
+        ],
+        "P2397": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P2397",
+              "hash": "943874639d1abf9f7ab1e5f53f4d1b46afd33db5",
+              "datavalue": {
+                "value": "UC-0HoUCfNT_13tkuxvtdnyA",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P580": [
+                {
+                  "snaktype": "value",
+                  "property": "P580",
+                  "hash": "ab5de569744cce35f99766cce7c1e5537609c09e",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2015-07-29T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ],
+              "P1810": [
+                {
+                  "snaktype": "value",
+                  "property": "P1810",
+                  "hash": "8f10dd46866a40889dc6fc1c4e374d286271063e",
+                  "datavalue": {
+                    "value": "LA28",
+                    "type": "string"
+                  },
+                  "datatype": "string"
+                }
+              ],
+              "P3744": [
+                {
+                  "snaktype": "value",
+                  "property": "P3744",
+                  "hash": "1e3ebfe7c5ff56d7b247378b87dce3e60b3c34e8",
+                  "datavalue": {
+                    "value": {
+                      "amount": "+4120",
+                      "unit": "1"
+                    },
+                    "type": "quantity"
+                  },
+                  "datatype": "quantity"
+                }
+              ],
+              "P3740": [
+                {
+                  "snaktype": "value",
+                  "property": "P3740",
+                  "hash": "cae04af2a2f0883f429165b891816b09e23b2e76",
+                  "datavalue": {
+                    "value": {
+                      "amount": "+34",
+                      "unit": "1"
+                    },
+                    "type": "quantity"
+                  },
+                  "datatype": "quantity"
+                }
+              ],
+              "P5436": [
+                {
+                  "snaktype": "value",
+                  "property": "P5436",
+                  "hash": "c06b48ffb189051602c2d5fb00c1eb450ca8e9b9",
+                  "datavalue": {
+                    "value": {
+                      "amount": "+2037026",
+                      "unit": "1"
+                    },
+                    "type": "quantity"
+                  },
+                  "datatype": "quantity"
+                }
+              ],
+              "P585": [
+                {
+                  "snaktype": "value",
+                  "property": "P585",
+                  "hash": "a25c17059444ed44c010bcd1fbb23a6ad296220b",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2020-12-08T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P580",
+              "P1810",
+              "P3744",
+              "P3740",
+              "P5436",
+              "P585"
+            ],
+            "id": "Q1451505$86ec8606-46b5-e1ea-ce28-abdf177c41a3",
+            "rank": "normal"
+          }
+        ],
+        "P31": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P31",
+              "hash": "61835315a64168c669f3000308416a69108207ad",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 135976384,
+                  "id": "Q135976384"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P7452": [
+                {
+                  "snaktype": "value",
+                  "property": "P7452",
+                  "hash": "f9f842b41f249e5504d48025c7ad6d7b5bfc7496",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 71536040,
+                      "id": "Q71536040"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P7452"
+            ],
+            "id": "Q1451505$09F1382D-F1D9-4A25-BD20-ADBCAF02C3E6",
+            "rank": "preferred"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P31",
+              "hash": "6ca45b93886b70cd843778a03a6d321d2aa7f1ae",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 14547231,
+                  "id": "Q14547231"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$c2b33e0b-4245-c5f9-1ebe-b7f71f9cc928",
+            "rank": "normal"
+          }
+        ],
+        "P3393": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P3393",
+              "hash": "a88a1bae3d91ca10932572ca0a72371f23b9e264",
+              "datavalue": {
+                "value": "281368",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$86230185-9671-421E-AD5A-6CFD765E26F6",
+            "rank": "normal"
+          }
+        ],
+        "P393": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P393",
+              "hash": "6327f4a884ec1b665d6c840336e35f0298c5e75f",
+              "datavalue": {
+                "value": "34",
+                "type": "string"
+              },
+              "datatype": "string"
+            },
+            "type": "statement",
+            "id": "Q1451505$a60dea65-402f-91b4-e222-7d820cf08e04",
+            "rank": "normal"
+          }
+        ],
+        "P2002": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P2002",
+              "hash": "500a2e82038e51eb566b9e0b90290a3116ec9939",
+              "datavalue": {
+                "value": "LA28",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P6552": [
+                {
+                  "snaktype": "value",
+                  "property": "P6552",
+                  "hash": "f60af009f4049ab74e191ab0c1f440d7c7e784e5",
+                  "datavalue": {
+                    "value": "2966970788",
+                    "type": "string"
+                  },
+                  "datatype": "external-id"
+                }
+              ],
+              "P1552": [
+                {
+                  "snaktype": "value",
+                  "property": "P1552",
+                  "hash": "62f0039d240f7eeba6c6908a0d8807a6188324a1",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 28378282,
+                      "id": "Q28378282"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ],
+              "P580": [
+                {
+                  "snaktype": "value",
+                  "property": "P580",
+                  "hash": "8b44c8977c1759b8d1bc535ec1cab7b8426bebd9",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2015-01-08T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ],
+              "P585": [
+                {
+                  "snaktype": "value",
+                  "property": "P585",
+                  "hash": "983352272fd1ecfa24b4f553ee3caab6cc21ea3a",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2020-12-29T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P6552",
+              "P1552",
+              "P580",
+              "P585"
+            ],
+            "id": "Q1451505$256ec605-4c95-9753-24cf-d47698027da1",
+            "rank": "normal"
+          }
+        ],
+        "P8687": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P8687",
+              "hash": "04a4dfdcdc89394a88b4df3d3f763999b583cfe0",
+              "datavalue": {
+                "value": {
+                  "amount": "+154969",
+                  "unit": "1"
+                },
+                "type": "quantity"
+              },
+              "datatype": "quantity"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P6552": [
+                {
+                  "snaktype": "value",
+                  "property": "P6552",
+                  "hash": "f60af009f4049ab74e191ab0c1f440d7c7e784e5",
+                  "datavalue": {
+                    "value": "2966970788",
+                    "type": "string"
+                  },
+                  "datatype": "external-id"
+                }
+              ],
+              "P585": [
+                {
+                  "snaktype": "value",
+                  "property": "P585",
+                  "hash": "a8aa16b9384215ae4ba4dd1430e12f55f5a908ec",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2021-04-24T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P6552",
+              "P585"
+            ],
+            "id": "Q1451505$d46ef300-bdec-4304-89b8-f02867aa92dc",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P8687",
+              "hash": "e4768ee61635bea1b035b89433707e85cb8d12d7",
+              "datavalue": {
+                "value": {
+                  "amount": "+5000",
+                  "unit": "1",
+                  "upperBound": "+5009",
+                  "lowerBound": "+5000"
+                },
+                "type": "quantity"
+              },
+              "datatype": "quantity"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P2397": [
+                {
+                  "snaktype": "value",
+                  "property": "P2397",
+                  "hash": "943874639d1abf9f7ab1e5f53f4d1b46afd33db5",
+                  "datavalue": {
+                    "value": "UC-0HoUCfNT_13tkuxvtdnyA",
+                    "type": "string"
+                  },
+                  "datatype": "external-id"
+                }
+              ],
+              "P585": [
+                {
+                  "snaktype": "value",
+                  "property": "P585",
+                  "hash": "fa6c265c38def38428367167eebc475d52704364",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2022-01-12T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P2397",
+              "P585"
+            ],
+            "id": "Q1451505$429b2015-ef8f-4474-836c-49b46824bf95",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P8687",
+              "hash": "a58ca2e1773ae8784b90fa424a41d497cf9a9ca2",
+              "datavalue": {
+                "value": {
+                  "amount": "+156019",
+                  "unit": "1"
+                },
+                "type": "quantity"
+              },
+              "datatype": "quantity"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P6552": [
+                {
+                  "snaktype": "value",
+                  "property": "P6552",
+                  "hash": "f60af009f4049ab74e191ab0c1f440d7c7e784e5",
+                  "datavalue": {
+                    "value": "2966970788",
+                    "type": "string"
+                  },
+                  "datatype": "external-id"
+                }
+              ],
+              "P585": [
+                {
+                  "snaktype": "value",
+                  "property": "P585",
+                  "hash": "c17bb9539bedf3d57cf18088cbc8c7aef80cc9d6",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2022-02-26T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P6552",
+              "P585"
+            ],
+            "id": "Q1451505$5a96cffa-389d-4cd8-a780-893f0f655de4",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P8687",
+              "hash": "55eec41a531c8075424c4197ddac868f5b3ae918",
+              "datavalue": {
+                "value": {
+                  "amount": "+152528",
+                  "unit": "1"
+                },
+                "type": "quantity"
+              },
+              "datatype": "quantity"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P6552": [
+                {
+                  "snaktype": "value",
+                  "property": "P6552",
+                  "hash": "f60af009f4049ab74e191ab0c1f440d7c7e784e5",
+                  "datavalue": {
+                    "value": "2966970788",
+                    "type": "string"
+                  },
+                  "datatype": "external-id"
+                }
+              ],
+              "P585": [
+                {
+                  "snaktype": "value",
+                  "property": "P585",
+                  "hash": "ad6b0af90ee13d6d0fb0523718fdb11d8d6288c6",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2023-02-10T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P6552",
+              "P585"
+            ],
+            "id": "Q1451505$ec155e7c-0837-4cbf-97ea-40b0a245b3d1",
+            "rank": "preferred"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P8687",
+              "hash": "377f27f19befe07145a29fcf3476bea4526dbe26",
+              "datavalue": {
+                "value": {
+                  "amount": "+5650",
+                  "unit": "1",
+                  "upperBound": "+5659",
+                  "lowerBound": "+5650"
+                },
+                "type": "quantity"
+              },
+              "datatype": "quantity"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P2397": [
+                {
+                  "snaktype": "value",
+                  "property": "P2397",
+                  "hash": "943874639d1abf9f7ab1e5f53f4d1b46afd33db5",
+                  "datavalue": {
+                    "value": "UC-0HoUCfNT_13tkuxvtdnyA",
+                    "type": "string"
+                  },
+                  "datatype": "external-id"
+                }
+              ],
+              "P585": [
+                {
+                  "snaktype": "value",
+                  "property": "P585",
+                  "hash": "20483c6f3caf2de1c166cfb8006d2414c35eb990",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2023-02-17T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P2397",
+              "P585"
+            ],
+            "id": "Q1451505$ab1f152d-f99b-4f62-b252-91a34ffa48c7",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P8687",
+              "hash": "6396b5ee3550933ee3aa5b1268c5f9f448d6a75f",
+              "datavalue": {
+                "value": {
+                  "amount": "+6220",
+                  "unit": "1",
+                  "upperBound": "+6229",
+                  "lowerBound": "+6220"
+                },
+                "type": "quantity"
+              },
+              "datatype": "quantity"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P2397": [
+                {
+                  "snaktype": "value",
+                  "property": "P2397",
+                  "hash": "943874639d1abf9f7ab1e5f53f4d1b46afd33db5",
+                  "datavalue": {
+                    "value": "UC-0HoUCfNT_13tkuxvtdnyA",
+                    "type": "string"
+                  },
+                  "datatype": "external-id"
+                }
+              ],
+              "P585": [
+                {
+                  "snaktype": "value",
+                  "property": "P585",
+                  "hash": "eb71ee8aab70cfa000b407d623a03c90c74c2a8c",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2024-01-16T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P2397",
+              "P585"
+            ],
+            "id": "Q1451505$9034bde5-ea11-4fdf-a311-59ae553a3e53",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "d50046a5068fd1f4a1b663ad3e1cb47822c66ce7",
+                "snaks": {
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "14ee270b1886423162475ea2d859a5b9e0dbc96e",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2024-01-16T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ],
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "e6e6374525f7d680f01ff599745f367fb1369b87",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 8056784,
+                          "id": "Q8056784"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P813",
+                  "P248"
+                ]
+              }
+            ]
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P8687",
+              "hash": "60bbbed754f2296716e3ed16ba47d1008aed847d",
+              "datavalue": {
+                "value": {
+                  "amount": "+6880",
+                  "unit": "1",
+                  "upperBound": "+6889",
+                  "lowerBound": "+6880"
+                },
+                "type": "quantity"
+              },
+              "datatype": "quantity"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P2397": [
+                {
+                  "snaktype": "value",
+                  "property": "P2397",
+                  "hash": "943874639d1abf9f7ab1e5f53f4d1b46afd33db5",
+                  "datavalue": {
+                    "value": "UC-0HoUCfNT_13tkuxvtdnyA",
+                    "type": "string"
+                  },
+                  "datatype": "external-id"
+                }
+              ],
+              "P585": [
+                {
+                  "snaktype": "value",
+                  "property": "P585",
+                  "hash": "9a4ad4cb9c3402a521c3e70e644e10f57328d4c1",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2024-07-20T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P2397",
+              "P585"
+            ],
+            "id": "Q1451505$a18b84ee-4ae6-4670-a6ba-96960015d7e5",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "46bbf240b29e1e335217e1b2745b53cf483838ac",
+                "snaks": {
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "310962a652765af2527aa1cb6acd7aa5290b1ae9",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2024-07-20T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ],
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "e6e6374525f7d680f01ff599745f367fb1369b87",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 8056784,
+                          "id": "Q8056784"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P813",
+                  "P248"
+                ]
+              }
+            ]
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P8687",
+              "hash": "e92d525211f08634127ee1a26876e1da78449ffa",
+              "datavalue": {
+                "value": {
+                  "amount": "+7790",
+                  "unit": "1",
+                  "upperBound": "+7799",
+                  "lowerBound": "+7790"
+                },
+                "type": "quantity"
+              },
+              "datatype": "quantity"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P2397": [
+                {
+                  "snaktype": "value",
+                  "property": "P2397",
+                  "hash": "943874639d1abf9f7ab1e5f53f4d1b46afd33db5",
+                  "datavalue": {
+                    "value": "UC-0HoUCfNT_13tkuxvtdnyA",
+                    "type": "string"
+                  },
+                  "datatype": "external-id"
+                }
+              ],
+              "P585": [
+                {
+                  "snaktype": "value",
+                  "property": "P585",
+                  "hash": "f5db55f5f47370cd2395425a5637c9c0b064bb9f",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2024-08-10T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P2397",
+              "P585"
+            ],
+            "id": "Q1451505$88fa5634-9a6c-4823-b6a9-03baea74bde8",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "13a2b4944c1aea46cad9d30defe111ce84c970a9",
+                "snaks": {
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "a60166770ad12bc67ce9d28ed207e1fe630c325a",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2024-08-10T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ],
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "e6e6374525f7d680f01ff599745f367fb1369b87",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 8056784,
+                          "id": "Q8056784"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P813",
+                  "P248"
+                ]
+              }
+            ]
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P8687",
+              "hash": "4f4b3801d9aa2650d2496ca52c6dd798ca39fadc",
+              "datavalue": {
+                "value": {
+                  "amount": "+16400",
+                  "unit": "1",
+                  "upperBound": "+16499",
+                  "lowerBound": "+16400"
+                },
+                "type": "quantity"
+              },
+              "datatype": "quantity"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P2397": [
+                {
+                  "snaktype": "value",
+                  "property": "P2397",
+                  "hash": "943874639d1abf9f7ab1e5f53f4d1b46afd33db5",
+                  "datavalue": {
+                    "value": "UC-0HoUCfNT_13tkuxvtdnyA",
+                    "type": "string"
+                  },
+                  "datatype": "external-id"
+                }
+              ],
+              "P585": [
+                {
+                  "snaktype": "value",
+                  "property": "P585",
+                  "hash": "ab0e305a8d79c84e537f9f7509abaf13de956cb4",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2024-09-07T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P2397",
+              "P585"
+            ],
+            "id": "Q1451505$19a13f96-9b1b-4a31-a2d0-5992bc2675f2",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "1839df43aab79d632b8492201eaa09c7dde4a8d4",
+                "snaks": {
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "9d3c73002a45d0ea2d0258a66a442f5ca82db8bd",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2024-09-07T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ],
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "e6e6374525f7d680f01ff599745f367fb1369b87",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 8056784,
+                          "id": "Q8056784"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P813",
+                  "P248"
+                ]
+              }
+            ]
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P8687",
+              "hash": "e0bc9e4db7c379bb99dc1cbc078c83b93cf17152",
+              "datavalue": {
+                "value": {
+                  "amount": "+18200",
+                  "unit": "1",
+                  "upperBound": "+18299",
+                  "lowerBound": "+18200"
+                },
+                "type": "quantity"
+              },
+              "datatype": "quantity"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P2397": [
+                {
+                  "snaktype": "value",
+                  "property": "P2397",
+                  "hash": "943874639d1abf9f7ab1e5f53f4d1b46afd33db5",
+                  "datavalue": {
+                    "value": "UC-0HoUCfNT_13tkuxvtdnyA",
+                    "type": "string"
+                  },
+                  "datatype": "external-id"
+                }
+              ],
+              "P585": [
+                {
+                  "snaktype": "value",
+                  "property": "P585",
+                  "hash": "be9a3cafa99e25d638dc1e15eb5486d82a5c11f9",
+                  "datavalue": {
+                    "value": {
+                      "time": "+2025-08-17T00:00:00Z",
+                      "timezone": 0,
+                      "before": 0,
+                      "after": 0,
+                      "precision": 11,
+                      "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                    },
+                    "type": "time"
+                  },
+                  "datatype": "time"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P2397",
+              "P585"
+            ],
+            "id": "Q1451505$b4f82a59-371f-4fd7-9d35-dfa2bc822e26",
+            "rank": "preferred",
+            "references": [
+              {
+                "hash": "d2dbd6b1bca65c2bd99e20a4db160efaceb89654",
+                "snaks": {
+                  "P813": [
+                    {
+                      "snaktype": "value",
+                      "property": "P813",
+                      "hash": "a4b2e811327ade7dd334bad124d6a81556cc84fa",
+                      "datavalue": {
+                        "value": {
+                          "time": "+2025-08-17T00:00:00Z",
+                          "timezone": 0,
+                          "before": 0,
+                          "after": 0,
+                          "precision": 11,
+                          "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                        },
+                        "type": "time"
+                      },
+                      "datatype": "time"
+                    }
+                  ],
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "e6e6374525f7d680f01ff599745f367fb1369b87",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 8056784,
+                          "id": "Q8056784"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P813",
+                  "P248"
+                ]
+              }
+            ]
+          }
+        ],
+        "P155": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P155",
+              "hash": "907b3942961125bc6e14e734da433bb7f69f7aba",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 995653,
+                  "id": "Q995653"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$13fc69ff-45d1-0aa0-abe7-f1042c89a994",
+            "rank": "normal"
+          }
+        ],
+        "P156": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P156",
+              "hash": "6dd91df19a3670d58b6b568d797c3c2fd8d96b43",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 31039462,
+                  "id": "Q31039462"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$6446037b-451b-2bbe-4e9d-b4c5197501bb",
+            "rank": "normal"
+          }
+        ],
+        "P6262": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P6262",
+              "hash": "0ff57b42c4a70cbc0bfe7b2364d89379100f07ed",
+              "datavalue": {
+                "value": "olympics:Los_Angeles_2028",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P407": [
+                {
+                  "snaktype": "value",
+                  "property": "P407",
+                  "hash": "daf1c4fcb58181b02dff9cc89deb084004ddae4b",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 1860,
+                      "id": "Q1860"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ],
+              "P1810": [
+                {
+                  "snaktype": "value",
+                  "property": "P1810",
+                  "hash": "cdae5c40041d9f71c5f75a64affb805c3c91edc0",
+                  "datavalue": {
+                    "value": "Los Angeles 2028",
+                    "type": "string"
+                  },
+                  "datatype": "string"
+                }
+              ],
+              "P9675": [
+                {
+                  "snaktype": "value",
+                  "property": "P9675",
+                  "hash": "97ea59afbc80faa1a0a7e30e139642b3870c1bc6",
+                  "datavalue": {
+                    "value": "11213",
+                    "type": "string"
+                  },
+                  "datatype": "string"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P407",
+              "P1810",
+              "P9675"
+            ],
+            "id": "Q1451505$739E1E34-1D52-4DB3-8BB7-EF9B083AB44E",
+            "rank": "normal"
+          }
+        ],
+        "P1451": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P1451",
+              "hash": "0580fa8a11eac5da99d3b7b49ad1d1f32891cb91",
+              "datavalue": {
+                "value": {
+                  "text": "Follow the Sun",
+                  "language": "en"
+                },
+                "type": "monolingualtext"
+              },
+              "datatype": "monolingualtext"
+            },
+            "type": "statement",
+            "id": "Q1451505$3d9eea4b-4870-71b1-ba51-052ae4317a05",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P1451",
+              "hash": "494e8a2e9049d85b0c8e008e65f34b447e47def7",
+              "datavalue": {
+                "value": {
+                  "text": "Lean an Ghrian",
+                  "language": "ga"
+                },
+                "type": "monolingualtext"
+              },
+              "datatype": "monolingualtext"
+            },
+            "type": "statement",
+            "id": "Q1451505$107854d8-4cd0-f8d0-c7fb-08aaec82ecc5",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P1451",
+              "hash": "f75301d250fb16b70a79ed9529190e8dfb146001",
+              "datavalue": {
+                "value": {
+                  "text": "Follow the Sun",
+                  "language": "lb"
+                },
+                "type": "monolingualtext"
+              },
+              "datatype": "monolingualtext"
+            },
+            "type": "statement",
+            "id": "Q1451505$51f96e8b-424c-96ee-79b1-f05fd8fb37a1",
+            "rank": "normal"
+          }
+        ],
+        "P2013": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P2013",
+              "hash": "ac6fefc4de76f60c8a4089fe549ec92a5a14bedc",
+              "datavalue": {
+                "value": "la2028",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$0a81699c-4eba-8b87-7c9b-a56dbd5ad194",
+            "rank": "normal"
+          }
+        ],
+        "P2003": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P2003",
+              "hash": "8d6b9f929e87ac2bc176d55e43f227c76d1cd095",
+              "datavalue": {
+                "value": "la28games",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$3d5125b6-414a-8007-6352-570bbfc1d5e6",
+            "rank": "normal"
+          }
+        ],
+        "P4264": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P4264",
+              "hash": "dbccc07a28119039cb728c9a107c369f2e26dee9",
+              "datavalue": {
+                "value": "la-2028",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$5be767e3-4c26-57c3-ccfe-da9b4f41d50a",
+            "rank": "normal"
+          }
+        ],
+        "P154": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P154",
+              "hash": "16c630953092f345df14bd661e7869f0beebeecc",
+              "datavalue": {
+                "value": "2028 Summer Olympics Logo.svg",
+                "type": "string"
+              },
+              "datatype": "commonsMedia"
+            },
+            "type": "statement",
+            "id": "Q1451505$76e8ffe8-45ac-75f0-6815-98a1ecbe97ec",
+            "rank": "normal"
+          }
+        ],
+        "P527": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "5c81f20e91278564b00e258dcac6e0b35ea13fcb",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 116873097,
+                  "id": "Q116873097"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$e6142c6d-4da7-0f36-83fa-2fdccc9b8eb9",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "7f20f1826748cf586c32db676f35cb6d572bc21d",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861158,
+                  "id": "Q125861158"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$F15D8314-F93B-4880-BEA5-3CA7E96AB7AF",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "e2efeaf2f95e79a25055cc92c54ded2cc433c3b2",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861159,
+                  "id": "Q125861159"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$3776B3BE-3F87-426A-932D-53797CBD72F9",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "cd2f903659c47f8e7d316c84be8affb67feeacc3",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861165,
+                  "id": "Q125861165"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$58473151-2AE7-4BDB-8BE5-275D93855441",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "62d6e3a90cf345e8cee46da3e430d23fd5410d21",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125353950,
+                  "id": "Q125353950"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$F72B7328-ED06-4295-9D13-F697DD5DFF4E",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "62657de9962886fb5cd770f43dfc375b35800f38",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861166,
+                  "id": "Q125861166"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$98E1BFF0-48F5-4820-8A93-697542FDC761",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "d38136e8b7627c83785ce964e5a7f65c6cc467ba",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861167,
+                  "id": "Q125861167"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$3B999AF0-85C3-4B3B-A6B3-9A39BE6DB8D1",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "10d5d8b96e21cd7ddf88395a57bf56f53718a640",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861168,
+                  "id": "Q125861168"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$AB3B80E7-409F-4C1D-9352-3B977BB39553",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "44554b5f51b94edfcc7d0b7b7581d73d8090aaac",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861169,
+                  "id": "Q125861169"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$3DAEE2F8-A667-4A39-9DE9-BC2132AEEBE5",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "f7320fd426d567821082d87128d2b69d3a551988",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861170,
+                  "id": "Q125861170"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$7094DD5E-61CF-402B-86A5-4C8635292C73",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "da2d1c6d1e0b5d51bc8c213669c37751da58f69c",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861171,
+                  "id": "Q125861171"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$4FBDC40D-7414-400A-A447-6DE283BB6273",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "fe748a17f38c6eef132e6a9434cb2e08b38ad27d",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861172,
+                  "id": "Q125861172"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$2D648F0A-A039-4B06-9D0E-5E8AE92E7D55",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "6d7946ba666246964b03b36da8eff7ceabbfed9e",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861174,
+                  "id": "Q125861174"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$EF3832F6-E5F0-4631-8140-1C91C8323E20",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "02dd6e87e6da0d6b568670ec53a58a68d50e5dc6",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861175,
+                  "id": "Q125861175"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$75866E72-EE81-42E0-A174-B2E5EB55B6B3",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "a8582c76217cab7b841924b0e77f37da16376762",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861176,
+                  "id": "Q125861176"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$2F4B8C8B-279D-4178-875D-A1D6A8EF02DB",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "5cc18e1f7c7a1ce8400645d84e4b4188293fcca0",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861178,
+                  "id": "Q125861178"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$EB3B932C-24B7-471D-BB43-56BBBDB7DFE0",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "8d8b16fe1d81afc60f0d4ba705079f3be2a9db4a",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861199,
+                  "id": "Q125861199"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$C00C2FEC-4E34-412A-8D20-69B8541CD180",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "047feeee0ce49dcfe753ae1f90ea354c6a597146",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861198,
+                  "id": "Q125861198"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$0C089D55-9E29-4297-8AA1-B5AEAD4641FE",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "66583d6652c726cc924a526949ef33f894a46782",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861197,
+                  "id": "Q125861197"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$2F62C158-D797-4ABE-8DB0-40E137C21958",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "f9d1c6bfacfe8e77a678dac5e38aeeb0acffea1b",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861196,
+                  "id": "Q125861196"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$0B48A101-18AC-4B00-B78C-2FFDB2A6ED28",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "b68cdd13f816e40b105e6c9b5575e5702569c79e",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861195,
+                  "id": "Q125861195"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$2763A357-1EE8-4796-B441-1D4CF68686A2",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "4be08179a7f1fb69f7b01dae13c6f3712603dcd7",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861193,
+                  "id": "Q125861193"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$01E8EC95-C24A-4529-836F-A3A9D77F302C",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "3634a2eecd6f09c88147e2f98d7862ba6561f1c5",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861192,
+                  "id": "Q125861192"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$D71D090A-513F-41CC-A2D5-2273832C1FD1",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "3bf12192289b9d579048ebf6455e9061dc948358",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861191,
+                  "id": "Q125861191"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$11AC87FA-BE21-4404-9A11-DBC62EB19E0F",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "7fdcad3d7788444ddb2100e690eb2425e9c458f7",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861189,
+                  "id": "Q125861189"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$1F94114E-37C8-4EBF-9E83-1702183379A5",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "22a2bc787910dce0b3e78d698e8ab67be9dddd2a",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861187,
+                  "id": "Q125861187"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$C9A98511-8B32-4017-A03F-C832F3C7F24B",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "813d75a08e99604ef9842cd3f03fb19e7a1e210f",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861186,
+                  "id": "Q125861186"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$A4E31871-8552-41CF-9D90-F81374CEE919",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "c6ff295b5d797ace2b4e46e13c2958dfe29003ea",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 140530073,
+                  "id": "Q140530073"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$7BB5E15D-935B-4534-AE96-BC4DE0B54CCC",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "d015edec70be2993a9764e820c69019162448253",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861184,
+                  "id": "Q125861184"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$8AF378BB-3C90-4B92-9759-73C151CF2DDA",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "e219f47f17d4d7db8d005e0c2e0813fe90a9fd63",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861183,
+                  "id": "Q125861183"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$B855A6B7-8528-43E4-BFEA-5506AB48D375",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "b4036fa7b0f91434f8de5a4c45963a2ef5c3878d",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861182,
+                  "id": "Q125861182"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$BAC27BCE-642E-4331-BCF4-1EA8C804B8B9",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "8e3f5e303e7d2a307c1ed4483a2b962170ee09b6",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861181,
+                  "id": "Q125861181"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$C46B4AD9-DF53-420B-8CDC-C33B9AD112BF",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "fcc35ae89202721289f33eca1bd037abc1ec9cdc",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861180,
+                  "id": "Q125861180"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$AE54B66E-6AF0-404E-9F09-EDFC7E95D6A5",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "e95ee8143fdf1f40e66e1785ec8a8c3af7b1bcac",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 125861179,
+                  "id": "Q125861179"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$32960054-363E-43F2-A5B7-BB750C130285",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "305159bd5f57ad95b6459d4323de20ba36739054",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 137709990,
+                  "id": "Q137709990"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$3abf38c8-415b-b4f8-25de-8fe68f1a7db2",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "121b72d5dd455939d5a0354da0b480b9ac7ef9f1",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 130239900,
+                  "id": "Q130239900"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$eff2105b-4ef6-5261-c313-0919c0697143",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P527",
+              "hash": "feea40ebace1c241e3590a025fedd24b98904a6c",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 140069468,
+                  "id": "Q140069468"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$53930643-9DCC-4733-8C45-E0656054FB9F",
+            "rank": "normal"
+          }
+        ],
+        "P3450": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P3450",
+              "hash": "8f650fb4f441971d73a68ec2b6c5e3f0457d6c95",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 159821,
+                  "id": "Q159821"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "qualifiers": {
+              "P155": [
+                {
+                  "snaktype": "value",
+                  "property": "P155",
+                  "hash": "907b3942961125bc6e14e734da433bb7f69f7aba",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 995653,
+                      "id": "Q995653"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ],
+              "P156": [
+                {
+                  "snaktype": "value",
+                  "property": "P156",
+                  "hash": "6dd91df19a3670d58b6b568d797c3c2fd8d96b43",
+                  "datavalue": {
+                    "value": {
+                      "entity-type": "item",
+                      "numeric-id": 31039462,
+                      "id": "Q31039462"
+                    },
+                    "type": "wikibase-entityid"
+                  },
+                  "datatype": "wikibase-item"
+                }
+              ],
+              "P1545": [
+                {
+                  "snaktype": "value",
+                  "property": "P1545",
+                  "hash": "d4e2a1e088501cb475a92057a47018ffbfbc6ac6",
+                  "datavalue": {
+                    "value": "34",
+                    "type": "string"
+                  },
+                  "datatype": "string"
+                }
+              ]
+            },
+            "qualifiers-order": [
+              "P155",
+              "P156",
+              "P1545"
+            ],
+            "id": "Q1451505$A2522FB5-7E9E-4F8D-AE57-1C636A480ED9",
+            "rank": "normal"
+          }
+        ],
+        "P1448": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P1448",
+              "hash": "75e3aff6dee848a3f0fb1213b8c7e56562a57b66",
+              "datavalue": {
+                "value": {
+                  "text": "Spiller vun der XXXIV. Olympiad",
+                  "language": "lb"
+                },
+                "type": "monolingualtext"
+              },
+              "datatype": "monolingualtext"
+            },
+            "type": "statement",
+            "id": "Q1451505$363f699d-4f33-2ca5-b2ab-e3d4e9b5b5ef",
+            "rank": "normal"
+          }
+        ],
+        "P8885": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P8885",
+              "hash": "50d13556261c7829ac828b1184346cc4d2d30212",
+              "datavalue": {
+                "value": "2028 로스앤젤레스 올림픽",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$b528e5ba-427d-6988-02d6-aef385fc5c70",
+            "rank": "normal"
+          }
+        ],
+        "P12800": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P12800",
+              "hash": "c587dad997634dd9a5d3308f58fbc182575e27cf",
+              "datavalue": {
+                "value": "fr:Jeux_olympiques_d'été_de_2028",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$376B3706-B22B-45A0-84BA-50CEC0DC4541",
+            "rank": "normal"
+          }
+        ],
+        "P625": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P625",
+              "hash": "e8bfc93fd63be4721745b7ed327caf5bcdb0c717",
+              "datavalue": {
+                "value": {
+                  "latitude": 34.1,
+                  "longitude": -118.2,
+                  "altitude": null,
+                  "precision": 0.010848427905063896,
+                  "globe": "http://www.wikidata.org/entity/Q2"
+                },
+                "type": "globecoordinate"
+              },
+              "datatype": "globe-coordinate"
+            },
+            "type": "statement",
+            "id": "Q1451505$6c9cf74c-4fc9-410a-9ae9-18dd4a035ff4",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "b3fd5e254143d8b52cd96cff43af9af5e3a82358",
+                "snaks": {
+                  "P143": [
+                    {
+                      "snaktype": "value",
+                      "property": "P143",
+                      "hash": "f13c99a16441677ec69fcea23f221d866f1fc98f",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 199693,
+                          "id": "Q199693"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P143"
+                ]
+              }
+            ]
+          }
+        ],
+        "P580": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P580",
+              "hash": "54b351f106b5b7537b8201b032ed00741e97624e",
+              "datavalue": {
+                "value": {
+                  "time": "+2028-07-14T00:00:00Z",
+                  "timezone": 0,
+                  "before": 0,
+                  "after": 0,
+                  "precision": 11,
+                  "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                },
+                "type": "time"
+              },
+              "datatype": "time"
+            },
+            "type": "statement",
+            "id": "Q1451505$95d3b107-4eb7-3017-e626-7c582e6ac3ba",
+            "rank": "normal"
+          }
+        ],
+        "P582": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P582",
+              "hash": "eaff914f40fae2cc49a21ab25d93b10900da1a67",
+              "datavalue": {
+                "value": {
+                  "time": "+2028-07-30T00:00:00Z",
+                  "timezone": 0,
+                  "before": 0,
+                  "after": 0,
+                  "precision": 11,
+                  "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+                },
+                "type": "time"
+              },
+              "datatype": "time"
+            },
+            "type": "statement",
+            "id": "Q1451505$405a3b42-4767-4d6a-0642-dccb1b5f49fa",
+            "rank": "normal"
+          }
+        ],
+        "P115": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P115",
+              "hash": "7012e6fe5c979570295c628b3b62d574aea201de",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 19520501,
+                  "id": "Q19520501"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$7bc63472-40fe-da2f-77d6-03efb38182f5",
+            "rank": "normal"
+          }
+        ],
+        "P1546": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P1546",
+              "hash": "4953d0ec0949763be128592227818f7dc3f5451e",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 65953933,
+                  "id": "Q65953933"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$26ce47c8-4276-ef31-2bc0-012150e9b63c",
+            "rank": "normal"
+          }
+        ],
+        "P9346": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P9346",
+              "hash": "d20a50083c4ca339adb16d13109e4d821040f8c9",
+              "datavalue": {
+                "value": "jo-de-los-angeles",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$4B537910-F681-43C0-8C0E-54CCF8D65A6C",
+            "rank": "normal"
+          }
+        ],
+        "P13295": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P13295",
+              "hash": "43786db84ed1a0417d6ad8c95950b89dd86964b3",
+              "datavalue": {
+                "value": "26655542",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$E36C8C03-E089-426E-BAC3-7AC7AB20FACB",
+            "rank": "normal"
+          },
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P13295",
+              "hash": "6a06dbea452084f4a64cdb464dec00eb984f818d",
+              "datavalue": {
+                "value": "304327",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$55F1F581-DF35-4ED3-BB94-6581F8291313",
+            "rank": "normal"
+          }
+        ],
+        "P664": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P664",
+              "hash": "404057dd4830c52a6db3cd6d2b48fdcdd2124de0",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 129820849,
+                  "id": "Q129820849"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$8f9bc506-4ae5-c93d-6955-326c05c52401",
+            "rank": "normal"
+          }
+        ],
+        "P1617": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P1617",
+              "hash": "3bc7239f63606f0163c15e17fc2840ba0f7c2ba3",
+              "datavalue": {
+                "value": "bd85c6eb-918e-426a-8a46-b095927d6c0b",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$646c8fc5-c90f-48d6-8c62-a5dd5bbff261",
+            "rank": "normal",
+            "references": [
+              {
+                "hash": "8582d8416671f1f2567247201bac753552435ca5",
+                "snaks": {
+                  "P248": [
+                    {
+                      "snaktype": "value",
+                      "property": "P248",
+                      "hash": "ea55dc6ac5c3ab77c77d4ae7979e3276d0d4cd20",
+                      "datavalue": {
+                        "value": {
+                          "entity-type": "item",
+                          "numeric-id": 18336371,
+                          "id": "Q18336371"
+                        },
+                        "type": "wikibase-entityid"
+                      },
+                      "datatype": "wikibase-item"
+                    }
+                  ]
+                },
+                "snaks-order": [
+                  "P248"
+                ]
+              }
+            ]
+          }
+        ],
+        "P3106": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P3106",
+              "hash": "85668fdf00e1cbcc5f30ddbe8aae35d232be42e5",
+              "datavalue": {
+                "value": "sport/la-olympic-games-2028",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$1D7890A5-C855-48D5-9467-B9D748A8F6B1",
+            "rank": "normal"
+          }
+        ],
+        "P12036": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P12036",
+              "hash": "754f5b2e3b88fda988dec424ae5bcdd4a7dc0ed2",
+              "datavalue": {
+                "value": "E0000000557",
+                "type": "string"
+              },
+              "datatype": "external-id"
+            },
+            "type": "statement",
+            "id": "Q1451505$C0222909-DEBB-4BB8-AAE0-208EF78F7F8A",
+            "rank": "normal"
+          }
+        ],
+        "P641": [
+          {
+            "mainsnak": {
+              "snaktype": "value",
+              "property": "P641",
+              "hash": "3f30b2182b35ff8a5d23967b6e2b7761fbdcaa2e",
+              "datavalue": {
+                "value": {
+                  "entity-type": "item",
+                  "numeric-id": 212434,
+                  "id": "Q212434"
+                },
+                "type": "wikibase-entityid"
+              },
+              "datatype": "wikibase-item"
+            },
+            "type": "statement",
+            "id": "Q1451505$67c7350b-4588-ae96-9c29-572afa7d0ea4",
+            "rank": "normal"
+          }
+        ]
+      },
+      "sitelinks": {
+        "fiwiki": {
+          "site": "fiwiki",
+          "title": "Kesäolympialaiset 2028",
+          "badges": [],
+          "url": "https://fi.wikipedia.org/wiki/Kes%C3%A4olympialaiset_2028"
+        },
+        "ukwiki": {
+          "site": "ukwiki",
+          "title": "Літні Олімпійські ігри 2028",
+          "badges": [],
+          "url": "https://uk.wikipedia.org/wiki/%D0%9B%D1%96%D1%82%D0%BD%D1%96_%D0%9E%D0%BB%D1%96%D0%BC%D0%BF%D1%96%D0%B9%D1%81%D1%8C%D0%BA%D1%96_%D1%96%D0%B3%D1%80%D0%B8_2028"
+        },
+        "mswiki": {
+          "site": "mswiki",
+          "title": "Sukan Olimpik Musim Panas 2028",
+          "badges": [],
+          "url": "https://ms.wikipedia.org/wiki/Sukan_Olimpik_Musim_Panas_2028"
+        },
+        "zh_yuewiki": {
+          "site": "zh_yuewiki",
+          "title": "2028年夏季奧林匹克運動會",
+          "badges": [],
+          "url": "https://zh-yue.wikipedia.org/wiki/2028%E5%B9%B4%E5%A4%8F%E5%AD%A3%E5%A5%A7%E6%9E%97%E5%8C%B9%E5%85%8B%E9%81%8B%E5%8B%95%E6%9C%83"
+        },
+        "elwiki": {
+          "site": "elwiki",
+          "title": "Θερινοί Ολυμπιακοί Αγώνες 2028",
+          "badges": [],
+          "url": "https://el.wikipedia.org/wiki/%CE%98%CE%B5%CF%81%CE%B9%CE%BD%CE%BF%CE%AF_%CE%9F%CE%BB%CF%85%CE%BC%CF%80%CE%B9%CE%B1%CE%BA%CE%BF%CE%AF_%CE%91%CE%B3%CF%8E%CE%BD%CE%B5%CF%82_2028"
+        },
+        "enwiki": {
+          "site": "enwiki",
+          "title": "2028 Summer Olympics",
+          "badges": [],
+          "url": "https://en.wikipedia.org/wiki/2028_Summer_Olympics"
+        },
+        "gawiki": {
+          "site": "gawiki",
+          "title": "Cluichí Oilimpeacha an tSamhraidh 2028",
+          "badges": [],
+          "url": "https://ga.wikipedia.org/wiki/Cluich%C3%AD_Oilimpeacha_an_tSamhraidh_2028"
+        },
+        "ruwiki": {
+          "site": "ruwiki",
+          "title": "Летние Олимпийские игры 2028",
+          "badges": [],
+          "url": "https://ru.wikipedia.org/wiki/%D0%9B%D0%B5%D1%82%D0%BD%D0%B8%D0%B5_%D0%9E%D0%BB%D0%B8%D0%BC%D0%BF%D0%B8%D0%B9%D1%81%D0%BA%D0%B8%D0%B5_%D0%B8%D0%B3%D1%80%D1%8B_2028"
+        },
+        "kowiki": {
+          "site": "kowiki",
+          "title": "2028년 하계 올림픽",
+          "badges": [],
+          "url": "https://ko.wikipedia.org/wiki/2028%EB%85%84_%ED%95%98%EA%B3%84_%EC%98%AC%EB%A6%BC%ED%94%BD"
+        },
+        "yowiki": {
+          "site": "yowiki",
+          "title": "Àwọn Ìdíje Òlímpíkì Ìgbà Oru 2028",
+          "badges": [],
+          "url": "https://yo.wikipedia.org/wiki/%C3%80w%E1%BB%8Dn_%C3%8Cd%C3%ADje_%C3%92l%C3%ADmp%C3%ADk%C3%AC_%C3%8Cgb%C3%A0_Oru_2028"
+        },
+        "dawiki": {
+          "site": "dawiki",
+          "title": "Sommer-OL 2028",
+          "badges": [],
+          "url": "https://da.wikipedia.org/wiki/Sommer-OL_2028"
+        },
+        "simplewiki": {
+          "site": "simplewiki",
+          "title": "2028 Summer Olympics",
+          "badges": [],
+          "url": "https://simple.wikipedia.org/wiki/2028_Summer_Olympics"
+        },
+        "be_x_oldwiki": {
+          "site": "be_x_oldwiki",
+          "title": "Летнія Алімпійскія гульні 2028 году",
+          "badges": [],
+          "url": "https://be-tarask.wikipedia.org/wiki/%D0%9B%D0%B5%D1%82%D0%BD%D1%96%D1%8F_%D0%90%D0%BB%D1%96%D0%BC%D0%BF%D1%96%D0%B9%D1%81%D0%BA%D1%96%D1%8F_%D0%B3%D1%83%D0%BB%D1%8C%D0%BD%D1%96_2028_%D0%B3%D0%BE%D0%B4%D1%83"
+        },
+        "svwiki": {
+          "site": "svwiki",
+          "title": "Olympiska sommarspelen 2028",
+          "badges": [],
+          "url": "https://sv.wikipedia.org/wiki/Olympiska_sommarspelen_2028"
+        },
+        "thwiki": {
+          "site": "thwiki",
+          "title": "โอลิมปิกฤดูร้อน 2028",
+          "badges": [],
+          "url": "https://th.wikipedia.org/wiki/%E0%B9%82%E0%B8%AD%E0%B8%A5%E0%B8%B4%E0%B8%A1%E0%B8%9B%E0%B8%B4%E0%B8%81%E0%B8%A4%E0%B8%94%E0%B8%B9%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99_2028"
+        },
+        "zhwiki": {
+          "site": "zhwiki",
+          "title": "2028年夏季奥林匹克运动会",
+          "badges": [],
+          "url": "https://zh.wikipedia.org/wiki/2028%E5%B9%B4%E5%A4%8F%E5%AD%A3%E5%A5%A5%E6%9E%97%E5%8C%B9%E5%85%8B%E8%BF%90%E5%8A%A8%E4%BC%9A"
+        },
+        "bewiki": {
+          "site": "bewiki",
+          "title": "Летнія Алімпійскія гульні 2028",
+          "badges": [],
+          "url": "https://be.wikipedia.org/wiki/%D0%9B%D0%B5%D1%82%D0%BD%D1%96%D1%8F_%D0%90%D0%BB%D1%96%D0%BC%D0%BF%D1%96%D0%B9%D1%81%D0%BA%D1%96%D1%8F_%D0%B3%D1%83%D0%BB%D1%8C%D0%BD%D1%96_2028"
+        },
+        "arwiki": {
+          "site": "arwiki",
+          "title": "الألعاب الأولمبية الصيفية 2028",
+          "badges": [],
+          "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A3%D9%84%D8%B9%D8%A7%D8%A8_%D8%A7%D9%84%D8%A3%D9%88%D9%84%D9%85%D8%A8%D9%8A%D8%A9_%D8%A7%D9%84%D8%B5%D9%8A%D9%81%D9%8A%D8%A9_2028"
+        },
+        "nlwiki": {
+          "site": "nlwiki",
+          "title": "Olympische Zomerspelen 2028",
+          "badges": [],
+          "url": "https://nl.wikipedia.org/wiki/Olympische_Zomerspelen_2028"
+        },
+        "lvwiki": {
+          "site": "lvwiki",
+          "title": "2028. gada vasaras olimpiskās spēles",
+          "badges": [],
+          "url": "https://lv.wikipedia.org/wiki/2028._gada_vasaras_olimpisk%C4%81s_sp%C4%93les"
+        },
+        "bgwiki": {
+          "site": "bgwiki",
+          "title": "Летни олимпийски игри 2028",
+          "badges": [],
+          "url": "https://bg.wikipedia.org/wiki/%D0%9B%D0%B5%D1%82%D0%BD%D0%B8_%D0%BE%D0%BB%D0%B8%D0%BC%D0%BF%D0%B8%D0%B9%D1%81%D0%BA%D0%B8_%D0%B8%D0%B3%D1%80%D0%B8_2028"
+        },
+        "nowiki": {
+          "site": "nowiki",
+          "title": "Sommer-OL 2028",
+          "badges": [],
+          "url": "https://no.wikipedia.org/wiki/Sommer-OL_2028"
+        },
+        "trwiki": {
+          "site": "trwiki",
+          "title": "2028 Yaz Olimpiyatları",
+          "badges": [],
+          "url": "https://tr.wikipedia.org/wiki/2028_Yaz_Olimpiyatlar%C4%B1"
+        },
+        "frwiki": {
+          "site": "frwiki",
+          "title": "Jeux olympiques d'été de 2028",
+          "badges": [],
+          "url": "https://fr.wikipedia.org/wiki/Jeux_olympiques_d%27%C3%A9t%C3%A9_de_2028"
+        },
+        "ltwiki": {
+          "site": "ltwiki",
+          "title": "2028 m. vasaros olimpinės žaidynės",
+          "badges": [],
+          "url": "https://lt.wikipedia.org/wiki/2028_m._vasaros_olimpin%C4%97s_%C5%BEaidyn%C4%97s"
+        },
+        "dewiki": {
+          "site": "dewiki",
+          "title": "Olympische Sommerspiele 2028",
+          "badges": [],
+          "url": "https://de.wikipedia.org/wiki/Olympische_Sommerspiele_2028"
+        },
+        "afwiki": {
+          "site": "afwiki",
+          "title": "Olimpiese Somerspele 2028",
+          "badges": [],
+          "url": "https://af.wikipedia.org/wiki/Olimpiese_Somerspele_2028"
+        },
+        "eswiki": {
+          "site": "eswiki",
+          "title": "Juegos Olímpicos de Los Ángeles 2028",
+          "badges": [],
+          "url": "https://es.wikipedia.org/wiki/Juegos_Ol%C3%ADmpicos_de_Los_%C3%81ngeles_2028"
+        },
+        "cswiki": {
+          "site": "cswiki",
+          "title": "Letní olympijské hry 2028",
+          "badges": [],
+          "url": "https://cs.wikipedia.org/wiki/Letn%C3%AD_olympijsk%C3%A9_hry_2028"
+        },
+        "mhrwiki": {
+          "site": "mhrwiki",
+          "title": "Кеҥеж Олимпий модмаш - Лос-Анджелес 2028",
+          "badges": [],
+          "url": "https://mhr.wikipedia.org/wiki/%D0%9A%D0%B5%D2%A5%D0%B5%D0%B6_%D0%9E%D0%BB%D0%B8%D0%BC%D0%BF%D0%B8%D0%B9_%D0%BC%D0%BE%D0%B4%D0%BC%D0%B0%D1%88_-_%D0%9B%D0%BE%D1%81-%D0%90%D0%BD%D0%B4%D0%B6%D0%B5%D0%BB%D0%B5%D1%81_2028"
+        },
+        "mnwiki": {
+          "site": "mnwiki",
+          "title": "2028 оны Зуны Олимп",
+          "badges": [],
+          "url": "https://mn.wikipedia.org/wiki/2028_%D0%BE%D0%BD%D1%8B_%D0%97%D1%83%D0%BD%D1%8B_%D0%9E%D0%BB%D0%B8%D0%BC%D0%BF"
+        },
+        "azwiki": {
+          "site": "azwiki",
+          "title": "2028 Yay Olimpiya Oyunları",
+          "badges": [],
+          "url": "https://az.wikipedia.org/wiki/2028_Yay_Olimpiya_Oyunlar%C4%B1"
+        },
+        "hewiki": {
+          "site": "hewiki",
+          "title": "אולימפיאדת לוס אנג'לס (2028)",
+          "badges": [],
+          "url": "https://he.wikipedia.org/wiki/%D7%90%D7%95%D7%9C%D7%99%D7%9E%D7%A4%D7%99%D7%90%D7%93%D7%AA_%D7%9C%D7%95%D7%A1_%D7%90%D7%A0%D7%92%27%D7%9C%D7%A1_(2028)"
+        },
+        "euwiki": {
+          "site": "euwiki",
+          "title": "2028ko Udako Olinpiar Jokoak",
+          "badges": [],
+          "url": "https://eu.wikipedia.org/wiki/2028ko_Udako_Olinpiar_Jokoak"
+        },
+        "huwiki": {
+          "site": "huwiki",
+          "title": "2028. évi nyári olimpiai játékok",
+          "badges": [],
+          "url": "https://hu.wikipedia.org/wiki/2028._%C3%A9vi_ny%C3%A1ri_olimpiai_j%C3%A1t%C3%A9kok"
+        },
+        "etwiki": {
+          "site": "etwiki",
+          "title": "2028. aasta suveolümpiamängud",
+          "badges": [],
+          "url": "https://et.wikipedia.org/wiki/2028._aasta_suveol%C3%BCmpiam%C3%A4ngud"
+        },
+        "plwiki": {
+          "site": "plwiki",
+          "title": "Letnie Igrzyska Olimpijskie 2028",
+          "badges": [],
+          "url": "https://pl.wikipedia.org/wiki/Letnie_Igrzyska_Olimpijskie_2028"
+        },
+        "itwiki": {
+          "site": "itwiki",
+          "title": "Giochi della XXXIV Olimpiade",
+          "badges": [],
+          "url": "https://it.wikipedia.org/wiki/Giochi_della_XXXIV_Olimpiade"
+        },
+        "ptwiki": {
+          "site": "ptwiki",
+          "title": "Jogos Olímpicos de Verão de 2028",
+          "badges": [],
+          "url": "https://pt.wikipedia.org/wiki/Jogos_Ol%C3%ADmpicos_de_Ver%C3%A3o_de_2028"
+        },
+        "enwikivoyage": {
+          "site": "enwikivoyage",
+          "title": "Los Angeles 2028",
+          "badges": [],
+          "url": "https://en.wikivoyage.org/wiki/Los_Angeles_2028"
+        },
+        "jawiki": {
+          "site": "jawiki",
+          "title": "2028年ロサンゼルスオリンピック",
+          "badges": [],
+          "url": "https://ja.wikipedia.org/wiki/2028%E5%B9%B4%E3%83%AD%E3%82%B5%E3%83%B3%E3%82%BC%E3%83%AB%E3%82%B9%E3%82%AA%E3%83%AA%E3%83%B3%E3%83%94%E3%83%83%E3%82%AF"
+        },
+        "abwiki": {
+          "site": "abwiki",
+          "title": "Лос-Анџьелес 2028",
+          "badges": [],
+          "url": "https://ab.wikipedia.org/wiki/%D0%9B%D0%BE%D1%81-%D0%90%D0%BD%D1%9F%D1%8C%D0%B5%D0%BB%D0%B5%D1%81_2028"
+        },
+        "viwiki": {
+          "site": "viwiki",
+          "title": "Thế vận hội Mùa hè 2028",
+          "badges": [],
+          "url": "https://vi.wikipedia.org/wiki/Th%E1%BA%BF_v%E1%BA%ADn_h%E1%BB%99i_M%C3%B9a_h%C3%A8_2028"
+        },
+        "astwiki": {
+          "site": "astwiki",
+          "title": "Xuegos Olímpicos de Los Angeles 2028",
+          "badges": [],
+          "url": "https://ast.wikipedia.org/wiki/Xuegos_Ol%C3%ADmpicos_de_Los_Angeles_2028"
+        },
+        "hywiki": {
+          "site": "hywiki",
+          "title": "Ամառային օլիմպիական խաղեր 2028",
+          "badges": [],
+          "url": "https://hy.wikipedia.org/wiki/%D4%B1%D5%B4%D5%A1%D5%BC%D5%A1%D5%B5%D5%AB%D5%B6_%D6%85%D5%AC%D5%AB%D5%B4%D5%BA%D5%AB%D5%A1%D5%AF%D5%A1%D5%B6_%D5%AD%D5%A1%D5%B2%D5%A5%D6%80_2028"
+        },
+        "siwiki": {
+          "site": "siwiki",
+          "title": "2028 ගිම්හාන ඔලිම්පික්",
+          "badges": [],
+          "url": "https://si.wikipedia.org/wiki/2028_%E0%B6%9C%E0%B7%92%E0%B6%B8%E0%B7%8A%E0%B7%84%E0%B7%8F%E0%B6%B1_%E0%B6%94%E0%B6%BD%E0%B7%92%E0%B6%B8%E0%B7%8A%E0%B6%B4%E0%B7%92%E0%B6%9A%E0%B7%8A"
+        },
+        "tlwiki": {
+          "site": "tlwiki",
+          "title": "Palarong Olimpiko sa Tag-init 2028",
+          "badges": [],
+          "url": "https://tl.wikipedia.org/wiki/Palarong_Olimpiko_sa_Tag-init_2028"
+        },
+        "mlwiki": {
+          "site": "mlwiki",
+          "title": "ഒളിമ്പിക്സ് 2028 (ലോസ് ആഞ്ചെലെസ്)",
+          "badges": [],
+          "url": "https://ml.wikipedia.org/wiki/%E0%B4%92%E0%B4%B3%E0%B4%BF%E0%B4%AE%E0%B5%8D%E0%B4%AA%E0%B4%BF%E0%B4%95%E0%B5%8D%E0%B4%B8%E0%B5%8D_2028_(%E0%B4%B2%E0%B5%8B%E0%B4%B8%E0%B5%8D_%E0%B4%86%E0%B4%9E%E0%B5%8D%E0%B4%9A%E0%B5%86%E0%B4%B2%E0%B5%86%E0%B4%B8%E0%B5%8D)"
+        },
+        "srwiki": {
+          "site": "srwiki",
+          "title": "Летње олимпијске игре 2028.",
+          "badges": [],
+          "url": "https://sr.wikipedia.org/wiki/%D0%9B%D0%B5%D1%82%D1%9A%D0%B5_%D0%BE%D0%BB%D0%B8%D0%BC%D0%BF%D0%B8%D1%98%D1%81%D0%BA%D0%B5_%D0%B8%D0%B3%D1%80%D0%B5_2028."
+        },
+        "hiwiki": {
+          "site": "hiwiki",
+          "title": "2028 ग्रीष्मकालीन ओलंपिक",
+          "badges": [],
+          "url": "https://hi.wikipedia.org/wiki/2028_%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A5%80%E0%A4%B7%E0%A5%8D%E0%A4%AE%E0%A4%95%E0%A4%BE%E0%A4%B2%E0%A5%80%E0%A4%A8_%E0%A4%93%E0%A4%B2%E0%A4%82%E0%A4%AA%E0%A4%BF%E0%A4%95"
+        },
+        "iswiki": {
+          "site": "iswiki",
+          "title": "Sumarólympíuleikarnir 2028",
+          "badges": [],
+          "url": "https://is.wikipedia.org/wiki/Sumar%C3%B3lymp%C3%ADuleikarnir_2028"
+        },
+        "frwikinews": {
+          "site": "frwikinews",
+          "title": "Catégorie:Jeux olympiques d'été de 2028",
+          "badges": [],
+          "url": "https://fr.wikinews.org/wiki/Cat%C3%A9gorie:Jeux_olympiques_d%27%C3%A9t%C3%A9_de_2028"
+        },
+        "bnwiki": {
+          "site": "bnwiki",
+          "title": "২০২৮ গ্রীষ্মকালীন অলিম্পিক",
+          "badges": [],
+          "url": "https://bn.wikipedia.org/wiki/%E0%A7%A8%E0%A7%A6%E0%A7%A8%E0%A7%AE_%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A7%80%E0%A6%B7%E0%A7%8D%E0%A6%AE%E0%A6%95%E0%A6%BE%E0%A6%B2%E0%A7%80%E0%A6%A8_%E0%A6%85%E0%A6%B2%E0%A6%BF%E0%A6%AE%E0%A7%8D%E0%A6%AA%E0%A6%BF%E0%A6%95"
+        },
+        "kawiki": {
+          "site": "kawiki",
+          "title": "ზაფხულის ოლიმპიური თამაშები 2028",
+          "badges": [],
+          "url": "https://ka.wikipedia.org/wiki/%E1%83%96%E1%83%90%E1%83%A4%E1%83%AE%E1%83%A3%E1%83%9A%E1%83%98%E1%83%A1_%E1%83%9D%E1%83%9A%E1%83%98%E1%83%9B%E1%83%9E%E1%83%98%E1%83%A3%E1%83%A0%E1%83%98_%E1%83%97%E1%83%90%E1%83%9B%E1%83%90%E1%83%A8%E1%83%94%E1%83%91%E1%83%98_2028"
+        },
+        "wuuwiki": {
+          "site": "wuuwiki",
+          "title": "2028年夏季奥林匹克运动会",
+          "badges": [],
+          "url": "https://wuu.wikipedia.org/wiki/2028%E5%B9%B4%E5%A4%8F%E5%AD%A3%E5%A5%A5%E6%9E%97%E5%8C%B9%E5%85%8B%E8%BF%90%E5%8A%A8%E4%BC%9A"
+        },
+        "ruwikinews": {
+          "site": "ruwikinews",
+          "title": "Категория:Летние Олимпийские игры 2028",
+          "badges": [],
+          "url": "https://ru.wikinews.org/wiki/%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F:%D0%9B%D0%B5%D1%82%D0%BD%D0%B8%D0%B5_%D0%9E%D0%BB%D0%B8%D0%BC%D0%BF%D0%B8%D0%B9%D1%81%D0%BA%D0%B8%D0%B5_%D0%B8%D0%B3%D1%80%D1%8B_2028"
+        },
+        "idwiki": {
+          "site": "idwiki",
+          "title": "Olimpiade Musim Panas 2028",
+          "badges": [],
+          "url": "https://id.wikipedia.org/wiki/Olimpiade_Musim_Panas_2028"
+        },
+        "bswiki": {
+          "site": "bswiki",
+          "title": "Olimpijske igre 2028.",
+          "badges": [],
+          "url": "https://bs.wikipedia.org/wiki/Olimpijske_igre_2028."
+        },
+        "slwiki": {
+          "site": "slwiki",
+          "title": "Poletne olimpijske igre 2028",
+          "badges": [],
+          "url": "https://sl.wikipedia.org/wiki/Poletne_olimpijske_igre_2028"
+        },
+        "rowiki": {
+          "site": "rowiki",
+          "title": "Jocurile Olimpice de vară din 2028",
+          "badges": [],
+          "url": "https://ro.wikipedia.org/wiki/Jocurile_Olimpice_de_var%C4%83_din_2028"
+        },
+        "iowiki": {
+          "site": "iowiki",
+          "title": "Olimpiala Ludi en Los Angeles, 2028",
+          "badges": [],
+          "url": "https://io.wikipedia.org/wiki/Olimpiala_Ludi_en_Los_Angeles,_2028"
+        },
+        "kkwiki": {
+          "site": "kkwiki",
+          "title": "2028 жылғы Жазғы Олимпиада ойындары",
+          "badges": [],
+          "url": "https://kk.wikipedia.org/wiki/2028_%D0%B6%D1%8B%D0%BB%D2%93%D1%8B_%D0%96%D0%B0%D0%B7%D2%93%D1%8B_%D0%9E%D0%BB%D0%B8%D0%BC%D0%BF%D0%B8%D0%B0%D0%B4%D0%B0_%D0%BE%D0%B9%D1%8B%D0%BD%D0%B4%D0%B0%D1%80%D1%8B"
+        },
+        "skwiki": {
+          "site": "skwiki",
+          "title": "Letné olympijské hry 2028",
+          "badges": [],
+          "url": "https://sk.wikipedia.org/wiki/Letn%C3%A9_olympijsk%C3%A9_hry_2028"
+        },
+        "cawiki": {
+          "site": "cawiki",
+          "title": "Jocs Olímpics d'Estiu de 2028",
+          "badges": [],
+          "url": "https://ca.wikipedia.org/wiki/Jocs_Ol%C3%ADmpics_d%27Estiu_de_2028"
+        },
+        "ckbwiki": {
+          "site": "ckbwiki",
+          "title": "ئۆڵۆمپیادی ھاوینەی ٢٠٢٨",
+          "badges": [],
+          "url": "https://ckb.wikipedia.org/wiki/%D8%A6%DB%86%DA%B5%DB%86%D9%85%D9%BE%DB%8C%D8%A7%D8%AF%DB%8C_%DA%BE%D8%A7%D9%88%DB%8C%D9%86%DB%95%DB%8C_%D9%A2%D9%A0%D9%A2%D9%A8"
+        },
+        "glwiki": {
+          "site": "glwiki",
+          "title": "Xogos Olímpicos de 2028",
+          "badges": [],
+          "url": "https://gl.wikipedia.org/wiki/Xogos_Ol%C3%ADmpicos_de_2028"
+        },
+        "anwiki": {
+          "site": "anwiki",
+          "title": "Chuegos Olimpicos de Los Angeles 2028",
+          "badges": [],
+          "url": "https://an.wikipedia.org/wiki/Chuegos_Olimpicos_de_Los_Angeles_2028"
+        },
+        "banwiki": {
+          "site": "banwiki",
+          "title": "Olimpiade Masan Panes 2028",
+          "badges": [],
+          "url": "https://ban.wikipedia.org/wiki/Olimpiade_Masan_Panes_2028"
+        },
+        "urwiki": {
+          "site": "urwiki",
+          "title": "2028ء گرمائی اولمپکس",
+          "badges": [],
+          "url": "https://ur.wikipedia.org/wiki/2028%D8%A1_%DA%AF%D8%B1%D9%85%D8%A7%D8%A6%DB%8C_%D8%A7%D9%88%D9%84%D9%85%D9%BE%DA%A9%D8%B3"
+        },
+        "lbwiki": {
+          "site": "lbwiki",
+          "title": "Olympesch Summerspiller 2028",
+          "badges": [],
+          "url": "https://lb.wikipedia.org/wiki/Olympesch_Summerspiller_2028"
+        },
+        "tawiki": {
+          "site": "tawiki",
+          "title": "2028 கோடைக்கால ஒலிம்பிக் விளையாட்டுப் போட்டிகள்",
+          "badges": [],
+          "url": "https://ta.wikipedia.org/wiki/2028_%E0%AE%95%E0%AF%8B%E0%AE%9F%E0%AF%88%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%BE%E0%AE%B2_%E0%AE%92%E0%AE%B2%E0%AE%BF%E0%AE%AE%E0%AF%8D%E0%AE%AA%E0%AE%BF%E0%AE%95%E0%AF%8D_%E0%AE%B5%E0%AE%BF%E0%AE%B3%E0%AF%88%E0%AE%AF%E0%AE%BE%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AF%81%E0%AE%AA%E0%AF%8D_%E0%AE%AA%E0%AF%8B%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AE%BF%E0%AE%95%E0%AE%B3%E0%AF%8D"
+        },
+        "hrwiki": {
+          "site": "hrwiki",
+          "title": "XXXIV. Olimpijske igre – Los Angeles 2028.",
+          "badges": [],
+          "url": "https://hr.wikipedia.org/wiki/XXXIV._Olimpijske_igre_%E2%80%93_Los_Angeles_2028."
+        },
+        "eowiki": {
+          "site": "eowiki",
+          "title": "Somera Olimpiko 2028",
+          "badges": [],
+          "url": "https://eo.wikipedia.org/wiki/Somera_Olimpiko_2028"
+        },
+        "uzwiki": {
+          "site": "uzwiki",
+          "title": "2028-yilgi Yozgi Olimpiada oʻyinlari",
+          "badges": [],
+          "url": "https://uz.wikipedia.org/wiki/2028-yilgi_Yozgi_Olimpiada_o%CA%BByinlari"
+        },
+        "smnwiki": {
+          "site": "smnwiki",
+          "title": "Kesiolympialiih 2028",
+          "badges": [],
+          "url": "https://smn.wikipedia.org/wiki/Kesiolympialiih_2028"
+        },
+        "gpewiki": {
+          "site": "gpewiki",
+          "title": "2028 Summer Olympics",
+          "badges": [],
+          "url": "https://gpe.wikipedia.org/wiki/2028_Summer_Olympics"
+        },
+        "bnwikivoyage": {
+          "site": "bnwikivoyage",
+          "title": "লস অ্যাঞ্জেলেস ২০২৮",
+          "badges": [],
+          "url": "https://bn.wikivoyage.org/wiki/%E0%A6%B2%E0%A6%B8_%E0%A6%85%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%9E%E0%A7%8D%E0%A6%9C%E0%A7%87%E0%A6%B2%E0%A7%87%E0%A6%B8_%E0%A7%A8%E0%A7%A6%E0%A7%A8%E0%A7%AE"
+        },
+        "quwiki": {
+          "site": "quwiki",
+          "title": "Apuwasinyuq pukllaykuna 2028",
+          "badges": [],
+          "url": "https://qu.wikipedia.org/wiki/Apuwasinyuq_pukllaykuna_2028"
+        },
+        "fawiki": {
+          "site": "fawiki",
+          "title": "المپیک تابستانی ۲۰۲۸",
+          "badges": [],
+          "url": "https://fa.wikipedia.org/wiki/%D8%A7%D9%84%D9%85%D9%BE%DB%8C%DA%A9_%D8%AA%D8%A7%D8%A8%D8%B3%D8%AA%D8%A7%D9%86%DB%8C_%DB%B2%DB%B0%DB%B2%DB%B8"
+        },
+        "arzwiki": {
+          "site": "arzwiki",
+          "title": "اوليمبياد صيف 2028",
+          "badges": [],
+          "url": "https://arz.wikipedia.org/wiki/%D8%A7%D9%88%D9%84%D9%8A%D9%85%D8%A8%D9%8A%D8%A7%D8%AF_%D8%B5%D9%8A%D9%81_2028"
+        },
+        "sahwiki": {
+          "site": "sahwiki",
+          "title": "2028 Сайыҥҥы Олимпия оонньуулара",
+          "badges": [],
+          "url": "https://sah.wikipedia.org/wiki/2028_%D0%A1%D0%B0%D0%B9%D1%8B%D2%A5%D2%A5%D1%8B_%D0%9E%D0%BB%D0%B8%D0%BC%D0%BF%D0%B8%D1%8F_%D0%BE%D0%BE%D0%BD%D0%BD%D1%8C%D1%83%D1%83%D0%BB%D0%B0%D1%80%D0%B0"
+        },
+        "tewiki": {
+          "site": "tewiki",
+          "title": "2028 వేసవి ఒలింపిక్ క్రీడలు",
+          "badges": [],
+          "url": "https://te.wikipedia.org/wiki/2028_%E0%B0%B5%E0%B1%87%E0%B0%B8%E0%B0%B5%E0%B0%BF_%E0%B0%92%E0%B0%B2%E0%B0%BF%E0%B0%82%E0%B0%AA%E0%B0%BF%E0%B0%95%E0%B1%8D_%E0%B0%95%E0%B1%8D%E0%B0%B0%E0%B1%80%E0%B0%A1%E0%B0%B2%E0%B1%81"
+        },
+        "hawiki": {
+          "site": "hawiki",
+          "title": "Wasannin Olympics na bazara na 2028",
+          "badges": [],
+          "url": "https://ha.wikipedia.org/wiki/Wasannin_Olympics_na_bazara_na_2028"
+        }
+      }
+    }
+  }
+}

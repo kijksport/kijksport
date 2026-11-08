@@ -1,0 +1,14 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {track,km} from '../src/circuit.ts';
+import {tvPerSport} from '../src/viewing.ts';
+import type {Event} from '../src/core.ts';
+const square=[[0,0],[10,0],[10,10],[0,10]];
+test('positie langs de baan volgt de afstand en sluit de lus',()=>{const t=track(square);assert.equal(t.total,40);assert.deepEqual([t.at(0).x,t.at(0).y],[0,0]);assert.deepEqual([t.at(.25).x,t.at(.25).y],[10,0]);assert.deepEqual([t.at(.375).x,t.at(.375).y],[10,5]);assert.deepEqual([t.at(1.25).x,t.at(1.25).y],[10,0])});
+test('normaal wijst van het midden af',()=>{const p=track(square).at(.125);assert.equal(p.ny,-1)});
+test('baanlengte in Nederlandse notatie',()=>assert.equal(km('4.309'),'4,309 km'));
+test('elk circuit heeft gecontroleerde feiten met bron en datum; geen ongecontroleerde markeringen',()=>{const c=JSON.parse(readFileSync(new URL('../src/circuits.json',import.meta.url),'utf8'));for(const [k,v] of Object.entries<any>(c)){assert.ok(v.length&&v.laps&&v.distance&&v.firstGp&&v.record?.time,k);assert.match(v.statsSource,/^https:\/\/www\.formula1\.com\//,k);assert.match(v.statsChecked,/^\d{4}-\d{2}-\d{2}$/,k);if(v.markers){assert.ok(v.markers.source&&v.markers.checked,k+' markeringen zonder bron')}}});
+const ev=(id:string,sport:string,start:string,broadcast:boolean,status='date'):Event=>({id,sport,title:id,start,end:start,iso:null,source:'',desc:'',venue:'',highlight:false,tags:[],status:status as Event['status'],checked:null,broadcast:broadcast?{provider:'Ziggo Sport',url:'',checked:'2026-11-08'}:null});
+test('per sport het eerstvolgende evenement en de eerstvolgende tv-uitzending',()=>{const rows=tvPerSport([ev('a','motogp','2026-11-01',true),ev('b','motogp','2026-11-20',false),ev('c','motogp','2026-11-27',true),ev('d','motogp','2026-11-25',true,'cancelled')],['motogp','wec'],'2026-11-08');assert.equal(rows[0].next?.id,'b');assert.equal(rows[0].tv?.id,'c');assert.equal(rows[1].next,null);assert.equal(rows[1].tv,null)});
+test('een gestarte sessie van vandaag is niet meer de eerstvolgende',()=>{const a={...ev('a','football','2026-11-08',false),iso:'2026-11-08T11:15:00Z'},b={...ev('b','football','2026-11-08',false),iso:'2026-11-08T19:00:00Z'};const r=tvPerSport([a,b],['football'],'2026-11-08',Date.parse('2026-11-08T13:00:00Z'));assert.equal(r[0].next?.id,'b')});
+test('nieuwe evenementen hebben een bron, controledatum en geldige datums',()=>{const d=JSON.parse(readFileSync(new URL('../src/data.json',import.meta.url),'utf8'));for(const e of d.events.filter((e:any)=>['motogp','wec','swimming'].includes(e.sport))){assert.match(e.source,/^https:\/\//,e.id);assert.equal(e.checked,'2026-11-08',e.id);assert.ok(e.start<=e.end,e.id);if(e.broadcast)assert.ok(e.broadcast.basis&&e.broadcast.note,e.id+' zender zonder basis')}});
