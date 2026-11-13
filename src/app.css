@@ -27,7 +27,7 @@ svg.veld text{font-family:var(--font);font-stretch:80%}
 .tabs button.actief{color:var(--ink)}
 .tabs button.actief::before{content:"";position:absolute;top:-6px;width:34px;height:3px;border-radius:0 0 3px 3px;background:var(--rood)}
 .tabs b{position:absolute;top:0;left:calc(50% + 8px);min-width:18px;padding:0 5px;border-radius:9px;background:var(--rood);color:var(--op-rood);font-size:.7rem;line-height:18px;text-align:center}
-main{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;padding-block:6px 104px}
+main{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;padding-block:6px 104px}
 section{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
 
 .paginakop{position:relative;display:grid;gap:8px;padding-top:8px}
@@ -205,3 +205,16 @@ dialog.blad::backdrop{background:rgba(6,14,12,.6)}
 /* iPhone als beginscherm-app: inhoud blijft onder de statusbalk vandaan. */
 .app{padding-top:env(safe-area-inset-top,0px)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:25}
+
+/* Inklapbare blokken op Vandaag */
+.vak>summary{display:flex;align-items:baseline;gap:10px;min-height:44px;cursor:pointer;list-style:none;padding-block:4px;border-bottom:1px solid var(--lijn)}
+.vak>summary::-webkit-details-marker{display:none}
+.vak>summary h2{font-size:1.5rem}
+.vak>summary span{flex:1;min-width:0;font-size:.86rem;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vak>summary svg{flex:none;align-self:center;margin-left:auto;transition:transform .15s}
+.vak[open]>summary svg{transform:rotate(180deg)}
+.vak[open]>summary{border-bottom-color:transparent}
+.vak-inhoud{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding-top:6px}
+.plak small{color:var(--sub);font-size:.84rem}
+.kopie{display:grid;gap:6px;font-size:.9rem}.kopie input{min-height:48px;padding:0 12px;border-radius:12px;background:var(--bg);border:1px solid var(--lijn);width:100%}
+@media (max-width:520px){.plak div{grid-template-columns:minmax(0,1fr)}}

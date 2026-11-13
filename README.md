@@ -147,3 +147,8 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 - Twee versies naast elkaar op GitHub Pages: Parcours (branch `parcours`) op `/kijksport/` en Speelveld (main) op `/kijksport/speelveld/`. Beide gebruiken de kalender uit main; elke versie heeft een eigen cache.
 - Tekeningen aangevuld: atletiekbaan met lopers, hockeyveld met spelers.
 - Wekelijkse controle: `docs/WEKELIJKSE-CONTROLE.md` beschrijft wat er elke maandag wordt nagekeken.
+
+## KijkSport 1.2.0
+
+- Vandaag is korter: Uitgelicht, Vandaag, Daarna en Wanneer op tv zijn inklapbaar en onthouden hun stand. Wanneer op tv staat onder Daarna en begint ingeklapt; Daarna toont vijf momenten.
+- Delen: de deelknop geeft alleen de link door, er is een aparte knop Kopieer link, en het plakveld haalt de link uit elke geplakte tekst.
