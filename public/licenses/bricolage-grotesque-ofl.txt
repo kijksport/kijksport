@@ -1,8 +1,4 @@
-Big Shoulders Display en Big Shoulders Stencil Display
-Bron: Fontsource, https://fontsource.org/fonts/big-shoulders-display
-Meegeleverd als woff2-bestanden in src/fonts. Licentie: SIL Open Font License 1.1.
-
-Google Inc.
+Copyright 2022 The Bricolage Grotesque Project Authors (https://github.com/ateliertriay/bricolage)
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:

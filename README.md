@@ -126,3 +126,11 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 - Offline: de service worker bewaart bij installatie de startpagina met scripts en stijlen, zodat de app zonder internet opent.
 - Selectie delen via link of QR-code; de ontvanger bevestigt eerst. De link bevat alleen voorkeuren, geen persoonsgegevens.
 - Oude back-ups met aparte profielen worden zonder vaste namen ingelezen.
+
+## KijkSport 1.0.0 (proefversie, branch `speelveld`)
+
+- Interface volledig opnieuw geschreven als ontwerp **Speelveld**: elke sport staat op zijn eigen ondergrond, van bovenaf getekend met de gangbare reglementaire belijning (veld, baan, bad, ijsbaan, dartbord, startopstelling).
+- Tekst staat nooit over een tekening; het veld staat boven, de gegevens eronder.
+- Circuits met baangegevens vullen het beeld, met bochtnummers, sectoren en kompas in het detailscherm. Motorsport zonder baankaart toont een startopstelling.
+- Dagweergave is de standaard; avondweergave blijft beschikbaar. Beweging stopt bij 'verminder beweging', buiten beeld en via de knop.
+- Gegevenslaag, kalender, kijkdiensten, delen, back-up en agenda-export zijn ongewijzigd. Lettertype: Bricolage Grotesque (OFL).
