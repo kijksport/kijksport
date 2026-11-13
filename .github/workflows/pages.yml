@@ -20,14 +20,31 @@ jobs:
         with:
           node-version: 24
           cache: npm
+      # Nieuwe versie (Speelveld) uit main, onder /kijksport/speelveld/.
       - run: npm ci
       - run: npm test
       - run: npm run build
         env:
+          BASE_PATH: /kijksport/speelveld/
+      # Vorige versie (Parcours) uit de branch parcours, op het oude adres /kijksport/. Beide versies delen de kalender uit main.
+      - uses: actions/checkout@v4
+        with:
+          ref: parcours
+          path: parcours
+      - run: |
+          cp src/data.json parcours/src/data.json
+          cd parcours
+          npm ci
+          npm run build
+        env:
           BASE_PATH: /kijksport/
+      - run: |
+          mkdir site
+          cp -r parcours/dist/. site/
+          cp -r dist site/speelveld
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: site
   deploy:
     needs: build
     runs-on: ubuntu-latest
