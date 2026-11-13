@@ -141,3 +141,9 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 - Nieuwe sporten: rugby (Six Nations 2027 met alle vijftien wedstrijden, WK 2027) en hockey (EK 2027). Olympische Spelen gesplitst in Zomerspelen en Winterspelen. Voetbal heeft de keuzes EK, WK en Eredivisie.
 - World Cup langebaan in Beijing: uitzendingen op NPO 1 uit de tv-gids toegevoegd (gecontroleerd op 13 november 2026). De ISU-kalender is opnieuw gecontroleerd.
 - Rechtenhouders toegevoegd: ESPN voor de Eredivisie, Eurosport en HBO Max voor de Australian Open, Ziggo Sport voor de Six Nations.
+
+## KijkSport 1.1.1
+
+- Twee versies naast elkaar op GitHub Pages: Parcours (branch `parcours`) op `/kijksport/` en Speelveld (main) op `/kijksport/speelveld/`. Beide gebruiken de kalender uit main; elke versie heeft een eigen cache.
+- Tekeningen aangevuld: atletiekbaan met lopers, hockeyveld met spelers.
+- Wekelijkse controle: `docs/WEKELIJKSE-CONTROLE.md` beschrijft wat er elke maandag wordt nagekeken.

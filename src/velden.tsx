@@ -178,6 +178,7 @@ function Hockey({play}:S){const loop='M150 190L215 120L300 150L340 150L300 150L2
   <path d="M21.75 66.4A76.5 76.5 0 0 1 98.25 142.9V157.1A76.5 76.5 0 0 1 21.75 233.6M378.25 66.4A76.5 76.5 0 0 0 301.75 142.9V157.1A76.5 76.5 0 0 0 378.25 233.6" strokeWidth="1" strokeDasharray="3 6"/></g>
  <path d="M21.75 142.9H15V157.1H21.75M378.25 142.9H385V157.1H378.25" fill="#0e2f5c" stroke={W} strokeWidth="1.3"/>
  <g fill={W}><circle cx="46.7" cy="150" r="1.8"/><circle cx="353.3" cy="150" r="1.8"/></g>
+ {[[150,190],[215,120],[300,150],[250,205]].map(([x,y])=><circle key={x} cx={x-7} cy={y+5} r="4" fill="#ff8a1f" stroke="#fff" strokeWidth="1"/>)}{[[330,150],[280,118],[268,178]].map(([x,y])=><circle key={x} cx={x+8} cy={y-4} r="4" fill="#f6f8f4" stroke="#0e2f5c" strokeWidth="1"/>)}
  <Dot at={[215,120]} path={loop} dur={8} play={play}><circle r="3.4" cx="1.4" cy="2" fill="#0b2a55" opacity=".4"/><circle r="3.2" fill="#fff"/></Dot>
 </>}
 function Piste({play}:S){const spoor='M60 20C150 50 60 92 150 112S250 120 220 168S330 200 300 244S350 280 380 300',poort:[number,number,string][]=[[108,58,'#e33e3e'],[112,100,'#2456b8'],[236,128,'#e33e3e'],[214,176,'#2456b8'],[322,212,'#e33e3e'],[296,252,'#2456b8']];return <>
@@ -188,7 +189,14 @@ function Piste({play}:S){const spoor='M60 20C150 50 60 92 150 112S250 120 220 16
  <path d="M330 286H392" stroke="#e33e3e" strokeWidth="3" strokeDasharray="6 4"/>
  <Dot at={[150,112]} path={spoor} dur={9} play={play}><circle r="4.6" fill="#12314d" stroke="#fff" strokeWidth="1.3"/></Dot>
 </>}
-function Atletiek(){return <><rect width="400" height="300" fill="#2b7a55"/><path d={stad(125,275,150,112)} fill="#b3432e"/><path d={stad(125,275,150,56)} fill="#2f8a5e"/><g fill="none" stroke={W} strokeWidth="1">{[56,63,70,77,84,91,98,105,112].map(r=><path key={r} d={stad(125,275,150,r)}/>)}</g><path d="M250 206V262" stroke={W} strokeWidth="2.4"/></>}
+function Atletiek({play}:S){const baan=(r:number)=>`M125 ${150+r}H275A${r} ${r} 0 0 0 275 ${150-r}H125A${r} ${r} 0 0 0 125 ${150+r}Z`,kleur=['#ffd23f','#f6f8f4','#2456b8','#1d1d1f','#2fa862','#f6f8f4'];return <>
+ <rect width="400" height="300" fill="#2b7a55"/><path d={stad(125,275,150,112)} fill="#b3432e"/><path d={stad(125,275,150,56)} fill="#2f8a5e"/>
+ <g fill="none" stroke={W} strokeWidth="1">{[56,63,70,77,84,91,98,105,112].map(r=><path key={r} d={stad(125,275,150,r)}/>)}</g>
+ <path d="M250 206V262" stroke={W} strokeWidth="2.4"/>
+ <rect x="150" y="118" width="62" height="9" fill="#b3432e"/><rect x="212" y="116" width="26" height="13" fill="#e6d3a1"/>
+ <path d="M160 190A46 46 0 0 1 240 190" fill="none" stroke={W} strokeWidth="1"/><path d="M200 190L168 150M200 190L232 150" stroke={W} strokeWidth=".8"/><circle cx="200" cy="190" r="3" fill="#b3432e" stroke={W} strokeWidth=".8"/>
+ {kleur.map((k,i)=><Dot key={i} at={[150+i*9,150+59.5+i*7]} path={baan(59.5+i*7)} dur={11+i*.55} begin={-i*.9} play={play}><circle r="3.4" fill={k} stroke="#5a1f14" strokeWidth=".8"/></Dot>)}
+</>}
 function Turnvloer(){return <><rect width="400" height="300" fill="#8f9aa3"/><rect x="85" y="35" width="230" height="230" fill="#3a66ad"/><rect x="100" y="50" width="200" height="200" fill="#d9c8a2" stroke={W} strokeWidth="3"/><path d="M100 50L300 250" stroke="#c5b288" strokeWidth="1.2" strokeDasharray="5 5"/></>}
 function Kooi(){const p=Array.from({length:8},(_,i)=>{const a=(22.5+i*45)*Math.PI/180;return (200+112*Math.cos(a)).toFixed(1)+' '+(150+112*Math.sin(a)).toFixed(1)}).join('L');return <><rect width="400" height="300" fill="#1c1c21"/><path d={'M'+p+'Z'} fill="#d3d6d9" stroke="#0c0c0e" strokeWidth="7"/><circle cx="200" cy="150" r="30" fill="none" stroke="#9aa0a6" strokeWidth="1.4"/>{Array.from({length:8},(_,i)=>{const a=(22.5+i*45)*Math.PI/180;return <circle key={i} cx={200+112*Math.cos(a)} cy={150+112*Math.sin(a)} r="5.5" fill={i===0?'#e33e3e':i===4?'#2a7fc2':'#3b3b42'}/>})}</>}
 /** Sporthalvloer: de lijnen van meerdere sporten door elkaar, zoals in elke gymzaal. */
@@ -204,7 +212,7 @@ export function Veld({sport,event,play=false,mini,detail,className}:{sport:strin
  // Circuits krijgen een eigen uitsnede rond de baan, zodat ook een smalle baan het beeld vult.
  let vb='0 0 400 300',kompas:[number,number]=[372,30];
  if(c){const xs=c.points.map(q=>q[0]-40),ys=c.points.map(q=>q[1]+37),m=mini?16:detail?40:26,x=Math.min(...xs)-m,y=Math.min(...ys)-m,w=Math.max(...xs)+m-x,h=Math.max(...ys)+m-y;vb=`${x} ${y} ${w} ${h}`;kompas=[x+w-16,y+16]}
- const body=c?<Circuit c={c} detail={detail} kompas={kompas} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'||sport==='olympics'?<Atletiek/>:sport==='rugby'?<Rugby {...p}/>:sport==='hockey'?<Hockey {...p}/>:sport==='winter'?<Piste {...p}/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
+ const body=c?<Circuit c={c} detail={detail} kompas={kompas} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'||sport==='olympics'?<Atletiek {...p}/>:sport==='rugby'?<Rugby {...p}/>:sport==='hockey'?<Hockey {...p}/>:sport==='winter'?<Piste {...p}/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
  return <svg ref={ref} className={'veld '+(className||'')} viewBox={vb} preserveAspectRatio={c||sport==='darts'?'xMidYMid meet':'xMidYMid slice'} style={{background:c?'#26323c':vloer(sport).vloer}} aria-hidden="true" focusable="false">{body}</svg>;
 }
 /** Wat de tekening laat zien, in woorden. */

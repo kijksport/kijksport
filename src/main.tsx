@@ -82,7 +82,7 @@ function App(){
  const favorite=(e:Event)=>update(q=>({...q,favorites:q.favorites.includes(e.id)?q.favorites.filter(i=>i!==e.id):[...q.favorites,e.id]}));
  const access=(e:Event)=>viewingAccess(e,p.services||[],!!p.servicesConfigured);
  const watch=(e:Event)=>providerLine(e,p.servicesConfigured?p.services||[]:[]);
- const badge=(e:Event)=><span className={'toegang '+access(e)}>{accessLabels[access(e)]}</span>;
+ const badge=(e:Event,knop=false)=>knop&&access(e)==='unset'?<button className="toegang unset" onClick={()=>setServiceOpen(true)}>{accessLabels.unset}</button>:<span className={'toegang '+access(e)}>{accessLabels[access(e)]}</span>;
  const mine=sports.filter(s=>p.sports.includes(s.id));
  const filtered=sortEvents(events.filter(e=>(page!=='Vandaag'||accessFilter==='all'||access(e)===accessFilter)&&p.sports.includes(e.sport)&&(sportFilter==='all'||e.sport===sportFilter)&&!e.tags.some(t=>p.excluded.includes(e.sport+':'+t))&&(e.title+' '+e.venue+' '+sportOf(e.sport)?.name).toLowerCase().includes(search.toLowerCase())));
  const today=day(),todayEvents=filtered.filter(e=>occurs(e,today)).sort((a,b)=>(a.iso||'').localeCompare(b.iso||''));
@@ -123,9 +123,9 @@ function App(){
     <p className="uit-soort">{sportOf(hero.sport).name}, {occurs(hero,today)?'uitgelicht vandaag':'eerstvolgende hoogtepunt'}</p>
     <h2 id="uit-titel">{kort(hero.title)}</h2>
     <p className="uit-plaats">{[hero.venue,plaat(hero.sport,hero)].filter(Boolean).join('. ')}</p>
-    <div className="uit-tijd">{hero.iso&&<b>{time(hero.iso)}</b>}<span>{hero.start===hero.end?cap(label(hero.start,{weekday:'long',day:'numeric',month:'long'})):wanneer(hero,today)}<small>{hero.iso?'Nederlandse tijd':'Begintijd nog niet bekend'}</small></span></div>
+    <div className="uit-tijd">{hero.iso&&<b>{time(hero.iso)}</b>}<span>{hero.start===hero.end?cap(label(hero.start,{weekday:'long',day:'numeric',month:'long'})):wanneer(hero,today)}<small>{hero.iso?'Nederlandse tijd':hero.start!==hero.end?'Meerdaags evenement':'Begintijd nog niet bekend'}</small></span></div>
     {hero.iso&&hero.status!=='cancelled'&&<Aftellen iso={hero.iso}/>}
-    <p className="uit-kijk"><Tv size={18}/><span>{hero.broadcast?watch(hero):'Uitzending nog onbekend'}</span></p>{access(hero)!=='unknown'&&badge(hero)}
+    <p className="uit-kijk"><Tv size={18}/><span>{hero.broadcast?watch(hero):'Uitzending nog onbekend'}</span></p>{access(hero)!=='unknown'&&badge(hero,true)}{hero.desc&&<p className="uit-plaats">{hero.desc}</p>}
     <Weekend event={hero} list={filtered} now={now} onSelect={setSelected}/>
     <Weetje sport={hero.sport}/>
     <div className="acties"><button className="knop vol" onClick={()=>setSelected(hero)}>{circuitKey(hero)?'Bekijk circuit en weekend':'Bekijk details'}</button>{bewaar(hero)}</div>
@@ -178,7 +178,7 @@ function App(){
    {selected.iso&&selected.status!=='cancelled'&&<Aftellen iso={selected.iso}/>}
    <Weekend event={selected} list={filtered} now={now} onSelect={setSelected}/>
    <Baanfeiten event={selected}/>
-   <section className="kijken"><h3>Kijken in Nederland</h3><p className="uit-kijk"><Tv size={18}/><span>{selected.broadcast?watch(selected):'Uitzending nog niet bevestigd'}</span></p>{badge(selected)}
+   <section className="kijken"><h3>Kijken in Nederland</h3><p className="uit-kijk"><Tv size={18}/><span>{selected.broadcast?watch(selected):'Uitzending nog niet bevestigd'}</span></p>{badge(selected,true)}
     {selected.broadcast?<ul>{viewingOptions(selected).map(o=><li key={o.provider}><b>{o.provider}</b><span>{o.note||(o.basis==='rechten'?'Rechtenhouder in Nederland; uitzending per wedstrijd niet afzonderlijk gecontroleerd.':o.basis==='opgegeven'?'Door jullie zelf opgegeven.':'Kijkdienst bevestigd in de tv-gids; de tijd hierboven is de start van de sportsessie.')}</span><a href={o.url} target="_blank" rel="noreferrer">Naar {o.provider}<ExternalLink size={14}/></a></li>)}</ul>:<p>Er is nog geen gecontroleerde Nederlandse zender of streamingdienst opgenomen.</p>}
     <button className="tekstknop" onClick={()=>setServiceOpen(true)}>Wijzig mijn kijkdiensten</button></section>
    <p>{selected.desc||'Wedstrijdschema en deelnemers zijn nog niet opgenomen. Open de officiële bron voor meer informatie.'}</p>

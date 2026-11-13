@@ -45,6 +45,7 @@ section{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
 .melding{padding:12px 14px;border-radius:12px;border:1.5px solid var(--let);background:var(--kaart)}
 .toegang{display:inline-flex;align-items:center;gap:7px;width:fit-content;padding:3px 10px 3px 8px;border-radius:99px;background:var(--kaart);color:var(--ink);border:1px solid var(--lijn);font-size:.8rem;font-weight:600}
 .toegang::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--sub)}
+.toegang.unset{text-decoration:underline;text-underline-offset:3px;min-height:30px}
 .toegang.available::before{background:var(--ok)}.toegang.other::before{background:var(--let)}
 
 /* Uitgelicht: het veld boven, de tekst eronder op dezelfde ondergrond. Tekst staat nooit over de tekening. */
