@@ -31,7 +31,7 @@ function useRustig(){const q='(prefers-reduced-motion: reduce)';const[v,setV]=us
 
 /** Dagen en tijd van een evenement in gewone woorden. */
 function wanneer(e:Event,today:string){
- if(e.start!==e.end)return (e.start<=today&&e.end>=today?'Nu bezig, t/m ':label(e.start,e.start.slice(0,7)===e.end.slice(0,7)?{day:'numeric'}:{day:'numeric',month:'short'})+' t/m ')+label(e.end,{day:'numeric',month:'short'});
+ if(e.start!==e.end)return (e.start<=today&&e.end>=today?'Deze dagen, t/m ':label(e.start,e.start.slice(0,7)===e.end.slice(0,7)?{day:'numeric'}:{day:'numeric',month:'short'})+' t/m ')+label(e.end,{day:'numeric',month:'short'});
  return e.start===today?'Vandaag':e.start===addDays(today,1)?'Morgen':cap(label(e.start,{weekday:'short',day:'numeric',month:'short'}));
 }
 function Aftellen({iso}:{iso:string}){
@@ -72,7 +72,7 @@ function App(){
  useEffect(()=>{try{localStorage.setItem('sportkijk-v2',JSON.stringify(settings));setStorageError('')}catch{setStorageError('Opslaan is niet gelukt. Exporteer je voorkeuren om ze te bewaren.')}},[settings]);
  useEffect(()=>{document.documentElement.dataset.theme=settings.theme;document.querySelector('meta[name=theme-color]')?.setAttribute('content',getComputedStyle(document.documentElement).getPropertyValue('--bg').trim())},[settings.theme]);
  // Eenmalig per toestel: nieuwe sporten aanzetten, en het nieuwe ontwerp bij daglicht tonen.
- useEffect(()=>{const once=(key:string,f:()=>void)=>{try{if(localStorage.getItem(key))return;localStorage.setItem(key,'1')}catch{return}f()};const add=(ids:string[])=>setSettings(s=>({...s,preferences:{...s.preferences,sports:[...new Set([...s.preferences.sports,...ids])].filter(id=>sports.some(x=>x.id===id))}}));once('kijksport-sporten-0.9',()=>add(['swimming','motogp','wec']));once('kijksport-sporten-0.11',()=>add(['darts','speed','short']));once('kijksport-speelveld',()=>setSettings(s=>({...s,theme:'light'})))},[]);
+ useEffect(()=>{const once=(key:string,f:()=>void)=>{try{if(localStorage.getItem(key))return;localStorage.setItem(key,'1')}catch{return}f()};const add=(ids:string[])=>setSettings(s=>({...s,preferences:{...s.preferences,sports:[...new Set([...s.preferences.sports,...ids])].filter(id=>sports.some(x=>x.id===id))}}));once('kijksport-sporten-0.9',()=>add(['swimming','motogp','wec']));once('kijksport-sporten-0.11',()=>add(['darts','speed','short']));once('kijksport-sporten-1.1',()=>add(['rugby','hockey','olympics','winter']));once('kijksport-speelveld',()=>setSettings(s=>({...s,theme:'light'})))},[]);
  // Gedeelde selectie uit een link: eerst vragen, dan pas overnemen.
  useEffect(()=>{const read=()=>{const m=location.hash.match(new RegExp('^#'+shareKey+'=([A-Za-z0-9_-]+)$'));if(!m)return;history.replaceState(null,'',location.pathname+location.search);ontvang(m[1],'Deze deellink bevat geen geldige selectie.')};read();window.addEventListener('hashchange',read);return()=>window.removeEventListener('hashchange',read)},[]);
  useEffect(()=>{const sync=(d:HTMLDialogElement|null,open:boolean)=>{if(!d)return;if(open&&!d.open)d.showModal();else if(!open&&d.open)d.close()};sync(dialog.current,!!selected);sync(infoDialog.current,info);sync(serviceDialog.current,serviceOpen);sync(importDialog.current,!!incoming)},[selected,info,serviceOpen,incoming]);

@@ -24,7 +24,10 @@ export const veld:Record<string,{vloer:string;inkt:string;accent:string;plaat:st
  athletics:{vloer:'#b3432e',inkt:'#fff',accent:'#d9603f',plaat:'Atletiekbaan met acht banen'},
  gym:{vloer:'#d9c8a2',inkt:'#2c2414',accent:'#b08a3c',plaat:'Vloer van 12 bij 12 meter'},
  mma:{vloer:'#1c1c21',inkt:'#fff',accent:'#b06fc4',plaat:'Achthoekige kooi'},
- olympics:{vloer:'#c69a5a',inkt:'#2a1c08',accent:'#c98a1c',plaat:'Sporthalvloer met alle lijnen door elkaar'},
+ olympics:{vloer:'#a83f2c',inkt:'#fff',accent:'#d9603f',plaat:'Atletiekbaan met acht banen'},
+ winter:{vloer:'#e9f1f6',inkt:'#12314d',accent:'#3f8fc9',plaat:'Skipiste met slalompoorten'},
+ rugby:{vloer:'#27683a',inkt:'#fff',accent:'#3f9a58',plaat:'Veld van 100 meter met twee doelgebieden'},
+ hockey:{vloer:'#1c57a3',inkt:'#fff',accent:'#3d86dd',plaat:'Veld van 91,4 bij 55 meter met twee cirkels'},
 };
 const fallback={vloer:'#3a4450',inkt:'#fff',accent:'#8aa0b4',plaat:''};
 export const vloer=(sport:string)=>veld[sport]||fallback;
@@ -158,6 +161,33 @@ function Circuit({c,play,mini,detail,kompas}:S&{c:CircuitInfo;detail?:boolean;ko
  {!mini&&<g transform={`translate(${kompas[0]} ${kompas[1]})`}><circle r="13" fill="#18222a" stroke="#56646f" strokeWidth=".8"/><path d="M0-9L3.6 2H-3.6Z" fill="#ff4d5e"/><text y="9.5" textAnchor="middle" fontSize="7" fontWeight="700" fill={W}>N</text></g>}
 </>}
 
+function Rugby({play}:S){const pas='M262 104L236 128L210 152L184 176L158 200';return <>
+ <rect width="400" height="300" fill="#27683a"/>
+ {Array.from({length:6},(_,i)=><rect key={i} x="20" y={45+i*35} width="360" height="17.5" fill="#2c7341"/>)}
+ <rect x="20" y="45" width="30" height="210" fill="#215a32"/><rect x="350" y="45" width="30" height="210" fill="#215a32"/>
+ <g fill="none" stroke={W} strokeWidth="1.7"><rect x="20" y="45" width="360" height="210"/><path d="M50 45V255M350 45V255M200 45V255M116 45V255M284 45V255"/>
+  <path d="M170 45V255M230 45V255M50 60H350M50 240H350M50 90H350M50 210H350" strokeWidth="1.1" strokeDasharray="6 9"/></g>
+ <g stroke="#f2e9c9" strokeWidth="2.6"><path d="M50 141.6V158.4M350 141.6V158.4"/></g><g fill="#f2e9c9">{[[50,141.6],[50,158.4],[350,141.6],[350,158.4]].map(([x,y])=><circle key={x+'-'+y} cx={x} cy={y} r="2.6"/>)}</g>
+ {[[262,104],[236,128],[210,152],[184,176],[158,200]].map(([x,y])=><circle key={x} cx={x+9} cy={y+2} r="3.6" fill="#f6f8f4" stroke="#163d22" strokeWidth=".8"/>)}
+ <Dot at={[236,128]} path={pas+'L262 104'} dur={7} play={play}><ellipse rx="5.2" ry="3.2" transform="rotate(-40)" fill="#b9692c" stroke="#fff" strokeWidth="1"/></Dot>
+</>}
+function Hockey({play}:S){const loop='M150 190L215 120L300 150L340 150L300 150L215 120Z';return <>
+ <rect width="400" height="300" fill="#143f78"/><rect x="21.75" y="42.75" width="356.5" height="214.5" fill="#1c57a3"/>
+ <g fill="none" stroke={W} strokeWidth="1.7"><rect x="21.75" y="42.75" width="356.5" height="214.5"/><path d="M200 42.75V257.25M111 42.75V257.25M289 42.75V257.25"/>
+  <path d="M21.75 85.9A57 57 0 0 1 78.75 142.9V157.1A57 57 0 0 1 21.75 214.1M378.25 85.9A57 57 0 0 0 321.25 142.9V157.1A57 57 0 0 0 378.25 214.1"/>
+  <path d="M21.75 66.4A76.5 76.5 0 0 1 98.25 142.9V157.1A76.5 76.5 0 0 1 21.75 233.6M378.25 66.4A76.5 76.5 0 0 0 301.75 142.9V157.1A76.5 76.5 0 0 0 378.25 233.6" strokeWidth="1" strokeDasharray="3 6"/></g>
+ <path d="M21.75 142.9H15V157.1H21.75M378.25 142.9H385V157.1H378.25" fill="#0e2f5c" stroke={W} strokeWidth="1.3"/>
+ <g fill={W}><circle cx="46.7" cy="150" r="1.8"/><circle cx="353.3" cy="150" r="1.8"/></g>
+ <Dot at={[215,120]} path={loop} dur={8} play={play}><circle r="3.4" cx="1.4" cy="2" fill="#0b2a55" opacity=".4"/><circle r="3.2" fill="#fff"/></Dot>
+</>}
+function Piste({play}:S){const spoor='M60 20C150 50 60 92 150 112S250 120 220 168S330 200 300 244S350 280 380 300',poort:[number,number,string][]=[[108,58,'#e33e3e'],[112,100,'#2456b8'],[236,128,'#e33e3e'],[214,176,'#2456b8'],[322,212,'#e33e3e'],[296,252,'#2456b8']];return <>
+ <rect width="400" height="300" fill="#e9f1f6"/><path d="M0 0H130C40 120 180 190 60 300H0Z" fill="#dbe7ef"/><path d="M400 0H330C250 90 400 150 330 300H400Z" fill="#dbe7ef"/>
+ {[[30,60],[46,150],[20,236],[372,40],[384,130],[366,226]].map(([x,y])=><path key={x} d={`M${x} ${y-14}L${x+10} ${y+8}H${x-10}Z`} fill="#2f6b4d"/>)}
+ <path d={spoor} fill="none" stroke="#b9cfdd" strokeWidth="3" strokeLinecap="round"/>
+ {poort.map(([x,y,k])=><g key={y} stroke={k} strokeWidth="2.6" strokeLinecap="round"><path d={`M${x-11} ${y-6}V${y+6}M${x+11} ${y-6}V${y+6}`}/></g>)}
+ <path d="M330 286H392" stroke="#e33e3e" strokeWidth="3" strokeDasharray="6 4"/>
+ <Dot at={[150,112]} path={spoor} dur={9} play={play}><circle r="4.6" fill="#12314d" stroke="#fff" strokeWidth="1.3"/></Dot>
+</>}
 function Atletiek(){return <><rect width="400" height="300" fill="#2b7a55"/><path d={stad(125,275,150,112)} fill="#b3432e"/><path d={stad(125,275,150,56)} fill="#2f8a5e"/><g fill="none" stroke={W} strokeWidth="1">{[56,63,70,77,84,91,98,105,112].map(r=><path key={r} d={stad(125,275,150,r)}/>)}</g><path d="M250 206V262" stroke={W} strokeWidth="2.4"/></>}
 function Turnvloer(){return <><rect width="400" height="300" fill="#8f9aa3"/><rect x="85" y="35" width="230" height="230" fill="#3a66ad"/><rect x="100" y="50" width="200" height="200" fill="#d9c8a2" stroke={W} strokeWidth="3"/><path d="M100 50L300 250" stroke="#c5b288" strokeWidth="1.2" strokeDasharray="5 5"/></>}
 function Kooi(){const p=Array.from({length:8},(_,i)=>{const a=(22.5+i*45)*Math.PI/180;return (200+112*Math.cos(a)).toFixed(1)+' '+(150+112*Math.sin(a)).toFixed(1)}).join('L');return <><rect width="400" height="300" fill="#1c1c21"/><path d={'M'+p+'Z'} fill="#d3d6d9" stroke="#0c0c0e" strokeWidth="7"/><circle cx="200" cy="150" r="30" fill="none" stroke="#9aa0a6" strokeWidth="1.4"/>{Array.from({length:8},(_,i)=>{const a=(22.5+i*45)*Math.PI/180;return <circle key={i} cx={200+112*Math.cos(a)} cy={150+112*Math.sin(a)} r="5.5" fill={i===0?'#e33e3e':i===4?'#2a7fc2':'#3b3b42'}/>})}</>}
@@ -174,7 +204,7 @@ export function Veld({sport,event,play=false,mini,detail,className}:{sport:strin
  // Circuits krijgen een eigen uitsnede rond de baan, zodat ook een smalle baan het beeld vult.
  let vb='0 0 400 300',kompas:[number,number]=[372,30];
  if(c){const xs=c.points.map(q=>q[0]-40),ys=c.points.map(q=>q[1]+37),m=mini?16:detail?40:26,x=Math.min(...xs)-m,y=Math.min(...ys)-m,w=Math.max(...xs)+m-x,h=Math.max(...ys)+m-y;vb=`${x} ${y} ${w} ${h}`;kompas=[x+w-16,y+16]}
- const body=c?<Circuit c={c} detail={detail} kompas={kompas} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'?<Atletiek/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
+ const body=c?<Circuit c={c} detail={detail} kompas={kompas} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'||sport==='olympics'?<Atletiek/>:sport==='rugby'?<Rugby {...p}/>:sport==='hockey'?<Hockey {...p}/>:sport==='winter'?<Piste {...p}/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
  return <svg ref={ref} className={'veld '+(className||'')} viewBox={vb} preserveAspectRatio={c||sport==='darts'?'xMidYMid meet':'xMidYMid slice'} style={{background:c?'#26323c':vloer(sport).vloer}} aria-hidden="true" focusable="false">{body}</svg>;
 }
 /** Wat de tekening laat zien, in woorden. */

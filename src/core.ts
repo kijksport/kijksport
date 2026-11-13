@@ -31,7 +31,7 @@ export function calendar(events:Event[],reminders:Record<string,Reminder>={},now
 export type Profile={services?:string[];servicesConfigured?:boolean;sports:string[];excluded:string[];favorites:string[];reminders:Record<string,Reminder>};
 export type Settings={version:3;theme:'light'|'dark'|'system';preferences:Profile};
 const serviceIds=['npo','viaplay','ziggo','espn','hbo','f1tv'];
-export const defaultSports=['f1','tennis','cycling','football','swimming','motogp','wec','darts','speed','short'];
+export const defaultSports=['f1','tennis','cycling','football','swimming','motogp','wec','darts','speed','short','rugby','hockey'];
 export function defaults(sports:Sport[]):Settings{return {version:3,theme:'dark',preferences:{sports:sports.filter(s=>defaultSports.includes(s.id)).map(s=>s.id),excluded:[],favorites:[],reminders:{}}}}
 function validateProfile(p:Profile,sports:Sport[]):Profile {
  if(!p||!Array.isArray(p.sports)||p.sports.some(id=>!sports.some(t=>t.id===id))||!Array.isArray(p.excluded)||!p.excluded.every(i=>typeof i==='string')||!Array.isArray(p.favorites)||!p.favorites.every(i=>typeof i==='string')||!p.reminders||typeof p.reminders!=='object'||Array.isArray(p.reminders))throw Error('Ongeldige voorkeuren.');

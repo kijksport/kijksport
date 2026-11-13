@@ -134,3 +134,10 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 - Circuits met baangegevens vullen het beeld, met bochtnummers, sectoren en kompas in het detailscherm. Motorsport zonder baankaart toont een startopstelling.
 - Dagweergave is de standaard; avondweergave blijft beschikbaar. Beweging stopt bij 'verminder beweging', buiten beeld en via de knop.
 - Gegevenslaag, kalender, kijkdiensten, delen, back-up en agenda-export zijn ongewijzigd. Lettertype: Bricolage Grotesque (OFL).
+
+## KijkSport 1.1.0
+
+- Ontwerp Speelveld is nu de app op GitHub Pages.
+- Nieuwe sporten: rugby (Six Nations 2027 met alle vijftien wedstrijden, WK 2027) en hockey (EK 2027). Olympische Spelen gesplitst in Zomerspelen en Winterspelen. Voetbal heeft de keuzes EK, WK en Eredivisie.
+- World Cup langebaan in Beijing: uitzendingen op NPO 1 uit de tv-gids toegevoegd (gecontroleerd op 13 november 2026). De ISU-kalender is opnieuw gecontroleerd.
+- Rechtenhouders toegevoegd: ESPN voor de Eredivisie, Eurosport en HBO Max voor de Australian Open, Ziggo Sport voor de Six Nations.
