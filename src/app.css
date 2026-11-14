@@ -22,7 +22,7 @@ svg.veld text{font-family:var(--font);font-stretch:80%}
 .merk img{width:32px;height:32px;border-radius:8px}
 .balk .rond{margin-left:auto}
 .rond{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--lijn);background:var(--kaart);flex:none}
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(4,1fr);background:var(--kaart);border-top:1px solid var(--lijn);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;transform:translateZ(0);-webkit-backface-visibility:hidden;display:grid;grid-template-columns:repeat(4,1fr);background:var(--kaart);border-top:1px solid var(--lijn);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
 .tabs button{position:relative;display:grid;justify-items:center;gap:2px;padding:6px 2px;border-radius:12px;font-size:.78rem;font-weight:600;color:var(--sub)}
 .tabs button.actief{color:var(--ink)}
 .tabs button.actief::before{content:"";position:absolute;top:-6px;width:34px;height:3px;border-radius:0 0 3px 3px;background:var(--rood)}
@@ -50,15 +50,17 @@ section{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
 
 /* Uitgelicht: het veld boven, de tekst eronder op dezelfde ondergrond. Tekst staat nooit over de tekening. */
 .uit{gap:0;border-radius:20px;overflow:hidden;background:var(--vloer);color:var(--inkt);box-shadow:var(--schaduw)}
-.uit-veld{position:relative;aspect-ratio:4/3}
+.uit-kop{display:grid;grid-template-columns:104px minmax(0,1fr);gap:14px;align-items:center;padding:14px 16px 0}
+.uit-veld{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden}
+.uit-hoofd{display:grid;gap:4px;min-width:0}
 .uit-open{display:block;width:100%;height:100%}
-.pauze{position:absolute;right:10px;bottom:10px;display:flex;align-items:center;gap:6px;padding:6px 11px;border-radius:99px;background:rgba(10,18,22,.72);color:#fff;font-size:.78rem;font-weight:600}
-.uit-tekst{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding:18px 16px 18px}
-.uit-soort{font-weight:600;opacity:.9}
-.uit h2{font-size:clamp(2rem,9vw,3.1rem);letter-spacing:-.015em}
+.pauze{position:absolute;right:5px;bottom:5px;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:rgba(10,18,22,.72);color:#fff}
+.uit-tekst{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;padding:12px 16px 16px}
+.uit-soort{font-weight:600;opacity:.9;font-size:.9rem}
+.uit h2{font-size:clamp(1.45rem,6.2vw,2.1rem);letter-spacing:-.01em;overflow-wrap:anywhere}
 .uit-plaats{opacity:.9;font-size:.94rem}
 .uit-tijd{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.uit-tijd b{font-size:clamp(3.4rem,17vw,5rem);font-variant-numeric:tabular-nums;line-height:.86;letter-spacing:-.02em}
+.uit-tijd b{font-size:clamp(2.6rem,12vw,3.4rem);font-variant-numeric:tabular-nums;line-height:.86;letter-spacing:-.02em}
 .uit-tijd span{display:grid;font-weight:700;font-size:1.06rem;line-height:1.25}.uit-tijd small{font-weight:400;font-size:.86rem;opacity:.9}
 .aftellen{font-size:.98rem}.aftellen b{font-variant-numeric:tabular-nums;font-weight:800;font-size:1.2rem}
 .uit-kijk{display:flex;gap:9px;align-items:flex-start;font-weight:700;font-size:1.08rem;line-height:1.3}.uit-kijk svg{flex:none;margin-top:2px}
@@ -188,15 +190,16 @@ dialog.blad::backdrop{background:rgba(6,14,12,.6)}
  dialog.blad{margin:auto;border-radius:22px}
  .lijst{grid-template-columns:repeat(2,minmax(0,1fr))}.lijst .nu,.lijst .leeg{grid-column:1/-1}
 }
+@media (max-width:899px){.tabs.boven{display:none}}
 @media (min-width:900px){
- .tabs{position:static;display:flex;gap:4px;margin-left:18px;padding:0;border:0;background:none}
+ .tabs.onder{display:none}
+ .tabs.boven{position:static;transform:none;display:flex;gap:4px;margin-left:18px;padding:0;border:0;background:none}
  .tabs button{grid-auto-flow:column;align-items:center;gap:8px;padding:9px 14px;font-size:.95rem}
  .tabs button.actief{background:var(--kaart);box-shadow:inset 0 0 0 1px var(--lijn)}.tabs button.actief::before{display:none}
  .tabs b{position:static}
  main{padding-bottom:40px;gap:36px}
  .toast{bottom:28px}
- .uit{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:stretch}
- .uit-veld{aspect-ratio:auto;min-height:420px}.uit-tekst{padding:26px 26px 26px 24px;align-content:center}
+ .uit{max-width:720px}.uit-kop{grid-template-columns:150px minmax(0,1fr)}
  .paginakop.vandaag{padding-right:230px;min-height:120px;align-content:center}
  .hallijnen{display:block;position:absolute;right:0;top:0;width:200px;height:132px;border-radius:12px;background:#c69a5a}
  .tegels{grid-template-columns:repeat(5,minmax(0,1fr))}
@@ -218,3 +221,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .plak small{color:var(--sub);font-size:.84rem}
 .kopie{display:grid;gap:6px;font-size:.9rem}.kopie input{min-height:48px;padding:0 12px;border-radius:12px;background:var(--bg);border:1px solid var(--lijn);width:100%}
 @media (max-width:520px){.plak div{grid-template-columns:minmax(0,1fr)}}
+
+.tv-balk{display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.sorteer{display:flex;align-items:center;gap:8px;font-size:.88rem;font-weight:600}.sorteer select{width:auto;min-height:40px}

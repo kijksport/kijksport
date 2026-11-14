@@ -152,3 +152,9 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 
 - Vandaag is korter: Uitgelicht, Vandaag, Daarna en Wanneer op tv zijn inklapbaar en onthouden hun stand. Wanneer op tv staat onder Daarna en begint ingeklapt; Daarna toont vijf momenten.
 - Delen: de deelknop geeft alleen de link door, er is een aparte knop Kopieer link, en het plakveld haalt de link uit elke geplakte tekst.
+
+## KijkSport 1.3.0 (Speelveld)
+
+- Tabbalk onderaan staat los van de vastgezette kop, zodat hij op oudere iPhones niet meer meescrolt.
+- Uitgelicht is compact: klein veld naast de titel in plaats van een groot veld erboven.
+- Wanneer op tv: eerstvolgende evenement bovenaan, met filters op soort sport en periode en een keuze voor de volgorde.

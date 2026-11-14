@@ -19,6 +19,7 @@ const sportOf=(id:string)=>sports.find(s=>s.id===id)!;
 const statuses={review:'Opnieuw controleren',announced:'Aangekondigd',date:'Datum bevestigd',time:'Begintijd bevestigd',changed:'Gewijzigd',cancelled:'Geannuleerd'};
 const pages=[['Vandaag',Tv],['Agenda',CalendarDays],['Sporten',SlidersHorizontal],['Kijklijst',Bookmark]] as const;
 type Page=typeof pages[number][0];
+const soorten=[{id:'motor',naam:'Motorsport',ids:['f1','motogp','wec']},{id:'bal',naam:'Balsport',ids:['football','tennis','rugby','hockey']},{id:'ijs',naam:'IJs en water',ids:['speed','short','swimming','winter']},{id:'overig',naam:'Overig',ids:['darts','cycling','olympics','athletics','gym','mma']}];
 const cap=(t:string)=>t.charAt(0).toUpperCase()+t.slice(1);
 const shareUrl=(p:Profile)=>location.origin+location.pathname+'#'+shareKey+'='+encodeSelection(p);
 const kleur=(sport:string)=>({'--vloer':vloer(sport).vloer,'--inkt':vloer(sport).inkt,'--accent':vloer(sport).accent}) as React.CSSProperties;
@@ -72,7 +73,7 @@ function App(){
  const[settings,setSettings]=useState<Settings>(()=>{try{const x=localStorage.getItem('sportkijk-v2');return x?validateSettings(JSON.parse(x),sports):{...defaults(sports),theme:'light'}}catch{return {...defaults(sports),theme:'light'}}});
  const[page,setPage]=useState<Page>('Vandaag'),[date,setDate]=useState(day()),[view,setView]=useState('Week'),[search,setSearch]=useState(''),[sportFilter,setSportFilter]=useState('all'),[accessFilter,setAccessFilter]=useState('all');
  const[selected,setSelected]=useState<Event|null>(null),[info,setInfo]=useState(false),[serviceOpen,setServiceOpen]=useState(false),[incoming,setIncoming]=useState<Profile|null>(null);
- const[toast,setToast]=useState(''),[storageError,setStorageError]=useState(''),[qr,setQr]=useState(''),[kopie,setKopie]=useState(''),[beweeg,setBeweeg]=useState(true);
+ const[toast,setToast]=useState(''),[storageError,setStorageError]=useState(''),[qr,setQr]=useState(''),[kopie,setKopie]=useState(''),[tvSoort,setTvSoort]=useState('all'),[tvPeriode,setTvPeriode]=useState('all'),[tvSort,setTvSort]=useState('datum'),[beweeg,setBeweeg]=useState(true);
  const dialog=useRef<HTMLDialogElement>(null),infoDialog=useRef<HTMLDialogElement>(null),serviceDialog=useRef<HTMLDialogElement>(null),importDialog=useRef<HTMLDialogElement>(null),upload=useRef<HTMLInputElement>(null);
  const rustig=useRustig(),now=useNow(30000);
  const p=settings.preferences,favorites=p.favorites,notify=setToast,play=beweeg&&!rustig;
@@ -98,6 +99,9 @@ function App(){
  const upcomingToday=todayEvents.filter(e=>e.iso&&Date.parse(e.iso)>now&&e.status!=='cancelled');
  const summary=todayEvents.length?(todayEvents.length===1?'Eén sportmoment':todayEvents.length+' sportmomenten')+' vandaag.'+(upcomingToday[0]?' De volgende geplande start is om '+time(upcomingToday[0].iso!)+'.':todayEvents.some(e=>e.iso)?' Alle geplande starttijden van vandaag zijn voorbij.':''):'Vandaag staat er niets in jullie selectie.';
  const tvRows=tvPerSport(events.filter(e=>!e.tags.some(t=>p.excluded.includes(e.sport+':'+t))),mine.map(s=>s.id),today,now);
+ const tvMoment=(e?:Event|null)=>e?(e.start<today?today:e.start)+'T'+(e.iso&&e.start>=today?new Date(e.iso).toISOString().slice(11,16):'00:00'):'9999';
+ const tvSoorten=soorten.filter(g=>g.ids.some(id=>p.sports.includes(id)));
+ const tvLijst=tvRows.map(r=>({...r,e:r.tv||r.next})).filter(r=>(tvSoort==='all'||soorten.find(g=>g.id===tvSoort)?.ids.includes(r.sport))&&(tvPeriode==='all'||(!!r.e&&r.e.start<=addDays(today,Number(tvPeriode))))).sort((x,y)=>tvSort==='sport'?sportOf(x.sport).name.localeCompare(sportOf(y.sport).name,'nl'):tvMoment(x.e).localeCompare(tvMoment(y.e)));
  const nav=(n:Page)=>go(()=>{setPage(n);setSearch('');setSportFilter('all');setAccessFilter('all');window.scrollTo(0,0)});
  function exportEvents(es:Event[]){if(!es.length){notify('Bewaar eerst een evenement in je kijklijst.');return}try{download('KijkSport.ics',calendar(es,p.reminders),'text/calendar;charset=utf-8');notify('Agenda gedownload. Open het bestand en voeg het toe aan je agenda.')}catch(e){notify((e as Error).message)}}
  const bewaar=(e:Event)=><button className={'bewaar'+(favorites.includes(e.id)?' aan':'')} aria-pressed={favorites.includes(e.id)} aria-label={(favorites.includes(e.id)?'Verwijder uit':'Bewaar in')+' kijklijst: '+e.title} onClick={()=>favorite(e)}><Bookmark size={20} fill={favorites.includes(e.id)?'currentColor':'none'}/></button>;
@@ -115,21 +119,20 @@ function App(){
  const kop=(title:string,desc:string)=><header className="paginakop"><h1>{title}</h1><p>{desc}</p></header>;
  const tijdlijn=()=>{const heleDag=todayEvents.filter(e=>!e.iso),met=todayEvents.filter(e=>e.iso),i=met.findIndex(e=>Date.parse(e.iso!)>now),nu=<p className="nu" key="nu"><b>Nu</b> {time(new Date(now).toISOString())}</p>;return <div className="lijst">{heleDag.map(e=>rij(e))}{met.flatMap((e,k)=>[...(k===i&&(i>0||heleDag.length)?[nu]:[]),rij(e,i===-1||k<i)])}</div>};
 
+ const tabs=(plek:string)=><nav className={'tabs '+plek} aria-label="Hoofdnavigatie">{pages.map(([n,Icon])=><button key={n} className={page===n?'actief':''} aria-current={page===n?'page':undefined} onClick={()=>nav(n)}><Icon size={21}/><span>{n}</span>{n==='Kijklijst'&&favorites.length>0&&<b>{favorites.length}</b>}</button>)}</nav>;
  return <div className="app">
  <header className="balk"><button className="merk" onClick={()=>nav('Vandaag')}><img src={import.meta.env.BASE_URL+'icon-192.png'} alt=""/>KijkSport</button>
-  <nav className="tabs" aria-label="Hoofdnavigatie">{pages.map(([n,Icon])=><button key={n} className={page===n?'actief':''} aria-current={page===n?'page':undefined} onClick={()=>nav(n)}><Icon size={21}/><span>{n}</span>{n==='Kijklijst'&&favorites.length>0&&<b>{favorites.length}</b>}</button>)}</nav>
+  {tabs('boven')}
   <button className="rond" aria-label={settings.theme==='dark'?'Naar dagweergave':'Naar avondweergave'} onClick={()=>setSettings(s=>({...s,theme:s.theme==='dark'?'light':'dark'}))}>{settings.theme==='dark'?<Sun size={19}/>:<Moon size={19}/>}</button></header>
  <main key={page}>{storageError&&<div role="alert" className="melding">{storageError}</div>}
 
  {page==='Vandaag'&&<>
   <header className="paginakop vandaag"><svg className="hallijnen" viewBox="0 0 400 300" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"><Hallijnen/></svg><h1>Vandaag en verder</h1><p><b>{cap(label(today,{weekday:'long',day:'numeric',month:'long'}))}.</b> {summary}</p></header>
   <Vak id="uit" titel="Uitgelicht" sub={hero?kort(hero.title)+(hero.iso?', '+time(hero.iso):''):undefined}>{hero?<section className="uit" style={kleur(hero.sport)} aria-labelledby="uit-titel">
-   <div className="uit-veld"><button className="uit-open" onClick={()=>setSelected(hero)} aria-label={'Bekijk details van '+hero.title}><Veld sport={hero.sport} event={hero} play={play}/></button>
-    <button className="pauze" aria-pressed={!beweeg} onClick={()=>setBeweeg(!beweeg)}>{beweeg?<Pause size={15}/>:<Play size={15}/>}{beweeg?'Zet beweging stil':'Laat bewegen'}</button></div>
+   <div className="uit-kop"><div className="uit-veld"><button className="uit-open" onClick={()=>setSelected(hero)} aria-label={'Bekijk details van '+hero.title}><Veld sport={hero.sport} event={hero} play={play} mini/></button>
+     <button className="pauze" aria-pressed={!beweeg} aria-label={beweeg?'Zet beweging stil':'Laat bewegen'} onClick={()=>setBeweeg(!beweeg)}>{beweeg?<Pause size={14}/>:<Play size={14}/>}</button></div>
+    <div className="uit-hoofd"><p className="uit-soort">{sportOf(hero.sport).name}, {occurs(hero,today)?'vandaag':'eerstvolgende'}</p><h2 id="uit-titel">{kort(hero.title)}</h2>{hero.venue&&<p className="uit-plaats">{hero.venue}</p>}</div></div>
    <div className="uit-tekst">
-    <p className="uit-soort">{sportOf(hero.sport).name}, {occurs(hero,today)?'uitgelicht vandaag':'eerstvolgende hoogtepunt'}</p>
-    <h2 id="uit-titel">{kort(hero.title)}</h2>
-    {hero.venue&&<p className="uit-plaats">{hero.venue}</p>}
     <div className="uit-tijd">{hero.iso&&<b>{time(hero.iso)}</b>}<span>{hero.start===hero.end?cap(label(hero.start,{weekday:'long',day:'numeric',month:'long'})):wanneer(hero,today)}<small>{hero.iso?'Nederlandse tijd':hero.start!==hero.end?'Meerdaags evenement':'Begintijd nog niet bekend'}</small></span></div>
     {hero.iso&&hero.status!=='cancelled'&&<Aftellen iso={hero.iso}/>}
     <p className="uit-kijk"><Tv size={18}/><span>{hero.broadcast?watch(hero):'Uitzending nog onbekend'}</span></p>{access(hero)!=='unknown'&&badge(hero,true)}{hero.desc&&<p className="uit-plaats">{hero.desc}</p>}
@@ -144,7 +147,11 @@ function App(){
   </Vak>
   {soon.length>0&&<Vak id="daarna" titel="Daarna" sub={'De volgende '+soon.length+' momenten'}><div className="lijst">{soon.map(e=>rij(e))}</div></Vak>}
   <Vak id="tv" titel="Wanneer op tv" sub="Per sport het eerstvolgende moment" dicht>
-   <div className="tegels">{tvRows.map(r=>{const e=r.tv||r.next,s=sportOf(r.sport);return <button className="tegel" key={r.sport} style={kleur(r.sport)} disabled={!e} onClick={()=>e&&setSelected(e)}><Veld sport={r.sport} event={e} mini/><span className="tegel-tekst"><strong>{s.name}</strong>{e?<><span className="tegel-wanneer">{e.iso&&<b>{time(e.iso)}</b>}{wanneer(e,today)}</span><span>{kort(e.title)}</span><span className="tegel-zender">{r.tv?watch(r.tv):'Kijkinfo volgt'}</span></>:<span>Niets gepland in de kalender</span>}</span></button>})}</div>
+   <div className="filters"><div className="chips" role="group" aria-label="Filter op soort sport"><button aria-pressed={tvSoort==='all'} onClick={()=>setTvSoort('all')}>Alle soorten</button>{tvSoorten.map(g=><button key={g.id} aria-pressed={tvSoort===g.id} onClick={()=>setTvSoort(g.id)}>{g.naam}</button>)}</div>
+    <div className="tv-balk"><div className="keuze" role="group" aria-label="Filter op datum">{[['all','Alles'],['7','7 dagen'],['30','30 dagen']].map(([id,naam])=><button key={id} aria-pressed={tvPeriode===id} onClick={()=>setTvPeriode(id)}>{naam}</button>)}</div>
+     <label className="sorteer">Volgorde<select value={tvSort} onChange={e=>setTvSort(e.target.value)}><option value="datum">Eerstvolgende eerst</option><option value="sport">Sport, A tot Z</option></select></label></div></div>
+   {!tvLijst.length&&<p className="stil">Geen sport binnen dit filter. Kies een andere soort of een langere periode.</p>}
+   <div className="tegels">{tvLijst.map(r=>{const e=r.e,s=sportOf(r.sport);return <button className="tegel" key={r.sport} style={kleur(r.sport)} disabled={!e} onClick={()=>e&&setSelected(e)}><Veld sport={r.sport} event={e} mini/><span className="tegel-tekst"><strong>{s.name}</strong>{e?<><span className="tegel-wanneer">{e.iso&&<b>{time(e.iso)}</b>}{wanneer(e,today)}</span><span>{kort(e.title)}</span><span className="tegel-zender">{r.tv?watch(r.tv):'Kijkinfo volgt'}</span></>:<span>Niets gepland in de kalender</span>}</span></button>})}</div>
    <p className="klein">Een zender met de toevoeging rechtenhouder betekent: deze zender heeft de Nederlandse uitzendrechten van de serie. De uitzending per wedstrijd is niet afzonderlijk gecontroleerd.</p></Vak>
   <button className="diensten" onClick={()=>setServiceOpen(true)}><span className="stapel">{(p.services||[]).slice(0,4).map(id=>{const v=services.find(v=>v.id===id)!;return <i key={id} style={{background:v.color}}>{v.mark}</i>})}{!p.services?.length&&<Settings2 size={22}/>}</span><span><b>{p.servicesConfigured?'Jullie kijkdiensten':'Waar kijken jullie?'}</b><small>{p.servicesConfigured?(p.services||[]).length+' geselecteerd. Wijzig je selectie.':'Kies je diensten, dan zie je wat binnen je abonnementen valt.'}</small></span></button>
   <p className="noot"><Info size={17}/><span>Een bewuste selectie, geen live tv-gids. Tijden zijn de geplande starttijden; ongecontroleerde gegevens zijn gemarkeerd. <button onClick={()=>setInfo(true)}>Over de bronnen</button></span></p>
@@ -212,6 +219,7 @@ function App(){
   <button className="knop vol" onClick={()=>setInfo(false)}>Sluit</button></div></dialog>
 
  <dialog ref={importDialog} className="blad smal" onCancel={()=>setIncoming(null)}>{incoming&&<div className="blad-inhoud"><div className="blad-top"><h2>Selectie overnemen?</h2><button className="rond" aria-label="Sluit" onClick={()=>setIncoming(null)}><X/></button></div><p>Deze link bevat {incoming.sports.length} sporten, {(incoming.services||[]).length} kijkdiensten, {incoming.favorites.length} evenementen op de kijklijst en {Object.keys(incoming.reminders).length} herinneringen. Overnemen vervangt de selectie op dit toestel.</p><div className="acties"><button className="knop" onClick={()=>setIncoming(null)}>Niet nu</button><button className="knop vol" onClick={()=>{setSettings(s=>({...s,preferences:incoming}));setIncoming(null);notify('Selectie overgenomen.')}}><Check size={17}/>Neem selectie over</button></div></div>}</dialog>
+ {tabs('onder')}
  {toast&&<div className="toast" role="status"><Check size={18}/>{toast}</div>}
  </div>;
 }
