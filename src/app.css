@@ -224,3 +224,69 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 .tv-balk{display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 .sorteer{display:flex;align-items:center;gap:8px;font-size:.88rem;font-weight:600}.sorteer select{width:auto;min-height:40px}
+
+/* ---- Tv-vormtaal: schuine platen, smalle vette cijfers, een dunne accentstreep. Tekst staat altijd op een dichte plaat. ---- */
+.zender{display:inline-flex;align-items:center;gap:6px;flex:0 1 auto;min-width:0;max-width:62%;font-size:.76rem}
+.zender small{font-size:.68rem;color:var(--sub)}
+.zender b{padding:2px 9px;background:var(--ink);color:var(--bg);font-weight:700;transform:skewX(-10deg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.zender.geen{padding:2px 9px;border:1px dashed var(--sub);color:var(--sub);transform:skewX(-10deg);font-weight:600}
+.tv{display:grid;grid-template-columns:minmax(0,1fr);gap:0;border-radius:18px;overflow:hidden;background:var(--kaart);color:var(--ink);border:1px solid var(--lijn);box-shadow:var(--schaduw)}
+.tv-beeld{position:relative;aspect-ratio:16/10;background:var(--vloer)}
+.tv-bug{padding:3px 10px;font-size:.76rem;font-weight:700;background:var(--ink);color:var(--bg);border-left:4px solid var(--accent);transform:skewX(-10deg);white-space:nowrap}
+.tv-beeld .tv-bug{position:absolute;left:12px;top:10px;background:rgba(8,14,17,.84);color:#fff}
+.tv-beeld .zender{position:absolute;right:12px;top:10px}.tv-beeld .zender small{padding:1px 6px;background:rgba(8,14,17,.84);color:#fff}.tv-beeld .zender b{background:#fff;color:#0f1b21}.tv-beeld .zender.geen{background:rgba(8,14,17,.84);color:#fff;border-color:#fff}
+.tv .pauze{right:12px;top:42px;bottom:auto}
+.tv-balk3{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);margin:-34px 14px 0;box-shadow:0 6px 18px rgba(0,0,0,.28)}
+.strak .tv-balk3{margin-top:4px}
+.tv-tijd{display:grid;place-items:center;padding:6px 14px;background:var(--accent);background:color-mix(in srgb,var(--accent) 80%,#000);color:#fff;font-size:1.9rem;font-weight:800;font-stretch:78%;font-variant-numeric:tabular-nums;white-space:nowrap;clip-path:polygon(10px 0,100% 0,100% 100%,0 100%)}
+.tv-naam{display:grid;align-content:center;gap:1px;padding:8px 14px 8px 12px;background:#fff;color:#0f1b21;min-width:0;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+.tv-naam b{font-size:1.14rem;font-weight:800;font-stretch:80%;line-height:1.1;overflow-wrap:anywhere}.tv-naam small{font-size:.8rem;color:#44545b}
+.tv-onder{display:flex;align-items:center;gap:10px;padding:14px 14px 12px 16px}.tv-onder .aftellen{flex:1;font-size:.92rem}
+.tv-onder .knop{min-height:42px;padding:0 16px}.tv-onder .bewaar{width:42px;height:42px}
+.tv-meer{display:grid;gap:10px;padding:0 16px 14px;font-size:.92rem;color:var(--sub)}.tv-meer .weetje{color:var(--ink)}
+.tv8-kop{display:flex;align-items:center;gap:10px;padding:12px 14px 8px}.tv8-kop>b{flex:1;min-width:0;font-size:1.25rem;font-weight:800;font-stretch:80%}
+.tv8-rij{display:grid;grid-template-columns:minmax(0,172px) minmax(0,1fr);gap:4px;padding:0 0 0 14px;align-items:center}
+.toren{display:grid;gap:3px}
+.toren button{display:grid;grid-template-columns:22px 46px 26px 1fr;align-items:stretch;gap:6px;width:100%;padding-right:8px;background:var(--bg);font-size:.82rem;min-height:30px}
+.toren button>*{display:grid;align-items:center}
+.toren i{justify-items:center;background:var(--ink);color:var(--bg);font-style:normal;font-weight:800;font-size:.78rem}
+.toren b{font-weight:800;font-stretch:80%;font-size:.92rem}.toren span{color:var(--sub)}.toren em{font-style:normal;font-weight:700;font-variant-numeric:tabular-nums;justify-items:end}
+.toren .was{opacity:.55}
+.toren .deze{background:var(--accent);background:color-mix(in srgb,var(--accent) 80%,#000);color:#fff}.toren .deze span{color:#fff}
+.tv8-veld{position:relative;height:200px;background:var(--vloer);border-radius:14px 0 0 14px}.tv8-veld .pauze{top:auto;bottom:8px;right:8px}
+svg.kaal{background:transparent!important}svg.kaal>g:first-child{display:none}
+
+.g{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding:10px 12px 12px;border-radius:14px;background:var(--kaart);border:1px solid var(--lijn);border-top:3px solid var(--accent)}
+.g-kop{display:flex;align-items:center;gap:8px;font-size:.82rem;font-weight:700;min-height:32px}.g-kop>span:first-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.g-kop .bewaar{width:34px;height:34px;border:0;margin-right:-6px}
+.g-open{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;width:100%}
+.g small{color:var(--sub);font-size:.8rem}
+.g-titel{font-size:1.08rem;font-weight:800;font-stretch:80%;line-height:1.15}
+.bug{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:stretch;text-align:center;font-stretch:80%}
+.bug b{display:grid;place-items:center;padding:8px 6px;background:var(--bg);font-size:1.12rem;font-weight:800;line-height:1.1;overflow-wrap:anywhere}
+.bug em{display:grid;place-items:center;padding:4px 14px;background:var(--accent);background:color-mix(in srgb,var(--accent) 80%,#000);color:#fff;font-style:normal;font-size:1.5rem;font-weight:800;font-variant-numeric:tabular-nums}
+.bord{display:grid;grid-template-columns:62px 62px minmax(0,1fr);gap:4px;align-items:stretch}
+.bord>span{display:grid;justify-items:center;align-content:center;padding:4px;background:var(--ink);color:var(--bg)}.bord>span small{color:inherit;opacity:.75}
+.bord b{font-size:1.8rem;font-weight:800;font-stretch:78%;line-height:1}.bord b i{font-style:normal;font-size:.9rem;margin-left:1px}
+.bord .bord-tekst{justify-items:start;padding:6px 10px;background:var(--bg);color:var(--ink);font-size:.86rem;line-height:1.3}
+.splits{display:grid;gap:3px}.splits>span{display:grid;grid-template-columns:34px 64px minmax(0,1fr);align-items:stretch;gap:8px;background:var(--bg);min-height:30px;font-size:.86rem}
+.splits>span>*{display:grid;align-items:center}
+.splits b{justify-items:center;background:var(--accent);background:color-mix(in srgb,var(--accent) 80%,#000);color:#fff;font-weight:800}.splits span span{font-weight:800;font-size:1.05rem;font-variant-numeric:tabular-nums}.splits em{font-style:normal;color:var(--sub)}
+.splits .was{opacity:.55}.splits .nu{outline:2px solid var(--ink);outline-offset:-2px}.splits .nu em{color:var(--ink);font-weight:700}
+.tijdplaat{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:stretch}
+.tijdplaat em{display:grid;place-items:center;padding:4px 12px;background:var(--accent);background:color-mix(in srgb,var(--accent) 80%,#000);color:#fff;font-style:normal;font-size:1.5rem;font-weight:800;font-stretch:78%;font-variant-numeric:tabular-nums}
+.tijdplaat>span{display:grid;align-content:center;gap:1px;padding:7px 10px;background:var(--bg);min-width:0}.tijdplaat strong{font-size:1.04rem;font-weight:800;font-stretch:80%;line-height:1.12;overflow-wrap:anywhere}
+.togo{position:relative;height:10px;background:var(--bg);border-radius:5px;overflow:hidden}.togo span{position:absolute;inset:0;background:var(--accent);border-radius:5px}
+.g-voet2{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}.g-voet2 b{font-size:1.12rem;font-weight:800;font-stretch:80%}
+.g-extra{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.g.voorbij{opacity:.62}.g.vervallen .g-titel,.g.vervallen .tijdplaat strong,.g.vervallen .bug b{text-decoration:line-through}
+.sport-streep{height:6px;background:var(--vloer)}
+.sport-veld{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 14px;border-top:1px solid var(--lijn);font-size:.9rem}
+.sport-veld.breed{padding:12px 0 0;border-top:1px solid var(--lijn)}.sport-veld span{display:grid}.sport-veld small{color:var(--sub)}
+.schakel.klein{width:44px;height:26px}.schakel.klein span{width:20px;height:20px}.schakel.klein[aria-checked="true"] span{transform:translateX(18px)}
+.schakel:disabled{opacity:.4}
+.blad-zonder{display:flex;justify-content:flex-end;padding:10px 10px 0;background:var(--vloer)}.blad-zonder .sluit{background:rgba(10,18,22,.72);color:#fff;border-color:transparent}
+.tegel:not(:has(.veld)){border-top:6px solid var(--accent)}
+@media (min-width:900px){.tv{max-width:720px}.tv8-rij{grid-template-columns:220px minmax(0,1fr)}.tv8-veld{height:260px}}
+.tv-onder .aftellen b{white-space:nowrap;font-size:1.05rem}
+.g-recht{display:block}

@@ -2,3 +2,5 @@ node_modules/
 dist/
 *.tmp
 preview/
+mock/
+vite.mock.config.ts

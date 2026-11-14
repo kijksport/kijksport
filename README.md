@@ -158,3 +158,9 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 - Tabbalk onderaan staat los van de vastgezette kop, zodat hij op oudere iPhones niet meer meescrolt.
 - Uitgelicht is compact: klein veld naast de titel in plaats van een groot veld erboven.
 - Wanneer op tv: eerstvolgende evenement bovenaan, met filters op soort sport en periode en een keuze voor de volgorde.
+
+## KijkSport 1.4.0 (Speelveld)
+
+- Vormgeving in de stijl van tv-graphics, met een eigen vormtaal: regiebalk in Uitgelicht, tijdentoren met het weekendprogramma bij motorsport, en per evenement een scorebalk, toernooibord, tijdenbord of aftelbalk.
+- Uitzenddagen van een toernooi staan als tijdenbord in het toernooi zelf en niet meer los in dezelfde lijst.
+- Weergave per toestel (pagina Sporten): per sport kiezen of circuit, baan of veld in beeld komt (standaard alleen bij motorsport), en sportfeiten aan of uit.
