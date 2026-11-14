@@ -10,6 +10,8 @@ Elke maandagochtend worden de evenementen van de komende veertien dagen nagekeke
 - Een tijd die het begin van een tv-uitzending is en niet de start van de wedstrijd, staat zo in `desc`.
 - Bij tegenstrijdige bronnen gaat de organisator of bond voor; de afwijking wordt gemeld.
 - Tijden in `iso` zijn UTC; de app toont Nederlandse tijd.
+- Nederlandse deelname staat in het veld `nl` (`text`, `source`, `label`, `checked`). Alleen invullen als een bron de deelnemers noemt, bijvoorbeeld een loting, startlijst of selectie. Geen bron: het veld weglaten.
+- Viaplay Nederland is sinds 30 oktober 2026 van DPG Media. Formule 1 en darts blijven voorlopig in de Viaplay-app; de overstap naar Videoland is aangekondigd voor later. Controleer bij elke ronde of dat is veranderd.
 
 ## Werkwijze
 

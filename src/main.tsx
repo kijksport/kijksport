@@ -78,7 +78,7 @@ function App(){
  const[settings,setSettings]=useState<Settings>(()=>{try{const x=localStorage.getItem('sportkijk-v2');return x?validateSettings(JSON.parse(x),sports):{...defaults(sports),theme:'light'}}catch{return {...defaults(sports),theme:'light'}}});
  const[page,setPage]=useState<Page>('Vandaag'),[date,setDate]=useState(day()),[view,setView]=useState('Week'),[search,setSearch]=useState(''),[sportFilter,setSportFilter]=useState('all'),[accessFilter,setAccessFilter]=useState('all');
  const[selected,setSelected]=useState<Event|null>(null),[info,setInfo]=useState(false),[serviceOpen,setServiceOpen]=useState(false),[incoming,setIncoming]=useState<Profile|null>(null);
- const[toast,setToast]=useState(''),[storageError,setStorageError]=useState(''),[qr,setQr]=useState(''),[kopie,setKopie]=useState(''),[weergave,setWeergave]=useState<Weergave>(()=>{try{const w=JSON.parse(localStorage.getItem('kijksport-weergave')||'{}');return {veld:w.veld&&typeof w.veld==='object'?w.veld:{},feiten:w.feiten!==false}}catch{return {veld:{},feiten:true}}}),[tvSoort,setTvSoort]=useState('all'),[tvPeriode,setTvPeriode]=useState('all'),[tvSort,setTvSort]=useState('datum'),[beweeg,setBeweeg]=useState(true);
+ const[toast,setToast]=useState(''),[storageError,setStorageError]=useState(''),[qr,setQr]=useState(''),[kopie,setKopie]=useState(''),[infoOpen,setInfoOpen]=useState<string|null>(null),[weergave,setWeergave]=useState<Weergave>(()=>{try{const w=JSON.parse(localStorage.getItem('kijksport-weergave')||'{}');return {veld:w.veld&&typeof w.veld==='object'?w.veld:{},feiten:w.feiten!==false}}catch{return {veld:{},feiten:true}}}),[tvSoort,setTvSoort]=useState('all'),[tvPeriode,setTvPeriode]=useState('all'),[tvSort,setTvSort]=useState('datum'),[beweeg,setBeweeg]=useState(true);
  const dialog=useRef<HTMLDialogElement>(null),infoDialog=useRef<HTMLDialogElement>(null),serviceDialog=useRef<HTMLDialogElement>(null),importDialog=useRef<HTMLDialogElement>(null),upload=useRef<HTMLInputElement>(null);
  const rustig=useRustig(),now=useNow(30000);
  const p=settings.preferences,favorites=p.favorites,notify=setToast,play=beweeg&&!rustig;
@@ -117,19 +117,30 @@ function App(){
  const opRechten=(e:Event)=>e.status!=='cancelled'&&!!e.broadcast&&watch(e).includes('(rechtenhouder)');
  const kinderen=(m:Event)=>m.start===m.end||m.iso?[]:sortEvents(events.filter(c=>c.id!==m.id&&c.sport===m.sport&&!!c.iso&&c.start>=m.start&&c.start<=m.end&&c.title.startsWith(m.title)));
  const dagNaam=(d:string)=>d===today?'vandaag':d===addDays(today,1)?'morgen':d<today?'geweest':label(d,{day:'numeric',month:'short'});
+ // Wat we over een evenement weten, met bron. Wat niet is nagekeken staat er als zodanig.
+ const infoBlok=(e:Event)=><dl className="g-info">
+  <div><dt>Plaats</dt><dd>{e.venue||'Nog niet bekend'}</dd></div>
+  <div><dt>Wanneer</dt><dd>{cap(label(e.start,{weekday:'long',day:'numeric',month:'long',year:'numeric'}))}{e.end!==e.start?' tot en met '+label(e.end,{weekday:'long',day:'numeric',month:'long'}):''}{e.iso?', '+time(e.iso)+' uur Nederlandse tijd':''}</dd></div>
+  <div><dt>Nederlanders</dt><dd>{e.nl?<>{e.nl.text} <a href={e.nl.source} target="_blank" rel="noreferrer">Bron: {e.nl.label}</a>, gecontroleerd {label(e.nl.checked,{day:'numeric',month:'short'})}.</>:'Nog niet nagekeken voor dit evenement.'}</dd></div>
+  {e.desc&&<div><dt>Goed om te weten</dt><dd>{e.desc}</dd></div>}
+  <div><dt>Gegevens</dt><dd>{statuses[e.status]}. {e.checked?'Gecontroleerd op '+label(e.checked,{day:'numeric',month:'short',year:'numeric'})+'.':'Nog niet opnieuw gecontroleerd.'}</dd></div>
+ </dl>;
  /** Eén evenement als tv-graphic: scorebalk bij een duel, bord bij een toernooi, tijdenbord bij uitzenddagen, aftelbalk bij een dag zonder tijd. */
  const rij=(e:Event,voorbij=false)=>{
   const t=kort(e.title),deel=t.split(' • '),duel=deel[deel.length-1].split(' – '),isDuel=duel.length===2&&!!e.iso,meerdaags=e.start!==e.end,kids=kinderen(e),over=dagenTussen(today,e.start);
   const body=isDuel?<><span className="bug"><b>{duel[0]}</b><em>{time(e.iso!)}</em><b>{duel[1]}</b></span><small>{wanneer(e,today)}{deel.length>1?', '+deel.slice(0,-1).join(' • '):''}</small></>
-   :meerdaags?<><strong className="g-titel">{t}</strong><span className="bord">{over>0?<><span><small>Over</small><b>{over}</b></span><span><small>{over===1?'dag':'dagen'}</small><b>{dagenTussen(e.start,e.end)+1}<i>d</i></b></span></>:<><span><small>Dag</small><b>{dagenTussen(e.start,today)+1}</b></span><span><small>van</small><b>{dagenTussen(e.start,e.end)+1}</b></span></>}<span className="bord-tekst">{label(e.start,e.start.slice(0,7)===e.end.slice(0,7)?{day:'numeric'}:{day:'numeric',month:'short'})} t/m {label(e.end,{day:'numeric',month:'long'})}{e.venue&&<><br/>{e.venue}</>}</span></span>
+   :meerdaags?<><strong className="g-titel">{t}</strong>{(()=>{const n=dagenTussen(e.start,e.end)+1,nu=dagenTussen(e.start,today);return <span className="dagen" role="img" aria-label={over>0?'Begint over '+over+(over===1?' dag':' dagen')+', duurt '+n+' dagen':'Dag '+(nu+1)+' van '+n}>
+      {n<=16?<span className="dagen-vakjes">{Array.from({length:n},(_,i)=><i key={i} className={over>0?'':i<nu?'was':i===nu?'nu':''}/>)}</span>:<span className="dagen-lijn"><i style={{width:over>0?'0%':Math.min(100,(nu+1)/n*100)+'%'}}/></span>}
+      <span className="dagen-tekst"><span>{label(e.start,e.start.slice(0,7)===e.end.slice(0,7)?{day:'numeric'}:{day:'numeric',month:'short'})} t/m {label(e.end,{day:'numeric',month:'long'})}{e.venue?', '+e.venue:''}</span><em>{over>0?'over '+over+(over===1?' dag':' dagen'):'dag '+(nu+1)+' van '+n}</em></span></span>})()}
      {kids.length>0&&<span className="splits">{kids.slice(0,4).map(c=><span key={c.id} className={c.start<today||(c.start===today&&Date.parse(c.iso!)<now)?'was':c.start===today?'nu':''}><b>{label(c.start,{weekday:'short'})}</b><span>{time(c.iso!)}</span><em>{c.start===today&&Date.parse(c.iso!)<now?'vandaag geweest':dagNaam(c.start)}</em></span>)}</span>}</>
    :e.iso?<span className="tijdplaat"><em>{time(e.iso)}</em><span><strong>{t}</strong><small>{wanneer(e,today)}{e.venue?', '+e.venue:''}</small></span></span>
    :<><strong className="g-titel">{t}</strong><span className="togo"><span style={{right:Math.min(96,Math.max(0,over/180*100))+'%'}}/></span><span className="g-voet2"><b>{over>0?'Nog '+over+(over===1?' dag':' dagen'):'Vandaag, tijd volgt'}</b><small>{cap(label(e.start,{weekday:'long',day:'numeric',month:'long',year:'numeric'}))}</small></span></>;
   return <article className={'g'+(voorbij?' voorbij':'')+(e.status==='cancelled'?' vervallen':'')} key={e.id} style={kleur(e.sport)}>
-   <div className="g-kop"><span>{sportOf(e.sport).name}</span>{zender(e)}{bewaar(e)}</div>
+   <div className="g-kop"><span>{sportOf(e.sport).name}</span>{zender(e)}<button className="info-knop" aria-expanded={infoOpen===e.id} aria-label={'Meer over '+e.title} onClick={()=>setInfoOpen(infoOpen===e.id?null:e.id)}><Info size={19}/></button>{bewaar(e)}</div>
    <button className="g-open" onClick={()=>setSelected(e)} aria-label={'Bekijk details van '+e.title}>{body}
     {opRechten(e)&&<small className="g-recht">Zender volgens de uitzendrechten</small>}
-    {(access(e)==='available'||access(e)==='other'||(p.reminders[e.id]?.mode&&p.reminders[e.id].mode!=='none'))&&<span className="g-extra">{(access(e)==='available'||access(e)==='other')&&badge(e)}{p.reminders[e.id]?.mode&&p.reminders[e.id].mode!=='none'&&<span className="herinnering"><Bell size={12}/>Herinnering in agenda-export</span>}</span>}</button></article>};
+    {(access(e)==='available'||access(e)==='other'||(p.reminders[e.id]?.mode&&p.reminders[e.id].mode!=='none'))&&<span className="g-extra">{(access(e)==='available'||access(e)==='other')&&badge(e)}{p.reminders[e.id]?.mode&&p.reminders[e.id].mode!=='none'&&<span className="herinnering"><Bell size={12}/>Herinnering in agenda-export</span>}</span>}</button>
+   {infoOpen===e.id&&infoBlok(e)}</article>};
  // In een lijst staat een uitzenddag niet nog eens los als het toernooi zelf er al staat.
  const zonderKinderen=(es:Event[])=>{const weg=new Set(es.flatMap(m=>kinderen(m).map(c=>c.id)));return es.filter(e=>!weg.has(e.id))};
  const leeg=(text='Geen evenementen in deze selectie.')=><div className="leeg"><svg viewBox="0 0 400 300" aria-hidden="true"><Hallijnen/></svg><h3>{text}</h3><p>De kalender is een selectie, geen complete wedstrijdgids.</p><button className="knop" onClick={()=>nav('Sporten')}>Pas je sporten aan</button></div>;
@@ -222,6 +233,7 @@ function App(){
     {selected.broadcast?<ul>{viewingOptions(selected).map(o=><li key={o.provider}><b>{o.provider}</b><span>{o.note||(o.basis==='rechten'?'Rechtenhouder in Nederland; uitzending per wedstrijd niet afzonderlijk gecontroleerd.':o.basis==='opgegeven'?'Door jullie zelf opgegeven.':'Kijkdienst bevestigd in de tv-gids; de tijd hierboven is de start van de sportsessie.')}</span><a href={o.url} target="_blank" rel="noreferrer">Naar {o.provider}<ExternalLink size={14}/></a></li>)}</ul>:<p>Er is nog geen gecontroleerde Nederlandse zender of streamingdienst opgenomen.</p>}
     <button className="tekstknop" onClick={()=>setServiceOpen(true)}>Wijzig mijn kijkdiensten</button></section>
    <p>{selected.desc||'Wedstrijdschema en deelnemers zijn nog niet opgenomen. Open de officiële bron voor meer informatie.'}</p>
+   {selected.nl&&<p><b>Nederlanders.</b> {selected.nl.text} <a href={selected.nl.source} target="_blank" rel="noreferrer">Bron: {selected.nl.label}</a>, gecontroleerd {label(selected.nl.checked,{day:'numeric',month:'short'})}.</p>}
    {weergave.feiten&&<Weetje sport={selected.sport}/>}
    <p className="status"><span className={selected.status==='review'?'':'ok'}>{statuses[selected.status]}</span>Laatst gecontroleerd: {selected.checked?label(selected.checked,{day:'numeric',month:'short',year:'numeric'}):'nog niet opnieuw gevalideerd'}</p>
    <a className="bron" href={selected.source} target="_blank" rel="noreferrer"><ShieldCheck size={18}/>Bekijk de oorspronkelijke bron<ExternalLink size={15}/></a>

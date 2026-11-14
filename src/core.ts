@@ -1,6 +1,8 @@
 /** Waarop een kijkmogelijkheid berust: tv-gids per uitzending, uitzendrechten van de serie, of door de gebruiker opgegeven. */
 export type Basis='gids'|'rechten'|'opgegeven';
-export type Event = {id:string;sport:string;title:string;start:string;end:string;iso:string|null;source:string;desc:string;venue:string;highlight:boolean;tags:string[];status:'review'|'announced'|'date'|'time'|'changed'|'cancelled';checked:string|null;broadcast:{provider:string;url:string;checked:string;basis?:Basis;note?:string;alt?:{provider:string;url:string;basis?:Basis;note?:string}[]}|null;duration?:number|null;pool?:number;previous?:string};
+export type Event = {id:string;sport:string;title:string;start:string;end:string;iso:string|null;source:string;desc:string;venue:string;highlight:boolean;tags:string[];status:'review'|'announced'|'date'|'time'|'changed'|'cancelled';checked:string|null;broadcast:{provider:string;url:string;checked:string;basis?:Basis;note?:string;alt?:{provider:string;url:string;basis?:Basis;note?:string}[]}|null;duration?:number|null;pool?:number;
+ /** Nederlandse deelname, alleen ingevuld met bron en controledatum. */
+ nl?:{text:string;source:string;label:string;checked:string};previous?:string};
 export type Sport={id:string;name:string;icon:string;color:string;options:{id:string;name:string}[]};
 export const zone='Europe/Amsterdam';
 export const day=(d=new Date())=>new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit'}).format(d);

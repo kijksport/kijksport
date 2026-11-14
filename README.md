@@ -164,3 +164,8 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 - Vormgeving in de stijl van tv-graphics, met een eigen vormtaal: regiebalk in Uitgelicht, tijdentoren met het weekendprogramma bij motorsport, en per evenement een scorebalk, toernooibord, tijdenbord of aftelbalk.
 - Uitzenddagen van een toernooi staan als tijdenbord in het toernooi zelf en niet meer los in dezelfde lijst.
 - Weergave per toestel (pagina Sporten): per sport kiezen of circuit, baan of veld in beeld komt (standaard alleen bij motorsport), en sportfeiten aan of uit.
+
+## KijkSport 1.4.1 (Speelveld)
+
+- Meerdaagse evenementen tonen een rij kleine vakjes, een per dag, in plaats van de blokken met dagnummers.
+- Informatieknop per evenement: plaats, periode, Nederlandse deelname (alleen met bron), toelichting en controlestatus.

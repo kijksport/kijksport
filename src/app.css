@@ -290,3 +290,13 @@ svg.kaal{background:transparent!important}svg.kaal>g:first-child{display:none}
 @media (min-width:900px){.tv{max-width:720px}.tv8-rij{grid-template-columns:220px minmax(0,1fr)}.tv8-veld{height:260px}}
 .tv-onder .aftellen b{white-space:nowrap;font-size:1.05rem}
 .g-recht{display:block}
+
+/* Meerdaags: een rij kleine vakjes, een per dag; vandaag is gevuld. */
+.dagen{display:grid;gap:6px}
+.dagen-vakjes{display:flex;gap:3px}.dagen-vakjes i{flex:1;max-width:44px;height:6px;border-radius:3px;background:var(--lijn)}
+.dagen-vakjes .was{background:var(--sub);opacity:.55}.dagen-vakjes .nu{background:var(--accent);height:6px;box-shadow:0 0 0 2px var(--kaart),0 0 0 3px var(--accent)}
+.dagen-lijn{height:6px;border-radius:3px;background:var(--lijn);overflow:hidden}.dagen-lijn i{display:block;height:100%;background:var(--accent)}
+.dagen-tekst{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:.86rem;color:var(--sub)}.dagen-tekst em{font-style:normal;font-weight:700;color:var(--ink);white-space:nowrap}
+.info-knop{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;flex:none;color:var(--sub)}.info-knop[aria-expanded="true"]{color:var(--ink);background:var(--bg)}
+.g-info{display:grid;gap:8px;padding-top:10px;border-top:1px solid var(--lijn);font-size:.88rem}
+.g-info div{display:grid;grid-template-columns:104px minmax(0,1fr);gap:10px}.g-info dt{color:var(--sub)}.g-info dd{line-height:1.4}
