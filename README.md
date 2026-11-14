@@ -169,3 +169,8 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 
 - Meerdaagse evenementen tonen een rij kleine vakjes, een per dag, in plaats van de blokken met dagnummers.
 - Informatieknop per evenement: plaats, periode, Nederlandse deelname (alleen met bron), toelichting en controlestatus.
+
+## KijkSport 1.5.0 (Speelveld)
+
+- Informatieknop naast de knop voor licht en donker: een handleiding in uitklapbare onderwerpen (werking, een evenement lezen, instellingen, kijklijst, bijwerken, gegevens, privacy).
+- Delen met een tweede telefoon en de back-up (export en import) staan nu in dat scherm in plaats van op de pagina Sporten.

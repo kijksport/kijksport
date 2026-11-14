@@ -20,7 +20,7 @@ svg.veld text{font-family:var(--font);font-stretch:80%}
 .balk{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;gap:12px;padding-block:10px;background:var(--bg)}
 .merk{display:flex;align-items:center;gap:9px;font-weight:800;font-stretch:80%;font-size:1.45rem;letter-spacing:-.01em}
 .merk img{width:32px;height:32px;border-radius:8px}
-.balk .rond{margin-left:auto}
+.balk-knoppen{display:flex;gap:8px;margin-left:auto}
 .rond{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--lijn);background:var(--kaart);flex:none}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;transform:translateZ(0);-webkit-backface-visibility:hidden;display:grid;grid-template-columns:repeat(4,1fr);background:var(--kaart);border-top:1px solid var(--lijn);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
 .tabs button{position:relative;display:grid;justify-items:center;gap:2px;padding:6px 2px;border-radius:12px;font-size:.78rem;font-weight:600;color:var(--sub)}
@@ -300,3 +300,13 @@ svg.kaal{background:transparent!important}svg.kaal>g:first-child{display:none}
 .info-knop{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;flex:none;color:var(--sub)}.info-knop[aria-expanded="true"]{color:var(--ink);background:var(--bg)}
 .g-info{display:grid;gap:8px;padding-top:10px;border-top:1px solid var(--lijn);font-size:.88rem}
 .g-info div{display:grid;grid-template-columns:104px minmax(0,1fr);gap:10px}.g-info dt{color:var(--sub)}.g-info dd{line-height:1.4}
+
+/* Handleiding */
+.hulp{border-top:1px solid var(--lijn)}.hulp:last-of-type{border-bottom:1px solid var(--lijn)}
+.hulp>summary{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:50px;cursor:pointer;list-style:none}.hulp>summary::-webkit-details-marker{display:none}
+.hulp>summary h3{font-size:1.15rem}.hulp>summary svg{flex:none;transition:transform .15s}.hulp[open]>summary svg{transform:rotate(180deg)}
+.hulp>div{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;padding:0 0 16px;font-size:.95rem;line-height:1.5}
+.hulp ul,.hulp ol{display:grid;gap:8px;padding-left:20px}.hulp ul{list-style:disc}.hulp ol{list-style:decimal}
+.hulp-blok{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}.hulp-blok>p{color:var(--sub)}
+.inline-melding{display:flex;gap:8px;align-items:center;padding:8px 12px;border-radius:10px;background:var(--bg);font-weight:600;font-size:.9rem}
+.blad.smal .blad-inhoud{gap:0}.blad.smal .blad-inhoud>*{margin-bottom:14px}.blad.smal .blad-inhoud>.hulp{margin-bottom:0}.blad.smal .blad-inhoud>.hulp:last-of-type{margin-bottom:16px}
