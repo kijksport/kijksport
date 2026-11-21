@@ -217,3 +217,39 @@ export function Veld({sport,event,play=false,mini,detail,className}:{sport:strin
 }
 /** Wat de tekening laat zien, in woorden. */
 export function plaat(sport:string,event?:Event|null){const key=event?circuitKey(event):null;if(key)return circuits[key].name+', noorden boven';if(sport==='swimming'&&event?.pool===25)return'Kortebaanbad van 25 meter';if(sport==='swimming')return'Wedstrijdbad van 50 meter met acht banen';return vloer(sport).plaat}
+
+/** KijkSport-logo voor op een flight: rode stopwatchring met witte afspeelknop. */
+function LogoKlein({r=7}:{r?:number}){return <g><circle r={r} fill="#15161a" stroke="#ff3d4f" strokeWidth={r*.28}/><rect x={-r*.22} y={-r*1.55} width={r*.44} height={r*.42} rx={r*.1} fill="#ff3d4f"/><path d={`M${-r*.32} ${-r*.46}L${r*.5} 0L${-r*.32} ${r*.46}Z`} fill="#f3f2ec"/></g>}
+/** Een pijl met de punt op (0,0), langs +x naar achteren: punt, barrel, shaft en een flight met het logo. */
+function Pijl({hoek}:{hoek:number}){return <g>
+ <path d="M0 0L10 0" stroke="#d9dedb" strokeWidth="1.6" strokeLinecap="round"/>
+ <rect x="9" y="-3.6" width="28" height="7.2" rx="3" fill="#8f9a96"/>{[13,17,21,25,29,33].map(x=><path key={x} d={`M${x} -3.4V3.4`} stroke="#5f6966" strokeWidth="1"/>)}
+ <path d="M37 0H56" stroke="#eef3ef" strokeWidth="2.4"/>
+ <path d="M50 0L62 -15H88L79 0L88 15H62Z" fill="#15161a" stroke="#ff3d4f" strokeWidth="1.2" strokeLinejoin="round"/>
+ <g transform={`translate(70 0) rotate(${-hoek})`}><LogoKlein r={7.5}/></g>
+</g>}
+/**
+ * Dartbord in de hoek van een kaart. De pijlen vliegen een voor een in de triple 20, trillen na
+ * en verdwijnen weer. Zonder beweging steken ze stil in het bord.
+ */
+export function DartsHoek({play}:{play:boolean}){
+ const ref=useRef<SVGSVGElement>(null),cx=130,cy=112,k=.8;
+ useEffect(()=>{const el=ref.current;if(!el||!play||!('IntersectionObserver'in window))return;const io=new IntersectionObserver(([x])=>{try{x.isIntersecting?el.unpauseAnimations():el.pauseAnimations()}catch{/* geen SMIL */}});io.observe(el);return()=>io.disconnect()},[play]);
+ const wig=(i:number,r1:number,r2:number)=>{const a0=(-99+i*18)*Math.PI/180,a1=(-81+i*18)*Math.PI/180,P=(r:number,a:number)=>(cx+r*k*Math.cos(a)).toFixed(1)+' '+(cy+r*k*Math.sin(a)).toFixed(1);return `M${P(r1,a0)}L${P(r2,a0)}A${r2*k} ${r2*k} 0 0 1 ${P(r2,a1)}L${P(r1,a1)}A${r1*k} ${r1*k} 0 0 0 ${P(r1,a0)}Z`};
+ const pijlen:[number,number,number][]=[[cx-6,cy-60*k+1,112],[cx+6,cy-61*k,96],[cx,cy-57*k+2,134]],dur=8;
+ return <svg ref={ref} className="darts-hoek" viewBox="0 0 230 230" aria-hidden="true" focusable="false">
+  <circle cx={cx} cy={cy+3} r={134*k} fill="#000" opacity=".25"/><circle cx={cx} cy={cy} r={133*k} fill="#131110"/>
+  {nummers.map((n,i)=>{const zwart=i%2===0,ring=zwart?'#d8402f':'#2f9a5a',vlak=zwart?'#1a1716':'#eadfc4';return <g key={n}><path d={wig(i,9.4,100)} fill={vlak}/><path d={wig(i,95.3,100)} fill={ring}/><path d={wig(i,58.2,62.9)} fill={ring}/>
+   <text x={cx+116*k*Math.sin(i*18*Math.PI/180)} y={cy-116*k*Math.cos(i*18*Math.PI/180)+4} textAnchor="middle" fontSize="11" fontWeight="700" fill="#eadfc4">{n}</text></g>})}
+  <g fill="none" stroke="#b9b3a6" strokeWidth=".5">{[100,95.3,62.9,58.2,9.4].map(r=><circle key={r} cx={cx} cy={cy} r={r*k}/>)}</g>
+  <circle cx={cx} cy={cy} r={9.4*k} fill="#2f9a5a"/><circle cx={cx} cy={cy} r={3.7*k} fill="#d8402f"/>
+  {pijlen.map(([x,y,h],i)=>{const b=(i*1.1).toFixed(2)+'s';return <g key={i} transform={`translate(${x} ${y}) rotate(${h})`}>
+   {play&&<circle r="0" fill="none" stroke="#fff" strokeWidth="1.5" opacity="0"><animate attributeName="r" values="0;0;2;18;18" keyTimes="0;.099;.1;.2;1" dur={dur+'s'} begin={b} repeatCount="indefinite"/><animate attributeName="opacity" values="0;0;.9;0;0" keyTimes="0;.099;.1;.2;1" dur={dur+'s'} begin={b} repeatCount="indefinite"/></circle>}
+   <g opacity={play?0:1}>
+    {play&&<><animateTransform attributeName="transform" type="translate" values="150 0;0 0;0 0" keyTimes="0;.1;1" calcMode="spline" keySplines=".5 0 1 1;0 0 1 1" dur={dur+'s'} begin={b} repeatCount="indefinite" additive="sum"/>
+     <animateTransform attributeName="transform" type="scale" values="1.5;1;1" keyTimes="0;.1;1" dur={dur+'s'} begin={b} repeatCount="indefinite" additive="sum"/>
+     <animateTransform attributeName="transform" type="rotate" values="0;0;-7;5;-2;0;0" keyTimes="0;.1;.12;.145;.17;.19;1" dur={dur+'s'} begin={b} repeatCount="indefinite" additive="sum"/>
+     <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;.04;.84;.92;1" dur={dur+'s'} begin={b} repeatCount="indefinite"/></>}
+    <g transform="scale(1.28)"><Pijl hoek={h}/></g></g></g>})}
+ </svg>;
+}

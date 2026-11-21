@@ -6,6 +6,7 @@ Elke maandagochtend worden de evenementen van de komende veertien dagen nagekeke
 
 - Nooit iets invullen dat niet in een bron staat. Geen bron betekent: laten staan zoals het is en melden.
 - Elke wijziging krijgt de bron (`source` of `broadcast.url`) en de controledatum (`checked`).
+- Een evenement waarvan datum, tijd, zender, deelname of beschrijving wijzigt, of dat nieuw wordt toegevoegd, krijgt ook `updated` met de datum van de controle. De app toont dan ruim een week de markering Bijgewerkt. Alleen `checked` bijwerken zonder inhoudelijke wijziging zet `updated` niet.
 - `basis: "gids"` alleen als de uitzending met datum, tijd en zender in een tv-gids of op de site van de zender staat. Anders `"rechten"`.
 - Een tijd die het begin van een tv-uitzending is en niet de start van de wedstrijd, staat zo in `desc`.
 - Bij tegenstrijdige bronnen gaat de organisator of bond voor; de afwijking wordt gemeld.

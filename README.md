@@ -174,3 +174,12 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 
 - Informatieknop naast de knop voor licht en donker: een handleiding in uitklapbare onderwerpen (werking, een evenement lezen, instellingen, kijklijst, bijwerken, gegevens, privacy).
 - Delen met een tweede telefoon en de back-up (export en import) staan nu in dat scherm in plaats van op de pagina Sporten.
+
+## KijkSport 1.6.0 (Speelveld)
+
+- Dartskaart: een dartbord in de hoek, waarin drie pijlen met het KijkSport-logo op de flights een voor een landen. Staat stil bij Verminder beweging of met de pauzeknop.
+- Weekstrook bovenaan Vandaag: zeven dagen met een stip per sport; een tik toont die dag in het blok Vandaag.
+- Markering Bijgewerkt bij evenementen die in de wekelijkse controle zijn gewijzigd of toegevoegd (veld `updated`).
+- Per sport instelbaar of hij bij Uitgelicht mag staan (pagina Sporten).
+- Het tijdenbord van een toernooi toont de uitzenddagen vanaf vandaag in plaats van de eerste vier.
+- Colofon in het informatiescherm met de maker.

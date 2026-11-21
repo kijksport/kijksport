@@ -310,3 +310,19 @@ svg.kaal{background:transparent!important}svg.kaal>g:first-child{display:none}
 .hulp-blok{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}.hulp-blok>p{color:var(--sub)}
 .inline-melding{display:flex;gap:8px;align-items:center;padding:8px 12px;border-radius:10px;background:var(--bg);font-weight:600;font-size:.9rem}
 .blad.smal .blad-inhoud{gap:0}.blad.smal .blad-inhoud>*{margin-bottom:14px}.blad.smal .blad-inhoud>.hulp{margin-bottom:0}.blad.smal .blad-inhoud>.hulp:last-of-type{margin-bottom:16px}
+
+/* Dartbord in de hoek van een dartskaart */
+.g.met-bord{position:relative;overflow:hidden;min-height:250px}
+.g.met-bord>.g-kop,.g.met-bord>.g-open{position:relative;z-index:1}
+.g.met-bord>.g-kop{margin-right:-4px}
+.g.met-bord .g-open>*:not(.splits){max-width:62%}
+.g.met-bord .splits{max-width:62%}
+.darts-hoek{position:absolute;right:-74px;top:40px;width:230px;height:230px;pointer-events:none}
+.bijgewerkt{display:inline-flex;align-items:center;gap:6px;width:fit-content;font-size:.78rem;font-weight:700;color:var(--ink)}
+.bijgewerkt::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ok)}
+/* Weekstrook */
+.weekstrook{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.weekstrook button{display:grid;justify-items:center;gap:2px;padding:7px 0 6px;border-radius:12px;background:var(--kaart);border:1px solid var(--lijn);font-size:.74rem;color:var(--sub);min-height:62px}
+.weekstrook b{font-size:1.2rem;font-weight:800;font-stretch:80%;color:var(--ink);line-height:1.05}
+.weekstrook button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}.weekstrook button[aria-pressed="true"] b{color:var(--bg)}
+.maker{display:grid;gap:4px;padding-top:14px}.maker h3{font-size:1.15rem}
