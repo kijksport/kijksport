@@ -126,3 +126,7 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 - Offline: de service worker bewaart bij installatie de startpagina met scripts en stijlen, zodat de app zonder internet opent.
 - Selectie delen via link of QR-code; de ontvanger bevestigt eerst. De link bevat alleen voorkeuren, geen persoonsgegevens.
 - Oude back-ups met aparte profielen worden zonder vaste namen ingelezen.
+
+## KijkSport 0.12.3 (Parcours)
+
+- Zelfde opslagreparatie als Speelveld 1.7.0, omdat beide versies op hetzelfde adres dezelfde opslag delen: per onderdeel controleren, nooit overschrijven wat niet te lezen is, automatische reservekopie (`src/opslag.ts`) met terugzetknop onder Sporten > back-up.
