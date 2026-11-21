@@ -1,0 +1,37 @@
+// Welkomstscherm na een update, zoals Apple dat in de eigen apps doet: kort wat er nieuw is, één knop om verder te gaan.
+// Verschijnt één keer per versie, alleen voor wie de app al gebruikte. Nieuwe gebruikers slaan het over.
+import {useEffect,useRef,type CSSProperties} from 'react';
+import {Bookmark,History,Target,Sparkles,type LucideIcon} from 'lucide-react';
+import packageInfo from '../package.json';
+
+type Punt={icoon:LucideIcon;kleur:string;titel:string;tekst:string};
+/** Nieuwste versie bovenaan. Houd het kort: hoogstens vier punten per versie, in gewone woorden. */
+export const versies:{versie:string;punten:Punt[]}[]=[
+ {versie:'1.7.0',punten:[
+  {icoon:Bookmark,kleur:'var(--rood)',titel:'Je kijklijst blijft bewaard',tekst:'Bij een nieuwe versie blijven je kijklijst en voorkeuren staan. Klopt één onderdeel niet meer, dan valt alleen dat weg.'},
+  {icoon:History,kleur:'var(--ok)',titel:'Automatische reservekopie',tekst:'KijkSport bewaart zelf de laatste standen op dit toestel. Terugzetten kan via de informatieknop, onder Back-up.'},
+  {icoon:Target,kleur:'var(--let)',titel:'Rustiger dartspijlen',tekst:'De pijlen vliegen nog steeds het bord in, maar trillen niet meer na.'},
+  {icoon:Sparkles,kleur:'var(--focus)',titel:'Wat is nieuw',tekst:'Na elke update zie je voortaan op dit scherm kort wat er veranderd is.'}]},
+];
+const KEY='kijksport-gezien';
+const nr=(v:string)=>v.split('.').map(Number).reduce((a,b)=>a*1000+(b||0),0);
+
+/** Of het scherm bij deze start moet verschijnen. Bij een nieuwe gebruiker wordt de versie meteen als gezien genoteerd. */
+export function nieuwTonen(status:'nieuw'|string):boolean{
+ try{const gezien=localStorage.getItem(KEY);if(gezien===packageInfo.version)return false;if(status==='nieuw'){localStorage.setItem(KEY,packageInfo.version);return false}return versies.some(v=>v.versie===packageInfo.version)}catch{return false}
+}
+/** De punten sinds de laatst geziene versie, hoogstens vijf. Zonder eerdere notitie alleen die van deze versie. */
+function punten(){let gezien:string|null=null;try{gezien=localStorage.getItem(KEY)}catch{/* geen opslag */}
+ const lijst=versies.filter(v=>nr(v.versie)<=nr(packageInfo.version)&&(gezien?nr(v.versie)>nr(gezien):v.versie===packageInfo.version));
+ return (lijst.length?lijst:versies.slice(0,1)).flatMap(v=>v.punten).slice(0,5)}
+
+export function Nieuw({open,onClose}:{open:boolean;onClose:()=>void}){
+ const ref=useRef<HTMLDialogElement>(null);
+ useEffect(()=>{const d=ref.current;if(!d)return;if(open&&!d.open)d.showModal();else if(!open&&d.open)d.close()},[open]);
+ const klaar=()=>{try{localStorage.setItem(KEY,packageInfo.version)}catch{/* dan verschijnt het scherm de volgende keer opnieuw */}onClose()};
+ return <dialog ref={ref} className="nieuw" aria-labelledby="nieuw-titel" onCancel={e=>{e.preventDefault();klaar()}}>{open&&<div className="nieuw-inhoud">
+  <header><img src={import.meta.env.BASE_URL+'icon-192.png'} alt="" width="72" height="72"/><h2 id="nieuw-titel">Nieuw in KijkSport</h2><p>Versie {packageInfo.version}</p></header>
+  <ul>{punten().map((p,i)=>{const I=p.icoon;return <li key={p.titel} style={{'--i':i} as CSSProperties}><span className="nieuw-icoon" style={{color:p.kleur}}><I size={30} strokeWidth={2.2} aria-hidden="true"/></span><span><b>{p.titel}</b><span>{p.tekst}</span></span></li>})}</ul>
+  <button className="knop vol" autoFocus onClick={klaar}>Ga verder</button>
+ </div>}</dialog>;
+}

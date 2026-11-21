@@ -187,3 +187,13 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 ## KijkSport 1.6.1 (Speelveld)
 
 - De nieuwe pijlen met het logo staan nu ook op het grote dartbord: bij Uitgelicht, in het detailscherm en bij Wanneer op tv.
+
+## KijkSport 1.7.0 (Speelveld, opslag ook in Parcours)
+
+- Kijklijst en voorkeuren blijven bij een nieuwe versie staan. Oorzaak van het wissen: één ongeldig onderdeel (bijvoorbeeld een herinnering met een leeggemaakt eigen tijdstip) liet de hele selectie afkeuren, waarna de standaard direct werd opgeslagen. Nu wordt per onderdeel gecontroleerd (`repairSettings` in `src/core.ts`); alleen wat niet klopt valt weg en de app meldt wat.
+- Wat niet te lezen is wordt nooit overschreven: de oorspronkelijke tekst gaat eerst naar `kijksport-onleesbaar`.
+- Automatische reservekopie (`src/opslag.ts`, sleutel `kijksport-reserve`): één per dag en per versie, de laatste zes. Een lege kijklijst vervangt nooit een gevulde kopie. Ontbreekt de opslag, dan wordt de nieuwste kopie automatisch teruggezet. Terugzetten met de hand via Informatie > Back-up.
+- Een leeggemaakt eigen herinneringstijdstip zet de herinnering uit in plaats van een ongeldige waarde te bewaren. Tijden met seconden (zoals sommige iPhones die geven) worden geaccepteerd.
+- De app vraagt de browser om de opslag als blijvend te behandelen (`navigator.storage.persist`).
+- Dartspijlen trillen niet meer na; invliegen en de kring bij de inslag blijven.
+- Scherm Nieuw in KijkSport na een update (`src/nieuw.tsx`), één keer per versie en niet bij een eerste start. Opnieuw te openen via het colofon.

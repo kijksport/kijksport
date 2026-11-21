@@ -14,7 +14,8 @@ export const label=(s:string,opts:Intl.DateTimeFormatOptions={day:'numeric',mont
 export const occurs=(e:Event,s:string)=>e.start<=s&&e.end>=s;
 export const sortEvents=(es:Event[])=>[...es].sort((a,b)=>a.start.localeCompare(b.start)||(a.iso||'z').localeCompare(b.iso||'z')||a.title.localeCompare(b.title));
 export function amsterdamUTC(local:string){
- if(!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(local))throw Error('Kies een geldig tijdstip.');
+ if(!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?$/.test(local))throw Error('Kies een geldig tijdstip.');
+ local=local.slice(0,16);
  const target=Date.parse(local+'Z');let guess=target;
  const parts=(n:number)=>{const p=new Intl.DateTimeFormat('sv-SE',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date(n));return p.replace(' ','T')};
  for(let i=0;i<4;i++){const delta=target-Date.parse(parts(guess)+'Z');if(!delta)return new Date(guess).toISOString();guess+=delta}
@@ -43,6 +44,30 @@ function validateProfile(p:Profile,sports:Sport[]):Profile {
  if(p.servicesConfigured!==undefined&&typeof p.servicesConfigured!=='boolean')throw Error('Ongeldige kijkdienstinstelling.');
  for(const r of Object.values(p.reminders)){if(!r||!['none','60','15','0','custom'].includes(r.mode))throw Error('Ongeldige herinnering.');if(r.mode==='custom')amsterdamUTC(r.at||'')}
  return p;
+}
+/** Leest een opgeslagen profiel per onderdeel. Wat onbekend of beschadigd is valt weg; de rest blijft staan. */
+export function repairProfile(x:unknown,sports:Sport[]):{profile:Profile;dropped:string[]}{
+ const p=x as Partial<Profile>|null,dropped:string[]=[];
+ if(!p||typeof p!=='object'||Array.isArray(p))throw Error('Dit is geen geldige KijkSport-back-up.');
+ const strings=(v:unknown,naam:string)=>{if(v===undefined)return [];if(!Array.isArray(v)){dropped.push(naam);return []}const ok=v.filter((i):i is string=>typeof i==='string');if(ok.length<v.length)dropped.push(naam);return [...new Set(ok)]};
+ const bekend=strings(p.sports,'sporten'),sportsOk=bekend.filter(id=>sports.some(t=>t.id===id));
+ if(sportsOk.length<bekend.length)dropped.push('onbekende sport: '+bekend.filter(id=>!sportsOk.includes(id)).join(', '));
+ const profile:Profile={sports:sportsOk,excluded:strings(p.excluded,'uitgesloten onderdelen'),favorites:strings(p.favorites,'kijklijst'),reminders:{}};
+ if(p.services!==undefined){const sv=strings(p.services,'kijkdiensten');profile.services=sv.filter(i=>serviceIds.includes(i));if(profile.services.length<sv.length)dropped.push('onbekende kijkdienst')}
+ if(typeof p.servicesConfigured==='boolean')profile.servicesConfigured=p.servicesConfigured;
+ const r=p.reminders;
+ if(r&&typeof r==='object'&&!Array.isArray(r)){for(const [id,v] of Object.entries(r)){const m=v as Reminder;try{if(!m||!['none','60','15','0','custom'].includes(m.mode))throw Error();if(m.mode==='custom')amsterdamUTC(m.at||'');profile.reminders[id]=m.mode==='custom'?{mode:'custom',at:m.at}:{mode:m.mode}}catch{dropped.push('herinnering bij '+id)}}}
+ else if(r!==undefined)dropped.push('herinneringen');
+ return {profile,dropped};
+}
+/** Zoals validateSettings, maar herstelt per onderdeel in plaats van alles te weigeren. Gooit alleen als er niets bruikbaars in staat. */
+export function repairSettings(x:unknown,sports:Sport[]):{settings:Settings;dropped:string[]}{
+ const s=x as {version?:number;theme?:string;preferences?:unknown;profiles?:Record<string,unknown>}|null;
+ if(!s||typeof s!=='object')throw Error('Dit is geen geldige KijkSport-back-up.');
+ const theme=(['light','dark','system'].includes(s.theme as string)?s.theme:'light') as Settings['theme'];
+ if(s.version===2&&s.profiles&&typeof s.profiles==='object'){try{return {settings:validateSettings({...s,theme},sports),dropped:[]}}catch{const r=repairProfile(s.profiles.Samen,sports);return {settings:{version:3,theme,preferences:r.profile},dropped:r.dropped}}}
+ const {profile,dropped}=repairProfile(s.preferences,sports);
+ return {settings:{version:3,theme,preferences:profile},dropped};
 }
 export function validateSettings(x:unknown,sports:Sport[]):Settings{
  const s=x as {version:number;theme:Settings['theme'];preferences:Profile;profiles?:Record<string,Profile>};

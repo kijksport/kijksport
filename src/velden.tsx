@@ -236,14 +236,13 @@ function Pijlen({cx,cy,k,play,schaal=1.28}:{cx:number;cy:number;k:number;play:bo
    <g opacity={play?0:1}>
     {play&&<><animateTransform attributeName="transform" type="translate" values="150 0;0 0;0 0" keyTimes="0;.1;1" calcMode="spline" keySplines=".5 0 1 1;0 0 1 1" dur={dur+'s'} begin={b} repeatCount="indefinite" additive="sum"/>
      <animateTransform attributeName="transform" type="scale" values="1.5;1;1" keyTimes="0;.1;1" dur={dur+'s'} begin={b} repeatCount="indefinite" additive="sum"/>
-     <animateTransform attributeName="transform" type="rotate" values="0;0;-7;5;-2;0;0" keyTimes="0;.1;.12;.145;.17;.19;1" dur={dur+'s'} begin={b} repeatCount="indefinite" additive="sum"/>
      <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;.04;.84;.92;1" dur={dur+'s'} begin={b} repeatCount="indefinite"/></>}
     <g transform={`scale(${schaal})`}><Pijl hoek={h}/></g></g></g>})}
 
  </>;
 }
 /**
- * Dartbord in de hoek van een kaart. De pijlen vliegen een voor een in de triple 20, trillen na
+ * Dartbord in de hoek van een kaart. De pijlen vliegen een voor een in de triple 20, steken stil
  * en verdwijnen weer. Zonder beweging steken ze stil in het bord.
  */
 export function DartsHoek({play}:{play:boolean}){

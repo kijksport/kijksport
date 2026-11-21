@@ -326,3 +326,25 @@ svg.kaal{background:transparent!important}svg.kaal>g:first-child{display:none}
 .weekstrook b{font-size:1.2rem;font-weight:800;font-stretch:80%;color:var(--ink);line-height:1.05}
 .weekstrook button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}.weekstrook button[aria-pressed="true"] b{color:var(--bg)}
 .maker{display:grid;gap:4px;padding-top:14px}.maker h3{font-size:1.15rem}
+/* Reservekopieën in het informatiescherm */
+.hulp-blok h4{font-size:1rem;margin:0}.hulp-blok+.hulp-blok{border-top:1px solid var(--lijn);padding-top:14px}
+.hulp .reserve,.reserve{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.reserve li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid var(--lijn);border-radius:12px}
+.reserve li>span{display:grid;gap:2px;min-width:0}.reserve small{color:var(--sub)}
+.reserve .knop{min-height:40px;padding:0 14px;flex:none}
+/* Nieuw in KijkSport: scherm na een update */
+dialog.nieuw{width:100%;max-width:520px;height:100%;max-height:100dvh;margin:auto;padding:0;border:0;background:var(--kaart);color:var(--ink);overflow:auto;overscroll-behavior:contain}
+@media (min-width:600px){dialog.nieuw{height:auto;max-height:90dvh;border-radius:24px}}
+dialog.nieuw::backdrop{background:rgba(6,14,12,.6)}
+.nieuw-inhoud{min-height:100%;display:grid;grid-template-rows:auto 1fr auto;gap:28px;padding:calc(40px + env(safe-area-inset-top,0px)) 28px calc(24px + env(safe-area-inset-bottom,0px))}
+.nieuw header{display:grid;justify-items:center;gap:6px;text-align:center}
+.nieuw header img{border-radius:17px;box-shadow:var(--schaduw);margin-bottom:10px}
+.nieuw h2{font-size:clamp(2rem,8.5vw,2.5rem);line-height:1.05;letter-spacing:-.01em}
+.nieuw header p{color:var(--sub);font-weight:600}
+.nieuw ul{list-style:none;margin:0;padding:0;display:grid;align-content:start;gap:24px}
+.nieuw li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:start;animation:nieuw-in .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.15s + var(--i)*.09s)}
+.nieuw li>span:last-child{display:grid;gap:3px}.nieuw li b{font-size:1.02rem}.nieuw li span span{color:var(--sub);line-height:1.4}
+.nieuw-icoon{display:grid;place-items:center;width:44px;height:44px}
+.nieuw .knop.vol{width:100%;min-height:52px;font-size:1.05rem;border-radius:14px}
+@keyframes nieuw-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.nieuw li{animation:none}}
