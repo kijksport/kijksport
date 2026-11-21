@@ -183,3 +183,7 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 - Per sport instelbaar of hij bij Uitgelicht mag staan (pagina Sporten).
 - Het tijdenbord van een toernooi toont de uitzenddagen vanaf vandaag in plaats van de eerste vier.
 - Colofon in het informatiescherm met de maker.
+
+## KijkSport 1.6.1 (Speelveld)
+
+- De nieuwe pijlen met het logo staan nu ook op het grote dartbord: bij Uitgelicht, in het detailscherm en bij Wanneer op tv.
