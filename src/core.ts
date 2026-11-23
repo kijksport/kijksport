@@ -2,7 +2,7 @@
 export type Basis='gids'|'rechten'|'opgegeven';
 export type Event = {id:string;sport:string;title:string;start:string;end:string;iso:string|null;source:string;desc:string;venue:string;highlight:boolean;tags:string[];status:'review'|'announced'|'date'|'time'|'changed'|'cancelled';checked:string|null;broadcast:{provider:string;url:string;checked:string;basis?:Basis;note?:string;alt?:{provider:string;url:string;basis?:Basis;note?:string}[]}|null;duration?:number|null;pool?:number;
  /** Nederlandse deelname, alleen ingevuld met bron en controledatum. */
- nl?:{text:string;source:string;label:string;checked:string};
+ nl?:{text:string;source:string;label:string;checked:string};venueSource?:{url:string;label:string;checked:string};
  /** Datum van de laatste controle waarin tijd, zender of gegevens van dit evenement zijn gewijzigd of toegevoegd. */
  updated?:string;previous?:string};
 export type Sport={id:string;name:string;icon:string;color:string;options:{id:string;name:string}[]};
@@ -25,10 +25,20 @@ const esc=(s:string)=>s.replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/;
 const stamp=(s:string)=>new Date(s).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}Z/,'Z');
 function fold(s:string){let result='',line='',bytes=0;for(const c of s){const size=new TextEncoder().encode(c).length;if(bytes+size>75){result+=line+'\r\n';line=' ';bytes=1}line+=c;bytes+=size}return result+line}
 export type Reminder={mode:'none'|'60'|'15'|'0'|'custom';at?:string};
+/** Duur van een sessie in uren voor de agenda. Uit de kalender als die er is, anders een ruwe schatting per soort sessie. */
+export function duur(e:Pick<Event,'sport'|'tags'|'duration'>):{uren:number;geschat:boolean}{
+ if(e.duration&&e.duration>0)return {uren:e.duration,geschat:false};
+ const t=e.tags,s=e.sport;
+ const uren=s==='f1'?(t.includes('race')?2:1):s==='motogp'?1:s==='football'||s==='rugby'||s==='hockey'?2:s==='darts'||s==='speed'||s==='short'?3:2;
+ return {uren,geschat:true};
+}
 export function calendar(events:Event[],reminders:Record<string,Reminder>={},now=new Date()){
  const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//KijkSport//Sportagenda NL//NL','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
- for(const e of events){if(e.status==='cancelled')continue;const r=reminders[e.id]||{mode:'none'};lines.push('BEGIN:VEVENT',`UID:${e.id}@sportkijk.local`,`DTSTAMP:${stamp(now.toISOString())}`,`SUMMARY:${esc(e.title)}`,`DESCRIPTION:${esc((e.broadcast?'Kijken via '+[e.broadcast.provider,...(e.broadcast.alt||[]).map(a=>a.provider)].join(' of ')+'. ':'Nederlandse uitzending nog niet bevestigd. ')+e.desc+'\nBron: '+e.source+'\nControle: '+(e.checked||'opnieuw controleren'))}`,`URL:${e.source}`,`LOCATION:${esc(e.venue)}`);
- if(e.iso){lines.push('DTSTART:'+stamp(e.iso))}else{lines.push('DTSTART;VALUE=DATE:'+e.start.replace(/-/g,''),'DTEND;VALUE=DATE:'+addDays(e.end,1).replace(/-/g,''))}
+ for(const e of events){if(e.status==='cancelled')continue;const r=reminders[e.id]||{mode:'none'};lines.push('BEGIN:VEVENT',`UID:${e.id}@sportkijk.local`,`DTSTAMP:${stamp(now.toISOString())}`,`SUMMARY:${esc(e.title)}`,`DESCRIPTION:${esc((e.broadcast?'Kijken via '+[e.broadcast.provider,...(e.broadcast.alt||[]).map(a=>a.provider)].join(' of ')+'. ':'Nederlandse uitzending nog niet bevestigd. ')+e.desc+(e.iso&&duur(e).geschat?'\nEindtijd in de agenda is geschat (ongeveer '+duur(e).uren+' uur).':'')+'\nBron: '+e.source+'\nControle: '+(e.checked||'opnieuw controleren'))}`,`URL:${e.source}`,`LOCATION:${esc(e.venue)}`);
+ // Wedstrijd met begintijd: blok van begin tot (geschat) einde, zodat de agenda de tijd vrijhoudt.
+ // Meerdaags of zonder tijd: een hele-dag-item over alle dagen, als 'vrij', zodat het geen dagen blokkeert.
+ if(e.iso){const u=duur(e);lines.push('DTSTART:'+stamp(e.iso),'DTEND:'+stamp(new Date(Date.parse(e.iso)+u.uren*36e5).toISOString()),'TRANSP:OPAQUE')}
+ else{lines.push('DTSTART;VALUE=DATE:'+e.start.replace(/-/g,''),'DTEND;VALUE=DATE:'+addDays(e.end,1).replace(/-/g,''),'TRANSP:TRANSPARENT')}
  if(r.mode!=='none'){if(r.mode==='custom'&&r.at){lines.push('BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+esc(e.title),'TRIGGER;VALUE=DATE-TIME:'+stamp(amsterdamUTC(r.at)),'END:VALARM')}else if(e.iso&&r.mode!=='custom'){lines.push('BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+esc(e.title),'TRIGGER:-PT'+r.mode+'M','END:VALARM')}}
  lines.push('END:VEVENT')}
  lines.push('END:VCALENDAR');return lines.map(fold).join('\r\n')+'\r\n';

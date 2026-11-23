@@ -1,4 +1,5 @@
 import React,{useEffect,useRef,useState} from 'react';
+import {opslag,kanaal} from './kanaal';
 import {createRoot} from 'react-dom/client';
 import {flushSync} from 'react-dom';
 import {Bell,Bookmark,CalendarDays,Check,ChevronDown,ChevronLeft,Copy,ChevronRight,Download,ExternalLink,Info,Moon,Pause,Play,Search,Settings2,ShieldCheck,SlidersHorizontal,Sun,Tv,Upload,X} from 'lucide-react';
@@ -51,10 +52,10 @@ function Aftellen({iso}:{iso:string}){
 }
 /** Inklapbaar blok op de pagina Vandaag. De stand (open of dicht) blijft per toestel bewaard. */
 function Vak({id,titel,sub,dicht,openSignaal,children}:{id:string;titel:string;sub?:string;dicht?:boolean;openSignaal?:number;children:React.ReactNode}){
- const key='kijksport-vakken',lees=()=>{try{return JSON.parse(localStorage.getItem(key)||'{}') as Record<string,boolean>}catch{return {}}};
+ const key='kijksport-vakken',lees=()=>{try{return JSON.parse(opslag().getItem(key)||'{}') as Record<string,boolean>}catch{return {}}};
  const[open,setOpen]=useState(()=>{const v=lees()[id];return typeof v==='boolean'?v:!dicht});
  useEffect(()=>{if(openSignaal)setOpen(true)},[openSignaal]);
- return <details id={'vak-'+id} className="vak" open={open} onToggle={e=>{const o=e.currentTarget.open;if(o===open)return;setOpen(o);try{localStorage.setItem(key,JSON.stringify({...lees(),[id]:o}))}catch{/* zonder opslag blijft de stand tot het sluiten van de app */}}}>
+ return <details id={'vak-'+id} className="vak" open={open} onToggle={e=>{const o=e.currentTarget.open;if(o===open)return;setOpen(o);try{opslag().setItem(key,JSON.stringify({...lees(),[id]:o}))}catch{/* zonder opslag blijft de stand tot het sluiten van de app */}}}>
   <summary><h2>{titel}</h2>{sub&&<span>{sub}</span>}<ChevronDown size={20} aria-hidden="true"/></summary><div className="vak-inhoud">{children}</div></details>;
 }
 function Weetje({sport}:{sport:string}){
@@ -80,18 +81,18 @@ function Weekend({event,list,now,onSelect}:{event:Event;list:Event[];now:number;
 }
 
 function App(){
- const[start]=useState<Geladen>(()=>{const standaard:Settings={...defaults(sports),theme:'light'};try{return laad(localStorage,sports,standaard)}catch{return {settings:standaard,status:'nieuw',dropped:[]}}});
+ const[start]=useState<Geladen>(()=>{const standaard:Settings={...defaults(sports),theme:'light'};try{return laad(opslag(),sports,standaard)}catch{return {settings:standaard,status:'nieuw',dropped:[]}}});
  const[settings,setSettings]=useState<Settings>(start.settings),[nieuw,setNieuw]=useState(()=>nieuwTonen(start.status));
  const[page,setPage]=useState<Page>('Vandaag'),[date,setDate]=useState(day()),[view,setView]=useState('Week'),[search,setSearch]=useState(''),[sportFilter,setSportFilter]=useState('all'),[accessFilter,setAccessFilter]=useState('all');
  const[selected,setSelected]=useState<Event|null>(null),[info,setInfo]=useState(false),[serviceOpen,setServiceOpen]=useState(false),[incoming,setIncoming]=useState<Profile|null>(null);
- const[toast,setToast]=useState(''),[storageError,setStorageError]=useState(''),[qr,setQr]=useState(''),[kopie,setKopie]=useState(''),[infoOpen,setInfoOpen]=useState<string|null>(null),[dag,setDag]=useState(day()),[openVandaag,setOpenVandaag]=useState(0),[weergave,setWeergave]=useState<Weergave>(()=>{try{const w=JSON.parse(localStorage.getItem('kijksport-weergave')||'{}');return {veld:w.veld&&typeof w.veld==='object'?w.veld:{},feiten:w.feiten!==false,uit:Array.isArray(w.uit)?w.uit.filter((x:unknown)=>typeof x==='string'):[]}}catch{return {veld:{},feiten:true,uit:[]}}}),[tvSoort,setTvSoort]=useState('all'),[tvPeriode,setTvPeriode]=useState('all'),[tvSort,setTvSort]=useState('datum'),[beweeg,setBeweeg]=useState(true);
+ const[toast,setToast]=useState(''),[storageError,setStorageError]=useState(''),[qr,setQr]=useState(''),[kopie,setKopie]=useState(''),[infoOpen,setInfoOpen]=useState<string|null>(null),[dag,setDag]=useState(day()),[openVandaag,setOpenVandaag]=useState(0),[weergave,setWeergave]=useState<Weergave>(()=>{try{const w=JSON.parse(opslag().getItem('kijksport-weergave')||'{}');return {veld:w.veld&&typeof w.veld==='object'?w.veld:{},feiten:w.feiten!==false,uit:Array.isArray(w.uit)?w.uit.filter((x:unknown)=>typeof x==='string'):[]}}catch{return {veld:{},feiten:true,uit:[]}}}),[tvSoort,setTvSoort]=useState('all'),[tvPeriode,setTvPeriode]=useState('all'),[tvSort,setTvSort]=useState('datum'),[beweeg,setBeweeg]=useState(true);
  const dialog=useRef<HTMLDialogElement>(null),infoDialog=useRef<HTMLDialogElement>(null),serviceDialog=useRef<HTMLDialogElement>(null),importDialog=useRef<HTMLDialogElement>(null),upload=useRef<HTMLInputElement>(null);
  const rustig=useRustig(),now=useNow(30000);
  const p=settings.preferences,favorites=p.favorites,notify=setToast,play=beweeg&&!rustig;
- useEffect(()=>{try{bewaarOpslag(localStorage,settings,packageInfo.version,day());setStorageError('')}catch{setStorageError('Opslaan is niet gelukt. Exporteer je voorkeuren om ze te bewaren.')}},[settings]);
+ useEffect(()=>{try{bewaarOpslag(opslag(),settings,packageInfo.version,day());setStorageError('')}catch{setStorageError('Opslaan is niet gelukt. Exporteer je voorkeuren om ze te bewaren.')}},[settings]);
  useEffect(()=>{document.documentElement.dataset.theme=settings.theme;document.querySelector('meta[name=theme-color]')?.setAttribute('content',getComputedStyle(document.documentElement).getPropertyValue('--bg').trim())},[settings.theme]);
  // Eenmalig per toestel: nieuwe sporten aanzetten, en het nieuwe ontwerp bij daglicht tonen.
- useEffect(()=>{const once=(key:string,f:()=>void)=>{try{if(localStorage.getItem(key))return;localStorage.setItem(key,'1')}catch{return}f()};const add=(ids:string[])=>setSettings(s=>({...s,preferences:{...s.preferences,sports:[...new Set([...s.preferences.sports,...ids])].filter(id=>sports.some(x=>x.id===id))}}));once('kijksport-sporten-0.9',()=>add(['swimming','motogp','wec']));once('kijksport-sporten-0.11',()=>add(['darts','speed','short']));once('kijksport-sporten-1.1',()=>add(['rugby','hockey','olympics','winter']));once('kijksport-speelveld',()=>setSettings(s=>({...s,theme:'light'})))},[]);
+ useEffect(()=>{const once=(key:string,f:()=>void)=>{try{if(opslag().getItem(key))return;opslag().setItem(key,'1')}catch{return}f()};const add=(ids:string[])=>setSettings(s=>({...s,preferences:{...s.preferences,sports:[...new Set([...s.preferences.sports,...ids])].filter(id=>sports.some(x=>x.id===id))}}));once('kijksport-sporten-0.9',()=>add(['swimming','motogp','wec']));once('kijksport-sporten-0.11',()=>add(['darts','speed','short']));once('kijksport-sporten-1.1',()=>add(['rugby','hockey','olympics','winter']));once('kijksport-speelveld',()=>setSettings(s=>({...s,theme:'light'})))},[]);
  // Na het openen: melden wat er bij het lezen van de opslag is gebeurd, en de browser vragen de opslag niet op te ruimen.
  useEffect(()=>{const n=start.settings.preferences.favorites.length,lijst=n===1?'1 evenement':n+' evenementen';
   if(start.status==='hersteld')notify('Je kijklijst is bewaard. Weggelaten omdat het niet meer klopte: '+start.dropped.map(d=>d.replace(/^herinnering bij (.+)$/,(_,id)=>'herinnering bij '+(events.find(e=>e.id===id)?.title||'een evenement'))).join(', ')+'.');
@@ -103,7 +104,7 @@ function App(){
  useEffect(()=>{const sync=(d:HTMLDialogElement|null,open:boolean)=>{if(!d)return;if(open&&!d.open)d.showModal();else if(!open&&d.open)d.close()};sync(dialog.current,!!selected);sync(infoDialog.current,info);sync(serviceDialog.current,serviceOpen);sync(importDialog.current,!!incoming)},[selected,info,serviceOpen,incoming]);
  useEffect(()=>{if(toast){const t=setTimeout(()=>setToast(''),5000);return()=>clearTimeout(t)}},[toast]);
  function ontvang(code:string,fout:string){const raw=code?decodeSelection(code):null;try{if(!raw)throw Error();const r=repairSettings({version:3,theme:'dark',preferences:raw},sports);setIncoming(r.settings.preferences);if(r.dropped.length)notify('Uit de link weggelaten: '+r.dropped.join(', ')+'.');return true}catch{notify(fout);return false}}
- useEffect(()=>{try{localStorage.setItem('kijksport-weergave',JSON.stringify(weergave))}catch{/* zonder opslag geldt de keuze tot het sluiten van de app */}},[weergave]);
+ useEffect(()=>{try{opslag().setItem('kijksport-weergave',JSON.stringify(weergave))}catch{/* zonder opslag geldt de keuze tot het sluiten van de app */}},[weergave]);
  const veldAan=(sport:string)=>weergave.veld[sport]??metVeld.includes(sport);
  const uitgelichtAan=(sport:string)=>!weergave.uit.includes(sport);
  const update=(f:(q:Profile)=>Profile)=>setSettings(s=>({...s,preferences:f(s.preferences)}));
@@ -124,8 +125,8 @@ function App(){
  const tvSoorten=soorten.filter(g=>g.ids.some(id=>p.sports.includes(id)));
  const tvLijst=tvRows.map(r=>({...r,e:r.tv||r.next})).filter(r=>(tvSoort==='all'||soorten.find(g=>g.id===tvSoort)?.ids.includes(r.sport))&&(tvPeriode==='all'||(!!r.e&&r.e.start<=addDays(today,Number(tvPeriode))))).sort((x,y)=>tvSort==='sport'?sportOf(x.sport).name.localeCompare(sportOf(y.sport).name,'nl'):tvMoment(x.e).localeCompare(tvMoment(y.e)));
  const nav=(n:Page)=>go(()=>{setPage(n);setSearch('');setSportFilter('all');setAccessFilter('all');window.scrollTo(0,0)});
- const reserves=info?(()=>{try{return leesReserve(localStorage)}catch{return []}})():[];
- function zetTerug(r:typeof reserves[number]){if(!confirm('Kijklijst en voorkeuren terugzetten naar de stand van '+label(r.datum,{weekday:'long',day:'numeric',month:'long'})+'? De huidige stand blijft als reservekopie bewaard.'))return;try{const t=terugzetten(localStorage,r,sports);bewaarOpslag(localStorage,t,packageInfo.version,day(),true);location.reload()}catch{notify('Terugzetten is niet gelukt.')}}
+ const reserves=info?(()=>{try{return leesReserve(opslag())}catch{return []}})():[];
+ function zetTerug(r:typeof reserves[number]){if(!confirm('Kijklijst en voorkeuren terugzetten naar de stand van '+label(r.datum,{weekday:'long',day:'numeric',month:'long'})+'? De huidige stand blijft als reservekopie bewaard.'))return;try{const t=terugzetten(opslag(),r,sports);bewaarOpslag(opslag(),t,packageInfo.version,day(),true);location.reload()}catch{notify('Terugzetten is niet gelukt.')}}
  function exportEvents(es:Event[]){if(!es.length){notify('Bewaar eerst een evenement in je kijklijst.');return}try{download('KijkSport.ics',calendar(es,p.reminders),'text/calendar;charset=utf-8');notify('Agenda gedownload. Open het bestand en voeg het toe aan je agenda.')}catch(e){notify((e as Error).message)}}
  const bewaar=(e:Event)=><button className={'bewaar'+(favorites.includes(e.id)?' aan':'')} aria-pressed={favorites.includes(e.id)} aria-label={(favorites.includes(e.id)?'Verwijder uit':'Bewaar in')+' kijklijst: '+e.title} onClick={()=>favorite(e)}><Bookmark size={20} fill={favorites.includes(e.id)?'currentColor':'none'}/></button>;
  // Zender als plaatje; bij alleen een rechtenhouder staat dat erbij.
@@ -171,6 +172,7 @@ function App(){
 
  const tabs=(plek:string)=><nav className={'tabs '+plek} aria-label="Hoofdnavigatie">{pages.map(([n,Icon])=><button key={n} className={page===n?'actief':''} aria-current={page===n?'page':undefined} onClick={()=>nav(n)}><Icon size={21}/><span>{n}</span>{n==='Kijklijst'&&favorites.length>0&&<b>{favorites.length}</b>}</button>)}</nav>;
  return <div className="app">
+ {kanaal==='test'&&<div className="testbalk" role="note"><b>Testversie {packageInfo.version}</b> Alleen op het testadres, met een eigen kopie van je gegevens.</div>}
  <header className="balk"><button className="merk" onClick={()=>nav('Vandaag')}><img src={import.meta.env.BASE_URL+'icon-192.png'} alt=""/>KijkSport</button>
   {tabs('boven')}
   <div className="balk-knoppen"><button className="rond" aria-label="Handleiding en instellingen van de app" onClick={()=>setInfo(true)}><Info size={20}/></button>
@@ -241,6 +243,7 @@ function App(){
   <div className="blad-kop"><p>{sportOf(selected.sport).name}</p><h2>{kort(selected.title)}</h2><p>{selected.venue||'Locatie nog niet bekend'}</p></div>
   <div className="blad-inhoud">
    {veldAan(selected.sport)&&<p className="klein">Tekening: {plaat(selected.sport,selected)}.</p>}
+   {selected.venueSource&&<p className="klein">Locatie volgens <a href={selected.venueSource.url} target="_blank" rel="noreferrer">{selected.venueSource.label}</a>, gecontroleerd {label(selected.venueSource.checked,{day:'numeric',month:'short',year:'numeric'})}.</p>}
    <div className="uit-tijd">{selected.iso&&<b>{time(selected.iso)}</b>}<span>{cap(label(selected.start,{weekday:'long',day:'numeric',month:'long',year:'numeric'}))}{selected.end!==selected.start?' tot en met '+label(selected.end):''}<small>{selected.iso?'Nederlandse tijd (Europe/Amsterdam)':'Exacte begintijd nog niet bevestigd'}</small></span></div>
    {selected.iso&&selected.status!=='cancelled'&&<Aftellen iso={selected.iso}/>}
    <Weekend event={selected} list={filtered} now={now} onSelect={setSelected}/>

@@ -8,3 +8,13 @@ test('meerdaagse datum is inclusief in UI, exclusief in ICS; geen verzonnen tijd
 test('persoonlijk alarm; geannuleerd niet geëxporteerd; stabiele UID',()=>{const c=calendar([e],{test:{mode:'custom',at:'2026-10-25T20:45'}});assert.ok(c.includes('TRIGGER;VALUE=DATE-TIME:20261025T194500Z'));assert.ok(c.includes('UID:test@sportkijk.local'));assert.ok(!calendar([{...e,status:'cancelled'}]).includes('BEGIN:VEVENT'))});
 test('UTF-8 regels zijn maximaal 75 octetten',()=>{const c=calendar([{...e,title:'é'.repeat(120)}]);for(const l of c.split('\r\n'))assert.ok(Buffer.byteLength(l)<=75)});
 test('ongeldige backup wordt afgewezen voordat instellingen worden vervangen',()=>{const d=defaults([]);assert.deepEqual(validateSettings(d,[]),d);assert.throws(()=>validateSettings({},[]));assert.throws(()=>validateSettings({...d,preferences:{}},[]));const bad=structuredClone(d);bad.preferences.reminders.x={mode:'custom',at:'nonsense'};assert.throws(()=>validateSettings(bad,[]))});
+
+test('agenda: wedstrijd met eindtijd, meerdaags als vrije hele dag',async()=>{
+ const {calendar}=await import('../src/core.ts');
+ const base={source:'https://x',desc:'',venue:'',highlight:false,status:'time' as const,checked:null,broadcast:null};
+ const ics=calendar([{...base,id:'r',sport:'f1',title:'Race',start:'2026-11-22',end:'2026-11-22',iso:'2026-11-22T04:00:00.000Z',tags:['race']},{...base,id:'w',sport:'wec',title:'Le Mans',start:'2027-06-12',end:'2027-06-13',iso:'2027-06-12T14:00:00.000Z',tags:['lemans'],duration:24},{...base,id:'t',sport:'tennis',title:'Toernooi',start:'2027-01-18',end:'2027-01-31',iso:null,tags:['slam']}],{r:{mode:'60'}});
+ assert.match(ics,/DTSTART:20261122T040000Z\r\nDTEND:20261122T060000Z\r\nTRANSP:OPAQUE/);
+ assert.match(ics,/DTEND:20270613T140000Z/);
+ assert.match(ics,/DTSTART;VALUE=DATE:20270118\r\nDTEND;VALUE=DATE:20270201\r\nTRANSP:TRANSPARENT/);
+ assert.match(ics,/TRIGGER:-PT60M/);assert.match(ics,/geschat \(ongeveer 2 uur\)/);
+});

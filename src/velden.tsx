@@ -215,7 +215,7 @@ export function Veld({sport,event,play=false,mini,detail,className}:{sport:strin
  return <svg ref={ref} className={'veld '+(className||'')} viewBox={vb} preserveAspectRatio={c||sport==='darts'?'xMidYMid meet':'xMidYMid slice'} style={{background:c?'#26323c':vloer(sport).vloer}} aria-hidden="true" focusable="false">{body}</svg>;
 }
 /** Wat de tekening laat zien, in woorden. */
-export function plaat(sport:string,event?:Event|null){const key=event?circuitKey(event):null;if(key)return circuits[key].name+', noorden boven';if(sport==='swimming'&&event?.pool===25)return'Kortebaanbad van 25 meter';if(sport==='swimming')return'Wedstrijdbad van 50 meter met acht banen';return vloer(sport).plaat}
+export function plaat(sport:string,event?:Event|null){const key=event?circuitKey(event):null;if(key)return circuits[key].name+', noorden boven'+(circuits[key].markers?.sectors?'. De drie kleuren zijn de tijdsectoren van een ronde, zoals in de tv-beelden: rood sector 1, blauw sector 2, geel sector 3':'');if(sport==='swimming'&&event?.pool===25)return'Kortebaanbad van 25 meter';if(sport==='swimming')return'Wedstrijdbad van 50 meter met acht banen';return vloer(sport).plaat}
 
 /** KijkSport-logo voor op een flight: rode stopwatchring met witte afspeelknop. */
 function LogoKlein({r=7}:{r?:number}){return <g><circle r={r} fill="#15161a" stroke="#ff3d4f" strokeWidth={r*.28}/><rect x={-r*.22} y={-r*1.55} width={r*.44} height={r*.42} rx={r*.1} fill="#ff3d4f"/><path d={`M${-r*.32} ${-r*.46}L${r*.5} 0L${-r*.32} ${r*.46}Z`} fill="#f3f2ec"/></g>}

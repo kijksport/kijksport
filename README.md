@@ -207,3 +207,9 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 ## Kalender 23 november 2026
 
 - Locaties ingevuld voor de 25 F1-evenementen van 2027 (wintertest en 24 raceweekenden), met bron in `venueSource` (F1 Experiences, officiële F1-kalender 2027, gecontroleerd 23 november 2026).
+
+## KijkSport 1.7.1 (testversie)
+
+- Agenda-export: wedstrijden met begintijd krijgen een eindtijd (uit de kalender, of geschat per soort sessie: F1-race 2 uur, overige F1-sessies en MotoGP 1 uur, voetbal, rugby en hockey 2 uur, darts en schaatsen 3 uur). De omschrijving meldt een geschatte eindtijd. Meerdaagse evenementen staan als hele dag op 'vrij'.
+- Bij circuits met sectoren legt het bijschrift de kleuren uit. Bij een locatie met bron staat die bron in het detailscherm.
+- Testkanaal (`src/kanaal.ts`, `scripts/kanaal-test.sh`, `public-test/`). Manifest verwijst naar iconen binnen de eigen map.
