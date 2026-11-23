@@ -2,6 +2,8 @@
 // Maten zijn de gangbare reglementaire maten; ze dienen als tekening, niet als meetgegeven per stadion.
 import {useEffect,useRef,type ReactNode} from 'react';
 import type {Event} from './core';
+import kalender from './data.json';
+import {useId} from 'react';
 import data from './circuits.json';
 import {track,type CircuitInfo} from './circuit';
 
@@ -9,6 +11,17 @@ export const circuits=data as unknown as Record<string,CircuitInfo>;
 const aliases:[RegExp,string][]=[[/^lv26-/,'las-vegas'],[/^qa26-/,'qatar'],[/^ad26-/,'united-arab-emirates'],[/^br26/,'brazil'],[/^mx(?:q)?26/,'mexico'],[/^us26/,'united-states']];
 /** Raceweekenden van 2027 (kalender-id) naar baanvorm. */
 const weekend2027:Record<string,string>={e013:'bahrain',e014:'bahrain',e015:'saudi-arabia',e016:'australia',e017:'japan',e018:'china',e019:'miami',e020:'canada',e021:'monaco',e022:'portugal',e023:'great-britain',e024:'austria',e025:'belgium',e026:'hungary',e027:'italy',e028:'spain',e029:'azerbaijan',e030:'turkey',e031:'singapore',e032:'united-states',e033:'mexico',e034:'brazil',e035:'las-vegas',e036:'qatar',e037:'united-arab-emirates'};
+/** Land van elk circuit (ISO-code), voor de vlag achter de baan. */
+export const landVan:Record<string,string>={qatar:'qa',brazil:'br','united-arab-emirates':'ae','las-vegas':'us',mexico:'mx','united-states':'us',bahrain:'bh','saudi-arabia':'sa',australia:'au',japan:'jp',china:'cn',miami:'us',canada:'ca',monaco:'mc',portugal:'pt','great-britain':'gb',austria:'at',belgium:'be',hungary:'hu',italy:'it',spain:'es',azerbaijan:'az',turkey:'tr',singapore:'sg'};
+export const landNaam:Record<string,string>={qa:'Qatar',br:'Brazilië',ae:'Verenigde Arabische Emiraten',us:'Verenigde Staten',mx:'Mexico',bh:'Bahrein',sa:'Saoedi-Arabië',au:'Australië',jp:'Japan',cn:'China',ca:'Canada',mc:'Monaco',pt:'Portugal',gb:'Groot-Brittannië',at:'Oostenrijk',be:'België',hu:'Hongarije',it:'Italië',es:'Spanje',az:'Azerbeidzjan',tr:'Turkije',sg:'Singapore'};
+// Vlaggen uit flag-icons (MIT); alleen de landen met een circuit.
+const vlagBestanden=import.meta.glob('../node_modules/flag-icons/flags/4x3/{qa,br,ae,us,mx,bh,sa,au,jp,cn,ca,mc,pt,gb,at,be,hu,it,es,az,tr,sg}.svg',{query:'?url',import:'default',eager:true}) as Record<string,string>;
+export const vlagUrl=(land:string)=>Object.entries(vlagBestanden).find(([k])=>k.endsWith('/'+land+'.svg'))?.[1]??null;
+/** Baan van de eerstvolgende F1-race met een baankaart: voor plekken zonder eigen evenement, zoals de Sporten-tab. */
+export function volgendeF1(vandaag=new Date().toISOString().slice(0,10)):{key:string;event:Event}|null{
+ const es=(kalender as unknown as {events:Event[]}).events.filter(e=>e.sport==='f1'&&e.status!=='cancelled'&&e.end>=vandaag).sort((a,b)=>a.start.localeCompare(b.start));
+ for(const e of es){const k=circuitKey(e);if(k)return {key:k,event:e}}return null;
+}
 export function circuitKey(e:Event){if(e.sport!=='f1')return null;return weekend2027[e.id]??aliases.find(([p])=>p.test(e.id))?.[1]??null}
 
 /** Ondergrond per sport: vloerkleur, tekstkleur op die vloer en een accent voor stippen en lijnen. */
@@ -144,7 +157,14 @@ function Startgrid({play,soort}:S&{soort:'f1'|'motogp'|'wec'}){const asfalt=soor
  :<g transform="translate(330 56)"><rect x="-52" y="-13" width="104" height="26" rx="6" fill="#11161b"/>{[0,1,2,3,4].map(i=><circle key={i} cx={-38+i*19} r="6.4" fill={play?'#3a2326':'#ff3b47'}>{play&&<animate attributeName="fill" values="#3a2326;#ff3b47;#3a2326" keyTimes={`0;${((i+1)/9).toFixed(3)};${(6.2/9).toFixed(3)}`} calcMode="discrete" dur="9s" repeatCount="indefinite"/>}</circle>)}</g>}
 </>}
 
-function Circuit({c,play,mini,detail,kompas}:S&{c:CircuitInfo;detail?:boolean;kompas:[number,number]}){
+/** Vlag achter de baan: vaag, stil of wapperend (stroken die elk in eigen fase op en neer gaan). */
+function Vlag({url,vb,wapper}:{url:string;vb:number[];wapper:boolean}){
+ const id=useId().replace(/:/g,''),[x,y,w,h]=vb,n=18,sw=w/n,img=<image href={url} x={x} y={y} width={w} height={h} preserveAspectRatio="xMidYMid slice"/>;
+ if(!wapper)return <g opacity=".17">{img}</g>;
+ return <g opacity=".22"><defs>{Array.from({length:n},(_,i)=><clipPath key={i} id={id+'s'+i}><rect x={x+i*sw-.4} y={y-30} width={sw+.8} height={h+60}/></clipPath>)}</defs>
+  {Array.from({length:n},(_,i)=><g key={i} clipPath={`url(#${id}s${i})`}><g className="vlagstrook" style={{'--a':(2+i*.6)+'px',animationDelay:(-i*.16)+'s'} as React.CSSProperties}>{img}<rect x={x+i*sw} y={y-30} width={sw+.8} height={h+60} fill="#000" className="vlagschaduw" style={{animationDelay:(-i*.16)+'s'}}/></g></g>)}</g>;
+}
+function Circuit({c,play,mini,detail,kompas,vlag,vb,reserve}:S&{c:CircuitInfo;detail?:boolean;kompas:[number,number];vlag?:{url:string;wapper:boolean}|null;vb:number[];reserve?:string}){
  const pts=c.points.map(([x,y])=>[x-40,y+37]),d='M'+pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join('L')+'Z',t=track(pts),m=c.markers;
  const deel=(a:number,b:number)=>{let s='';for(let f=a;f<b+.002;f+=.004){const p=t.at(Math.min(f,.9999));s+=(s?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1)}return s};
  const sf=t.at(m?.startFinish??0),pijl=t.at((m?.startFinish??0)+.035);
@@ -152,6 +172,7 @@ function Circuit({c,play,mini,detail,kompas}:S&{c:CircuitInfo;detail?:boolean;ko
  const labels=(detail&&m?.corners||[]).map(k=>{const p=t.at(k.at);return {n:k.n,px:p.x,py:p.y,nx:p.nx,ny:p.ny,r:15}});
  for(let ronde=0;ronde<4;ronde++)labels.forEach((a,i)=>labels.forEach((b,j)=>{if(j<i&&Math.hypot(a.px+a.nx*a.r-b.px-b.nx*b.r,a.py+a.ny*a.r-b.py-b.ny*b.r)<14)a.r+=8}));
  return <>
+ {vlag&&<Vlag url={vlag.url} vb={vb} wapper={vlag.wapper}/>}
  <g fill="none" stroke="#31404c" strokeWidth="1">{[0,60,120,180,240,300].map(y=><path key={y} d={`M-200 ${y}H600`}/>)}{[-80,0,80,160,240,320,400,480].map(x=><path key={x} d={`M${x} -100V400`}/>)}</g>
  <path d={d} fill="none" stroke={W} strokeWidth={mini?11:9.5} strokeLinejoin="round"/><path d={d} fill="none" stroke="#3d4853" strokeWidth={mini?6.5:6.6} strokeLinejoin="round"/>
  {!mini&&grens&&sk.map((k,i)=><path key={k} d={deel(grens[i],grens[i+1])} fill="none" stroke={k} strokeWidth="2" strokeLinecap="round"/>)}
@@ -159,7 +180,8 @@ function Circuit({c,play,mini,detail,kompas}:S&{c:CircuitInfo;detail?:boolean;ko
  {!mini&&<path d="M-5-4L4 0L-5 4Z" fill={W} transform={`translate(${pijl.x+pijl.nx*12} ${pijl.y+pijl.ny*12}) rotate(${Math.atan2(pijl.dy,pijl.dx)*180/Math.PI})`}/>}
  {labels.map(l=><g key={l.n}><path d={`M${l.px+l.nx*5.5} ${l.py+l.ny*5.5}L${l.px+l.nx*(l.r-6.5)} ${l.py+l.ny*(l.r-6.5)}`} stroke={W} strokeWidth=".6" opacity=".7"/><circle cx={l.px+l.nx*l.r} cy={l.py+l.ny*l.r} r="6.6" fill="#18222a" stroke={W} strokeWidth=".8"/><text x={l.px+l.nx*l.r} y={l.py+l.ny*l.r+2.9} textAnchor="middle" fontSize="8.2" fontWeight="700" fill={W}>{l.n}</text></g>)}
  <Dot at={[sf.x,sf.y]} path={d} dur={15} play={play}><circle r={mini?5:3.8} fill="#ff4d5e" stroke="#fff" strokeWidth="1.3"/></Dot>
- {!mini&&<g transform={`translate(${kompas[0]} ${kompas[1]})`}><circle r="13" fill="#18222a" stroke="#56646f" strokeWidth=".8"/><path d="M0-9L3.6 2H-3.6Z" fill="#ff4d5e"/><text y="9.5" textAnchor="middle" fontSize="7" fontWeight="700" fill={W}>N</text></g>}
+ {reserve&&<text x={vb[0]+vb[2]/2} y={vb[1]+16} textAnchor="middle" fontSize={mini?12:10} fontWeight="700" fill={W} opacity=".85">{reserve}</text>}
+ {!mini&&!detail&&<g transform={`translate(${kompas[0]} ${kompas[1]})`}><circle r="13" fill="#18222a" stroke="#56646f" strokeWidth=".8"/><path d="M0-9L3.6 2H-3.6Z" fill="#ff4d5e"/><text y="9.5" textAnchor="middle" fontSize="7" fontWeight="700" fill={W}>N</text></g>}
 </>}
 
 function Rugby({play}:S){const pas='M262 104L236 128L210 152L184 176L158 200';return <>
@@ -201,22 +223,32 @@ function Atletiek({play}:S){const baan=(r:number)=>`M125 ${150+r}H275A${r} ${r} 
 function Turnvloer(){return <><rect width="400" height="300" fill="#8f9aa3"/><rect x="85" y="35" width="230" height="230" fill="#3a66ad"/><rect x="100" y="50" width="200" height="200" fill="#d9c8a2" stroke={W} strokeWidth="3"/><path d="M100 50L300 250" stroke="#c5b288" strokeWidth="1.2" strokeDasharray="5 5"/></>}
 function Kooi(){const p=Array.from({length:8},(_,i)=>{const a=(22.5+i*45)*Math.PI/180;return (200+112*Math.cos(a)).toFixed(1)+' '+(150+112*Math.sin(a)).toFixed(1)}).join('L');return <><rect width="400" height="300" fill="#1c1c21"/><path d={'M'+p+'Z'} fill="#d3d6d9" stroke="#0c0c0e" strokeWidth="7"/><circle cx="200" cy="150" r="30" fill="none" stroke="#9aa0a6" strokeWidth="1.4"/>{Array.from({length:8},(_,i)=>{const a=(22.5+i*45)*Math.PI/180;return <circle key={i} cx={200+112*Math.cos(a)} cy={150+112*Math.sin(a)} r="5.5" fill={i===0?'#e33e3e':i===4?'#2a7fc2':'#3b3b42'}/>})}</>}
 /** Sporthalvloer: de lijnen van meerdere sporten door elkaar, zoals in elke gymzaal. */
+/** Testbeeld voor een dag zonder uitzendingen: kleurbalken met Geen uitzending. */
+export function Testbeeld(){const b=['#f4f6f2','#ffd23f','#33d1d1','#33d17a','#d14fd1','#ff4d5e','#2f5bd9'];return <svg className="testbeeld" viewBox="0 0 400 220" aria-hidden="true"><rect width="400" height="220" fill="#11161b"/>{b.map((c,i)=><rect key={c} x={i*400/7} y="0" width={400/7+.5} height="150" fill={c}/>)}{['#2f5bd9','#11161b','#d14fd1','#11161b','#33d1d1','#11161b','#f4f6f2'].map((c,i)=><rect key={i} x={i*400/7} y="150" width={400/7+.5} height="22" fill={c}/>)}<rect x="0" y="172" width="400" height="48" fill="#11161b"/><rect x="95" y="58" width="210" height="44" rx="8" fill="#11161b"/><text x="200" y="88" textAnchor="middle" fontSize="20" fontWeight="800" fill="#f4f6f2" style={{fontStretch:'85%'}}>GEEN UITZENDING</text></svg>}
 export function Hallijnen(){return <g fill="none" strokeWidth="2"><rect x="20" y="24" width="360" height="252" stroke="#f6f8f4"/><path d="M200 24V276" stroke="#f6f8f4"/><circle cx="200" cy="150" r="34" stroke="#f6f8f4"/><rect x="62" y="60" width="276" height="180" stroke="#e0a800"/><path d="M62 150H338M154 60V240M246 60V240" stroke="#e0a800"/><path d="M20 80A72 72 0 0 1 20 220M380 80A72 72 0 0 0 380 220" stroke="#e33e3e"/><rect x="20" y="108" width="62" height="84" stroke="#e33e3e"/><rect x="318" y="108" width="62" height="84" stroke="#e33e3e"/><rect x="104" y="42" width="192" height="216" stroke="#2456b8"/><path d="M104 114H296M104 186H296" stroke="#2456b8"/></g>}
 function Sporthal(){return <><rect width="400" height="300" fill="#c69a5a"/>{Array.from({length:10},(_,i)=><path key={i} d={`M0 ${15+i*30}H400`} stroke="#b88a4a" strokeWidth="1"/>)}<Hallijnen/></>}
 
 /** Het veld van een sport. `detail` toont extra aanduidingen (bochtnummers); `mini` laat fijne details weg. */
-export function Veld({sport,event,play=false,mini,detail,className}:{sport:string;event?:Event|null;play?:boolean;mini?:boolean;detail?:boolean;className?:string}){
+export function Veld({sport,event,play=false,mini,detail,className,vlag='uit'}:{sport:string;event?:Event|null;play?:boolean;mini?:boolean;detail?:boolean;className?:string;vlag?:'uit'|'stil'|'wapperend'}){
  const ref=useRef<SVGSVGElement>(null);
  // Buiten beeld staat de animatie stil.
  useEffect(()=>{const el=ref.current;if(!el||!play||!('IntersectionObserver'in window))return;const io=new IntersectionObserver(([x])=>{try{x.isIntersecting?el.unpauseAnimations():el.pauseAnimations()}catch{/* geen SMIL */}});io.observe(el);return()=>io.disconnect()},[play]);
- const key=event?circuitKey(event):null,c=key?circuits[key]:null,p={play,mini};
+ // F1 zonder eigen evenement (zoals de Sporten-tab): de baan van de eerstvolgende race, in het klein.
+ const res=!event&&sport==='f1'?volgendeF1():null;
+ const key=event?circuitKey(event):res?.key??null,c=key?circuits[key]:null,p={play,mini};
+ const reserve=res&&c?'Volgende race: '+c.location:undefined;
  // Circuits krijgen een eigen uitsnede rond de baan, zodat ook een smalle baan het beeld vult.
- let vb='0 0 400 300',kompas:[number,number]=[372,30];
- if(c){const xs=c.points.map(q=>q[0]-40),ys=c.points.map(q=>q[1]+37),m=mini?16:detail?40:26,x=Math.min(...xs)-m,y=Math.min(...ys)-m,w=Math.max(...xs)+m-x,h=Math.max(...ys)+m-y;vb=`${x} ${y} ${w} ${h}`;
+ let vb='0 0 400 300',kompas:[number,number]=[372,30],vbn=[0,0,400,300];
+ if(c){const xs=c.points.map(q=>q[0]-40),ys=c.points.map(q=>q[1]+37),m=mini?16:detail?40:26;
+  // In het detailscherm staat de baaninfo in beeld: ruimte vrijhouden boven (circuitnaam) en onder (sectoren en baangegevens).
+  const boven=detail?30:reserve?22:0,onder=detail?(c.length?62:0)+(c.markers?.sectors?30:0):0;
+  const x=Math.min(...xs)-m,y=Math.min(...ys)-m-boven,w=Math.max(...xs)+m-x,h=Math.max(...ys)+m+onder-y;vb=`${x} ${y} ${w} ${h}`;vbn=[x,y,w,h];
+  const yb=y+boven,yo=y+h-onder;
   // Kompas in de hoek die het verst van de baan ligt; rechtsboven alleen als het niet anders kan (daar staat in het detailscherm de sluitknop).
-  const hoeken:[number,number][]=[[x+16,y+h-16],[x+w-16,y+h-16],[x+16,y+16],[x+w-16,y+16]],vrij=(q:[number,number])=>Math.min(...xs.map((v,i)=>Math.hypot(v-q[0],ys[i]-q[1])));
+  const hoeken:[number,number][]=[[x+16,yo-16],[x+w-16,yo-16],[x+16,yb+16],[x+w-16,yb+16]],vrij=(q:[number,number])=>Math.min(...xs.map((v,i)=>Math.hypot(v-q[0],ys[i]-q[1])));
   kompas=detail?hoeken.reduce((a,b)=>vrij(b)>vrij(a)+4?b:a):[x+w-16,y+16]}
- const body=c?<Circuit c={c} detail={detail} kompas={kompas} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'||sport==='olympics'?<Atletiek {...p}/>:sport==='rugby'?<Rugby {...p}/>:sport==='hockey'?<Hockey {...p}/>:sport==='winter'?<Piste {...p}/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
+ const vurl=c&&detail&&vlag!=='uit'?vlagUrl(landVan[key!]):null;
+ const body=c?<Circuit c={c} detail={detail} kompas={kompas} vb={vbn} reserve={reserve} vlag={vurl?{url:vurl,wapper:vlag==='wapperend'}:null} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'||sport==='olympics'?<Atletiek {...p}/>:sport==='rugby'?<Rugby {...p}/>:sport==='hockey'?<Hockey {...p}/>:sport==='winter'?<Piste {...p}/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
  return <svg ref={ref} className={'veld '+(className||'')} viewBox={vb} preserveAspectRatio={c||sport==='darts'?'xMidYMid meet':'xMidYMid slice'} style={{background:c?'#26323c':vloer(sport).vloer}} aria-hidden="true" focusable="false">{body}</svg>;
 }
 /** Wat de tekening laat zien, in woorden. */

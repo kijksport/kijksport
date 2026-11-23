@@ -2,12 +2,16 @@
 // Verschijnt één keer per versie, alleen voor wie de app al gebruikte. Nieuwe gebruikers slaan het over.
 import {useEffect,useRef,type CSSProperties} from 'react';
 import {opslag} from './kanaal';
-import {Bookmark,History,Target,Sparkles,CalendarClock,MapPin,Flag,SlidersHorizontal,Users,type LucideIcon} from 'lucide-react';
+import {Bookmark,History,Target,Sparkles,CalendarClock,MapPin,Flag,SlidersHorizontal,Users,Tv,type LucideIcon} from 'lucide-react';
 import packageInfo from '../package.json';
 
 type Punt={icoon:LucideIcon;kleur:string;titel:string;tekst:string};
 /** Nieuwste versie bovenaan. Houd het kort: hoogstens vier punten per versie, in gewone woorden. */
 export const versies:{versie:string;punten:Punt[]}[]=[
+ {versie:'1.7.3',punten:[
+  {icoon:Flag,kleur:'var(--rood)',titel:'Circuit met vlag en info in beeld',tekst:'Baanlengte, ronden, record en de sectorkleuren staan nu in de baankaart, met de vlag van het land erachter.'},
+  {icoon:MapPin,kleur:'var(--focus)',titel:'Volgende circuit in Sporten',tekst:'Bij Formule 1 zie je in de Sporten-tab de baan van de eerstvolgende race.'},
+  {icoon:Tv,kleur:'var(--let)',titel:'Testbeeld op lege dagen',tekst:'Staat er niets op tv, dan zie je een testbeeld.'}]},
  {versie:'1.7.2',punten:[
   {icoon:MapPin,kleur:'var(--rood)',titel:'Alle circuits van 2027',tekst:'Elk F1-raceweekend van 2027 heeft nu een eigen baantekening.'},
   {icoon:SlidersHorizontal,kleur:'var(--focus)',titel:'Overzichtelijke Sporten-tab',tekst:'Sporten zijn ingeklapt. Met Sober zet je in één keer alle tekeningen en feiten uit.'},

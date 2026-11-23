@@ -372,3 +372,24 @@ dialog.nieuw::backdrop{background:rgba(6,14,12,.6)}
 .maker-teken.mens{background:var(--rood);color:#fff}
 .maker-link{display:inline-flex;align-items:center;gap:4px;flex:none;min-height:36px;padding:0 12px;border-radius:99px;border:1.5px solid var(--lijn);font-size:.82rem;font-weight:650;text-decoration:none;color:var(--ink)}
 .maker-feiten{display:grid;gap:8px;margin:4px 0 0}.maker-feiten div{display:grid;gap:1px}.maker-feiten dt{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--sub)}.maker-feiten dd{margin:0;line-height:1.45}
+/* Baaninfo in de tekening (1.7.3) */
+.baan-beeld{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between;padding:10px;color:#edf2ee}
+.baan-bug{align-self:flex-start;display:grid;gap:1px;padding:6px 10px;border-radius:9px;background:rgba(10,18,22,.8);max-width:calc(100% - 70px)}
+.baan-bug small{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#9db0aa;font-weight:700}.baan-bug b{font-size:.95rem;font-stretch:85%;line-height:1.15}
+.baan-onder{display:grid;gap:6px}
+.baan-sectoren{justify-self:start;display:flex;gap:10px;padding:5px 9px;border-radius:8px;background:rgba(10,18,22,.8);font-size:.72rem;font-weight:650}
+.baan-sectoren span{display:inline-flex;align-items:center;gap:5px}.baan-sectoren i{width:13px;height:4px;border-radius:2px}
+.baan-tegels{display:flex;gap:6px;margin:0}.baan-tegels div{flex:1 1 0;min-width:0;display:grid;gap:1px;padding:6px 9px;border-radius:9px;background:rgba(10,18,22,.8)}
+.baan-tegels dt{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:#9db0aa;font-weight:700}.baan-tegels dd{margin:0;font-size:1rem;font-weight:800;font-stretch:85%;display:grid}.baan-tegels small{font-size:.66rem;font-weight:500;color:#9db0aa;font-stretch:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Wapperende vlag: stroken op en neer met wisselende schaduw */
+.vlagstrook{animation:wapper 3.2s ease-in-out infinite}
+.vlagschaduw{opacity:0;animation:wapperschaduw 3.2s ease-in-out infinite}
+@keyframes wapper{0%,100%{transform:translateY(calc(var(--a) * -1))}50%{transform:translateY(var(--a))}}
+@keyframes wapperschaduw{0%,100%{opacity:0}50%{opacity:.35}}
+@media (prefers-reduced-motion:reduce){.vlagstrook,.vlagschaduw{animation:none}}
+.keuzerij.klein{margin:0}.keuzerij.klein button{min-height:36px;padding:0 12px;font-size:.82rem}
+.sport-veld .keuzerij{flex-wrap:nowrap}
+.testbeeld{display:block;width:100%;max-width:320px;height:auto;border-radius:12px}
+.leeg .testbeeld{width:min(240px,100%);background:none}
+.sport-veld:has(.keuzerij){flex-wrap:wrap}
+.baan-rij{display:flex;justify-content:space-between;align-items:flex-end;gap:8px}.baan-kompas{margin-left:auto;width:34px;height:34px;flex:none}.baan-kompas svg{display:block;width:100%;height:100%}

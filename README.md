@@ -219,3 +219,10 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 - Baanvormen voor alle circuits van 2027 (18 nieuw) uit f1-circuits van Tomislav Bacinger, met `scripts/import-circuits.mjs` in dezelfde projectie als de bestaande banen. Baangegevens (lengte, ronden, record) alleen waar gecontroleerd; voor de nieuwe banen nog niet.
 - Sporten-tab: sporten ingeklapt met samenvatting, Alles aan/uit per sport, en Volledig of Sober voor alle sporten tegelijk.
 - Colofon uitgebreid: makers (Marco, ChatGPT, Claude) met links naar App Store, Google Play of website, plus gegevens, privacy, dank en broncode.
+
+## KijkSport 1.7.3 (testversie)
+
+- Baaninfo in de baankaart zelf (circuit en land bovenin, sectoren en baangegevens onderin); bronnen klein eronder.
+- Vlag van het land achter het circuit, uit, stil of wapperend (instelling bij Formule 1 in de Sporten-tab; testversie standaard wapperend, gewone versie stil). Vlaggen uit flag-icons (MIT, `public/licenses/flag-icons.txt`). Wapperen staat uit bij Verminder beweging.
+- F1 zonder eigen evenement (Sporten-tab): de baan van de eerstvolgende race, met label.
+- Testbeeld bij een lege dag en bij een lege selectie.

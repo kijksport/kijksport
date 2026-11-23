@@ -14,7 +14,7 @@ import {services,viewingAccess,accessLabels,tvPerSport,providerLine,viewingOptio
 import {encodeSelection,decodeSelection,shareKey} from './share';
 import {sportFacts} from './sportfacts';
 import {km} from './circuit';
-import {Veld,DartsHoek,Hallijnen,vloer,plaat,circuitKey,circuits} from './velden';
+import {Veld,DartsHoek,Hallijnen,Testbeeld,vloer,plaat,circuitKey,circuits,landVan,landNaam} from './velden';
 import './app.css';
 
 const sports=raw.sports as Sport[],events=raw.events as Event[];
@@ -23,7 +23,8 @@ const statuses={review:'Opnieuw controleren',announced:'Aangekondigd',date:'Datu
 const pages=[['Vandaag',Tv],['Agenda',CalendarDays],['Sporten',SlidersHorizontal],['Kijklijst',Bookmark]] as const;
 type Page=typeof pages[number][0];
 /** Weergave per toestel: bij welke sporten de baan of het veld in beeld komt, en of sportfeiten getoond worden. */
-type Weergave={veld:Record<string,boolean>;feiten:boolean;uit:string[]};
+type Weergave={veld:Record<string,boolean>;feiten:boolean;uit:string[];vlag:'uit'|'stil'|'wapperend'};
+const standaardVlag:Weergave['vlag']=kanaal==='test'?'wapperend':'stil';
 const motorsport=['f1','motogp','wec'];
 // Colofon: naar de App Store op een iPhone of iPad, naar Google Play op Android, anders naar de website.
 const platform=typeof navigator==='undefined'?'web':/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.userAgent.includes('Macintosh')&&navigator.maxTouchPoints>1)?'ios':/Android/.test(navigator.userAgent)?'android':'web';
@@ -69,15 +70,20 @@ function Weetje({sport}:{sport:string}){
  return <div className="weetje"><p>{x.text}</p><div><a href={x.source} target="_blank" rel="noreferrer">Bron: {x.label}, gecontroleerd {label(x.checked,{day:'numeric',month:'short',year:'numeric'})}</a>{f.length>1&&<button onClick={()=>setI(i+1)}>Volgend feit</button>}</div></div>;
 }
 /** Baangegevens van een circuit, elk met bron en controledatum. */
-function Baanfeiten({event}:{event:Event}){
- const key=circuitKey(event),c=key?circuits[key]:null;if(!c||!c.length)return null;
- return <div className="baan"><dl>
-  <div><dt>Baanlengte</dt><dd>{km(c.length)}</dd></div>
-  {c.laps&&<div><dt>Ronden</dt><dd>{c.laps}</dd></div>}
-  {c.distance&&<div><dt>Raceafstand</dt><dd>{km(c.distance)}</dd></div>}
-  {c.firstGp&&<div><dt>Eerste Grand Prix</dt><dd>{c.firstGp}</dd></div>}
-  {c.record&&<div className="breed"><dt>Ronderecord</dt><dd>{c.record.time} <small>{c.record.driver}, {c.record.year}</small></dd></div>}
- </dl><p className="klein"><a href={c.statsSource} target="_blank" rel="noreferrer">Bron: formula1.com</a>{c.statsChecked&&', gecontroleerd '+label(c.statsChecked,{day:'numeric',month:'short',year:'numeric'})}. {c.markers?'Bochtnummers en sectoren: '+c.markers.source+(c.markers.note?' '+c.markers.note:''):'Voor deze baan zijn nog geen bochtnummers en sectoren opgenomen.'}</p></div>;
+/** Baaninfo in de tekening zelf, in tv-stijl: circuit en land bovenin, sectoren en baangegevens onderin. */
+function BaanInBeeld({event}:{event:Event}){
+ const key=circuitKey(event),c=key?circuits[key]:null;if(!c)return null;const land=landNaam[landVan[key!]]||'';
+ return <div className="baan-beeld">
+  <div className="baan-bug"><small>{land}</small><b>{c.name}</b></div>
+  <div className="baan-onder">
+   <div className="baan-rij">{c.markers?.sectors&&<div className="baan-sectoren" aria-label="Sectorkleuren"><span><i style={{background:'#ff4d5e'}}/>Sector 1</span><span><i style={{background:'#4aa6ff'}}/>Sector 2</span><span><i style={{background:'#ffd23f'}}/>Sector 3</span></div>}<span className="baan-kompas" role="img" aria-label="Noorden boven"><svg viewBox="-13 -13 26 26" aria-hidden="true"><circle r="12" fill="#18222a" stroke="#56646f" strokeWidth=".8"/><path d="M0-8.5L3.4 1.8H-3.4Z" fill="#ff4d5e"/><text y="9" textAnchor="middle" fontSize="6.5" fontWeight="700" fill="#f6f8f4">N</text></svg></span></div>
+   {c.length&&<dl className="baan-tegels"><div><dt>Baanlengte</dt><dd>{km(c.length)}</dd></div>{c.laps&&<div><dt>Ronden</dt><dd>{c.laps}</dd></div>}{c.record&&<div><dt>Ronderecord</dt><dd>{c.record.time}<small>{c.record.driver}, {c.record.year}</small></dd></div>}</dl>}
+  </div></div>;
+}
+/** Bronnen bij de baaninfo, klein onder de tekening. */
+function BaanBron({event}:{event:Event}){
+ const key=circuitKey(event),c=key?circuits[key]:null;if(!c)return null;
+ return <p className="klein">Baankaart: <a href="https://github.com/bacinger/f1-circuits" target="_blank" rel="noreferrer">f1-circuits</a>, noorden boven{c.length?<>. Baangegevens: <a href={c.statsSource} target="_blank" rel="noreferrer">formula1.com</a>{c.statsChecked&&', gecontroleerd '+label(c.statsChecked,{day:'numeric',month:'short',year:'numeric'})}</>:'. Baangegevens nog niet gecontroleerd'}. {c.markers?'Bochtnummers en sectoren: '+c.markers.source+(c.markers.note?' '+c.markers.note:''):'Bochtnummers, sectoren en startlijn nog niet opgenomen.'}{c.firstGp?' Eerste Grand Prix hier: '+c.firstGp+'.':''}{c.distance?' Raceafstand '+km(c.distance)+'.':''}</p>;
 }
 const sessieNaam=(t:string)=>{const m=t.match(/vrije training\s*(\d)/i);return m?'Training '+m[1]:/sprint/i.test(t)?'Sprint':/kwalificatie/i.test(t)?'Kwalificatie':'Race'};
 const sessieCode=(t:string)=>{const m=t.match(/vrije training\s*(\d)/i);return m?'VT'+m[1]:/sprint/i.test(t)?'SPR':/kwalificatie/i.test(t)?'KWA':'RACE'};
@@ -91,7 +97,7 @@ function App(){
  const[settings,setSettings]=useState<Settings>(start.settings),[nieuw,setNieuw]=useState(()=>nieuwTonen(start.status));
  const[page,setPage]=useState<Page>('Vandaag'),[date,setDate]=useState(day()),[view,setView]=useState('Week'),[search,setSearch]=useState(''),[sportFilter,setSportFilter]=useState('all'),[accessFilter,setAccessFilter]=useState('all');
  const[selected,setSelected]=useState<Event|null>(null),[info,setInfo]=useState(false),[serviceOpen,setServiceOpen]=useState(false),[incoming,setIncoming]=useState<Profile|null>(null);
- const[toast,setToast]=useState(''),[storageError,setStorageError]=useState(''),[qr,setQr]=useState(''),[kopie,setKopie]=useState(''),[infoOpen,setInfoOpen]=useState<string|null>(null),[dag,setDag]=useState(day()),[openVandaag,setOpenVandaag]=useState(0),[weergave,setWeergave]=useState<Weergave>(()=>{try{const w=JSON.parse(opslag().getItem('kijksport-weergave')||'{}');return {veld:w.veld&&typeof w.veld==='object'?w.veld:{},feiten:w.feiten!==false,uit:Array.isArray(w.uit)?w.uit.filter((x:unknown)=>typeof x==='string'):[]}}catch{return {veld:{},feiten:true,uit:[]}}}),[tvSoort,setTvSoort]=useState('all'),[tvPeriode,setTvPeriode]=useState('all'),[tvSort,setTvSort]=useState('datum'),[beweeg,setBeweeg]=useState(true);
+ const[toast,setToast]=useState(''),[storageError,setStorageError]=useState(''),[qr,setQr]=useState(''),[kopie,setKopie]=useState(''),[infoOpen,setInfoOpen]=useState<string|null>(null),[dag,setDag]=useState(day()),[openVandaag,setOpenVandaag]=useState(0),[weergave,setWeergave]=useState<Weergave>(()=>{try{const w=JSON.parse(opslag().getItem('kijksport-weergave')||'{}');return {veld:w.veld&&typeof w.veld==='object'?w.veld:{},feiten:w.feiten!==false,uit:Array.isArray(w.uit)?w.uit.filter((x:unknown)=>typeof x==='string'):[],vlag:['uit','stil','wapperend'].includes(w.vlag)?w.vlag:standaardVlag}}catch{return {veld:{},feiten:true,uit:[],vlag:standaardVlag}}}),[tvSoort,setTvSoort]=useState('all'),[tvPeriode,setTvPeriode]=useState('all'),[tvSort,setTvSort]=useState('datum'),[beweeg,setBeweeg]=useState(true);
  const dialog=useRef<HTMLDialogElement>(null),infoDialog=useRef<HTMLDialogElement>(null),serviceDialog=useRef<HTMLDialogElement>(null),importDialog=useRef<HTMLDialogElement>(null),upload=useRef<HTMLInputElement>(null);
  const rustig=useRustig(),now=useNow(30000);
  const p=settings.preferences,favorites=p.favorites,notify=setToast,play=beweeg&&!rustig;
@@ -170,7 +176,7 @@ function App(){
    {infoOpen===e.id&&infoBlok(e)}</article>};
  // In een lijst staat een uitzenddag niet nog eens los als het toernooi zelf er al staat.
  const zonderKinderen=(es:Event[])=>{const weg=new Set(es.flatMap(m=>kinderen(m).map(c=>c.id)));return es.filter(e=>!weg.has(e.id))};
- const leeg=(text='Geen evenementen in deze selectie.')=><div className="leeg"><svg viewBox="0 0 400 300" aria-hidden="true"><Hallijnen/></svg><h3>{text}</h3><p>De kalender is een selectie, geen complete wedstrijdgids.</p><button className="knop" onClick={()=>nav('Sporten')}>Pas je sporten aan</button></div>;
+ const leeg=(text='Geen evenementen in deze selectie.')=><div className="leeg"><Testbeeld/><h3>{text}</h3><p>De kalender is een selectie, geen complete wedstrijdgids.</p><button className="knop" onClick={()=>nav('Sporten')}>Pas je sporten aan</button></div>;
  function shift(n:number){go(()=>{if(view==='Dag')setDate(addDays(date,n));else if(view==='Week')setDate(addDays(date,n*7));else{const d=new Date(date+'T12:00Z');if(view==='Jaar')d.setUTCFullYear(d.getUTCFullYear()+n);else d.setUTCMonth(d.getUTCMonth()+n,1);setDate(d.toISOString().slice(0,10))}})}
  const dateEvents=filtered.filter(e=>occurs(e,date)),weekStart=addDays(date,-((new Date(date+'T12:00Z').getUTCDay()+6)%7));
  const reminder:Reminder=selected?p.reminders[selected.id]||{mode:'none'}:{mode:'none'};
@@ -202,7 +208,7 @@ function App(){
     :groot?<section className="tv tv7" style={kleur(hero.sport)} aria-labelledby="uit-titel">
      <div className="tv-beeld"><button className="uit-open" onClick={()=>setSelected(hero)} aria-label={'Bekijk details van '+hero.title}><Veld sport={hero.sport} event={hero} play={play}/></button><span className="tv-bug">{sportOf(hero.sport).name}</span>{zender(hero)}{pauze}</div>{balk}{onder}</section>
     :<section className="tv strak" style={kleur(hero.sport)} aria-labelledby="uit-titel"><div className="tv8-kop"><span className="tv-bug">{sportOf(hero.sport).name}</span><b/>{zender(hero)}</div>{balk}{onder}</section>})()
-   :<section className="leeg"><svg viewBox="0 0 400 300" aria-hidden="true"><Hallijnen/></svg><h2>Nog geen sport in beeld.</h2><p>Er zijn geen evenementen voor jullie huidige selectie.</p><button className="knop vol" onClick={()=>nav('Sporten')}>Pas de selectie aan</button></section>}</Vak>
+   :<section className="leeg"><Testbeeld/><h2>Nog geen sport in beeld.</h2><p>Er zijn geen evenementen voor jullie huidige selectie.</p><button className="knop vol" onClick={()=>nav('Sporten')}>Pas de selectie aan</button></section>}</Vak>
   {(()=>{const ander=dag!==today,dagEvents=ander?zonderKinderen(filtered.filter(e=>occurs(e,dag)).sort((a,b)=>(a.iso||'').localeCompare(b.iso||''))):[],n=ander?dagEvents.length:todayEvents.length;return <Vak id="vandaag" openSignaal={openVandaag} titel={ander?cap(label(dag,{weekday:'long',day:'numeric',month:'long'})):'Vandaag'} sub={n===1?'1 sportmoment':n+' sportmomenten'}>
    <div className="filters"><div className="keuze" role="group" aria-label="Filter op kijkmogelijkheid">{[['all','Alles'],['available','Mijn kijkdiensten'],['unknown','Kijkinfo volgt']].map(([id,name])=><button key={id} aria-pressed={accessFilter===id} onClick={()=>{if(id==='available'&&!p.servicesConfigured)setServiceOpen(true);setAccessFilter(id)}}>{name}</button>)}</div>
    {mine.length>1&&<div className="chips" role="group" aria-label="Filter op sport"><button aria-pressed={sportFilter==='all'} onClick={()=>setSportFilter('all')}>Alle sporten</button>{mine.map(s=><button key={s.id} style={kleur(s.id)} aria-pressed={sportFilter===s.id} onClick={()=>setSportFilter(s.id)}><i/>{s.name}</button>)}</div>}</div>
@@ -244,6 +250,7 @@ function App(){
    {open.includes(s.id)&&<div id={'sport-'+s.id} className="sport-inhoud">{veldAan(s.id)&&<Veld sport={s.id} mini/>}
     <div className="sport-opties">{s.options.length>1&&<button className="tekstknop" disabled={!aan} onClick={()=>zetOpties(!alleOpties)}>{alleOpties?'Alles uit':'Alles aan'}</button>}{s.options.map(o=><label key={o.id}><input type="checkbox" disabled={!aan} checked={!p.excluded.includes(s.id+':'+o.id)} onChange={()=>update(q=>({...q,excluded:q.excluded.includes(s.id+':'+o.id)?q.excluded.filter(i=>i!==s.id+':'+o.id):[...q.excluded,s.id+':'+o.id]}))}/>{o.name}</label>)}</div>
     <label className="sport-veld"><span>{motorsport.includes(s.id)?'Circuit en baangegevens tonen':s.id==='darts'?'Dartbord tonen':'Veld of baan tonen'}</span><button role="switch" aria-checked={veldAan(s.id)} disabled={!aan} aria-label={s.name+': baan of veld tonen'} className="schakel klein" onClick={()=>setWeergave(w=>({...w,veld:{...w.veld,[s.id]:!veldAan(s.id)}}))}><span/></button></label>
+    {s.id==='f1'&&<div className="sport-veld"><span>Vlag achter het circuit</span><div className="keuzerij klein" role="group" aria-label="Vlag achter het circuit">{([['uit','Uit'],['stil','Stil'],['wapperend','Wapperend']] as const).map(([k,t])=><button key={k} aria-pressed={weergave.vlag===k} disabled={!aan||!veldAan('f1')} onClick={()=>setWeergave(w=>({...w,vlag:k}))}>{t}</button>)}</div></div>}
     <label className="sport-veld"><span>Tonen bij Uitgelicht</span><button role="switch" aria-checked={uitgelichtAan(s.id)} disabled={!aan} aria-label={s.name+': tonen bij Uitgelicht'} className="schakel klein" onClick={()=>setWeergave(w=>({...w,uit:uitgelichtAan(s.id)?[...w.uit,s.id]:w.uit.filter(x=>x!==s.id)}))}><span/></button></label></div>}</section>})}</div>
   <p className="noot"><Info size={17}/><span>Delen met een tweede telefoon en de back-up staan onder de i rechtsboven. <button onClick={()=>setInfo(true)}>Open de handleiding</button></span></p></>}
 
@@ -255,15 +262,14 @@ function App(){
  <footer><span>KijkSport <span aria-label={'Versie '+packageInfo.version}>v{packageInfo.version}</span></span><button className="tekstknop" onClick={()=>setInfo(true)}><Info size={15}/>Handleiding en gegevens</button></footer></main>
 
  <dialog ref={dialog} className="blad" onCancel={()=>setSelected(null)} onClick={e=>{if(e.target===dialog.current)setSelected(null)}}>{selected&&<div style={kleur(selected.sport)}>
-  {veldAan(selected.sport)?<div className={'blad-veld'+(circuitKey(selected)?' circuit':'')}><Veld sport={selected.sport} event={selected} play={play} detail/><button className="rond sluit" aria-label="Sluit evenement" onClick={()=>setSelected(null)}><X/></button></div>:<div className="blad-zonder"><button className="rond sluit" aria-label="Sluit evenement" onClick={()=>setSelected(null)}><X/></button></div>}
+  {veldAan(selected.sport)?<div className={'blad-veld'+(circuitKey(selected)?' circuit':'')}><Veld sport={selected.sport} event={selected} play={play} detail vlag={weergave.vlag}/>{circuitKey(selected)&&<BaanInBeeld event={selected}/>}<button className="rond sluit" aria-label="Sluit evenement" onClick={()=>setSelected(null)}><X/></button></div>:<div className="blad-zonder"><button className="rond sluit" aria-label="Sluit evenement" onClick={()=>setSelected(null)}><X/></button></div>}
   <div className="blad-kop"><p>{sportOf(selected.sport).name}</p><h2>{kort(selected.title)}</h2><p>{selected.venue||'Locatie nog niet bekend'}</p></div>
   <div className="blad-inhoud">
-   {veldAan(selected.sport)&&<p className="klein">Tekening: {plaat(selected.sport,selected)}.</p>}
+   {veldAan(selected.sport)&&!circuitKey(selected)&&<p className="klein">Tekening: {plaat(selected.sport,selected)}.</p>}{veldAan(selected.sport)&&<BaanBron event={selected}/>}
    {selected.venueSource&&<p className="klein">Locatie volgens <a href={selected.venueSource.url} target="_blank" rel="noreferrer">{selected.venueSource.label}</a>, gecontroleerd {label(selected.venueSource.checked,{day:'numeric',month:'short',year:'numeric'})}.</p>}
    <div className="uit-tijd">{selected.iso&&<b>{time(selected.iso)}</b>}<span>{cap(label(selected.start,{weekday:'long',day:'numeric',month:'long',year:'numeric'}))}{selected.end!==selected.start?' tot en met '+label(selected.end):''}<small>{selected.iso?'Nederlandse tijd (Europe/Amsterdam)':'Exacte begintijd nog niet bevestigd'}</small></span></div>
    {selected.iso&&selected.status!=='cancelled'&&<Aftellen iso={selected.iso}/>}
    <Weekend event={selected} list={filtered} now={now} onSelect={setSelected}/>
-   {veldAan(selected.sport)&&<Baanfeiten event={selected}/>}
    <section className="kijken"><h3>Kijken in Nederland</h3><p className="uit-kijk"><Tv size={18}/><span>{selected.broadcast?watch(selected):'Uitzending nog niet bevestigd'}</span></p>{badge(selected,true)}
     {selected.broadcast?<ul>{viewingOptions(selected).map(o=><li key={o.provider}><b>{o.provider}</b><span>{o.note||(o.basis==='rechten'?'Rechtenhouder in Nederland; uitzending per wedstrijd niet afzonderlijk gecontroleerd.':o.basis==='opgegeven'?'Door jullie zelf opgegeven.':'Kijkdienst bevestigd in de tv-gids; de tijd hierboven is de start van de sportsessie.')}</span><a href={o.url} target="_blank" rel="noreferrer">Naar {o.provider}<ExternalLink size={14}/></a></li>)}</ul>:<p>Er is nog geen gecontroleerde Nederlandse zender of streamingdienst opgenomen.</p>}
     <button className="tekstknop" onClick={()=>setServiceOpen(true)}>Wijzig mijn kijkdiensten</button></section>
@@ -311,7 +317,7 @@ function App(){
     <div><dt>Wat het is</dt><dd>Een gratis webapp om te zien wanneer jullie sporten op tv of via streaming te zien zijn. Geen account, geen reclame.</dd></div>
     <div><dt>Gegevens</dt><dd>De kalender wordt elke week nagelopen. Bij elk evenement staan bron en controledatum.</dd></div>
     <div><dt>Privacy</dt><dd>Je keuzes en kijklijst staan alleen op dit toestel.</dd></div>
-    <div><dt>Met dank aan</dt><dd>Baanvormen: <a href="https://github.com/bacinger/f1-circuits" target="_blank" rel="noreferrer">f1-circuits</a> van Tomislav Bacinger (MIT). Lettertype: Bricolage Grotesque (OFL).</dd></div>
+    <div><dt>Met dank aan</dt><dd>Baanvormen: <a href="https://github.com/bacinger/f1-circuits" target="_blank" rel="noreferrer">f1-circuits</a> van Tomislav Bacinger (MIT). Vlaggen: <a href="https://github.com/lipis/flag-icons" target="_blank" rel="noreferrer">flag-icons</a> (MIT). Lettertype: Bricolage Grotesque (OFL).</dd></div>
     <div><dt>Broncode</dt><dd><a href="https://github.com/kijksport/kijksport" target="_blank" rel="noreferrer">github.com/kijksport/kijksport</a></dd></div>
    </dl>
    <p className="klein">KijkSport Speelveld, versie {packageInfo.version}. <button className="tekstknop" onClick={()=>{setInfo(false);setNieuw(true)}}>Wat is nieuw</button></p></section>
