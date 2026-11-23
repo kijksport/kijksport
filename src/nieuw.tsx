@@ -8,6 +8,9 @@ import packageInfo from '../package.json';
 type Punt={icoon:LucideIcon;kleur:string;titel:string;tekst:string};
 /** Nieuwste versie bovenaan. Houd het kort: hoogstens vier punten per versie, in gewone woorden. */
 export const versies:{versie:string;punten:Punt[]}[]=[
+ {versie:'1.7.5',punten:[
+  {icoon:Sparkles,kleur:'var(--focus)',titel:'Kortere, duidelijkere teksten',tekst:'Werkaantekeningen uit de beginfase zijn weg. Status, controledatum en bron staan op één regel.'},
+  {icoon:Flag,kleur:'var(--rood)',titel:'Groter circuit met vlag',tekst:'Baan en vlag vullen het hele beeld; de baaninfo staat er direct onder.'}]},
  {versie:'1.7.3',punten:[
   {icoon:Flag,kleur:'var(--rood)',titel:'Circuit met vlag en info in beeld',tekst:'Baanlengte, ronden, record en de sectorkleuren staan nu in de baankaart, met de vlag van het land erachter.'},
   {icoon:MapPin,kleur:'var(--focus)',titel:'Volgende circuit in Sporten',tekst:'Bij Formule 1 zie je in de Sporten-tab de baan van de eerstvolgende race.'},

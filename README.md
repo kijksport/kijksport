@@ -231,3 +231,8 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 
 - Vlag 20 procent beter zichtbaar (stil 0,20, wapperend 0,26).
 - Baankaart op ongeveer een kwart van het scherm; circuitnaam en land in de kaart, sectoren, kompas en baangegevens in een band direct eronder.
+
+## KijkSport 1.7.5 (testversie)
+
+- Ondersteunende teksten opgeschoond: statusregel (status, controledatum, bron) op één regel, kortere teksten bij zenders, herinneringen en in de handleiding, geen bijschriften bij tekeningen, één bronnenregel onder de baankaart.
+- Baankaart en vlag vullen het beeldvlak; de vlag is een eigen laag over het hele vlak.

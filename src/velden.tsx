@@ -239,17 +239,20 @@ export function Veld({sport,event,play=false,mini,detail,className,vlag='uit'}:{
  const reserve=res&&c?'Volgende race: '+c.location:undefined;
  // Circuits krijgen een eigen uitsnede rond de baan, zodat ook een smalle baan het beeld vult.
  let vb='0 0 400 300',kompas:[number,number]=[372,30],vbn=[0,0,400,300];
- if(c){const xs=c.points.map(q=>q[0]-40),ys=c.points.map(q=>q[1]+37),m=mini?16:detail?40:26;
+ if(c){const xs=c.points.map(q=>q[0]-40),ys=c.points.map(q=>q[1]+37),m=mini?16:detail?12:26;
   // In het detailscherm staat de baaninfo in beeld: ruimte vrijhouden boven (circuitnaam) en onder (sectoren en baangegevens).
-  const boven=detail?34:reserve?22:0,onder=0;
+  const boven=detail?40:reserve?22:0,onder=0;
   const x=Math.min(...xs)-m,y=Math.min(...ys)-m-boven,w=Math.max(...xs)+m-x,h=Math.max(...ys)+m+onder-y;vb=`${x} ${y} ${w} ${h}`;vbn=[x,y,w,h];
   const yb=y+boven,yo=y+h-onder;
   // Kompas in de hoek die het verst van de baan ligt; rechtsboven alleen als het niet anders kan (daar staat in het detailscherm de sluitknop).
   const hoeken:[number,number][]=[[x+16,yo-16],[x+w-16,yo-16],[x+16,yb+16],[x+w-16,yb+16]],vrij=(q:[number,number])=>Math.min(...xs.map((v,i)=>Math.hypot(v-q[0],ys[i]-q[1])));
   kompas=detail?hoeken.reduce((a,b)=>vrij(b)>vrij(a)+4?b:a):[x+w-16,y+16]}
  const vurl=c&&detail&&vlag!=='uit'?vlagUrl(landVan[key!]):null;
- const body=c?<Circuit c={c} detail={detail} kompas={kompas} vb={vbn} reserve={reserve} vlag={vurl?{url:vurl,wapper:vlag==='wapperend'}:null} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'||sport==='olympics'?<Atletiek {...p}/>:sport==='rugby'?<Rugby {...p}/>:sport==='hockey'?<Hockey {...p}/>:sport==='winter'?<Piste {...p}/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
- return <svg ref={ref} className={'veld '+(className||'')} viewBox={vb} preserveAspectRatio={c||sport==='darts'?'xMidYMid meet':'xMidYMid slice'} style={{background:c?'#26323c':vloer(sport).vloer}} aria-hidden="true" focusable="false">{body}</svg>;
+ const body=c?<Circuit c={c} detail={detail} kompas={kompas} vb={vbn} reserve={reserve} vlag={null} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'||sport==='olympics'?<Atletiek {...p}/>:sport==='rugby'?<Rugby {...p}/>:sport==='hockey'?<Hockey {...p}/>:sport==='winter'?<Piste {...p}/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
+ const svg=<svg ref={ref} className={'veld '+(className||'')} viewBox={vb} preserveAspectRatio={c||sport==='darts'?'xMidYMid meet':'xMidYMid slice'} style={{background:vurl?'transparent':c?'#26323c':vloer(sport).vloer}} aria-hidden="true" focusable="false">{body}</svg>;
+ // Vlag als eigen laag over het hele vlak, de baan erboven.
+ if(vurl)return <div className="veld-stapel"><svg className="vlag-laag" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><Vlag url={vurl} vb={[0,0,400,300]} wapper={vlag==='wapperend'}/></svg>{svg}</div>;
+ return svg;
 }
 /** Wat de tekening laat zien, in woorden. */
 export function plaat(sport:string,event?:Event|null){const key=event?circuitKey(event):null;if(key)return circuits[key].name+', noorden boven'+(circuits[key].markers?.sectors?'. De drie kleuren zijn de tijdsectoren van een ronde, zoals in de tv-beelden: rood sector 1, blauw sector 2, geel sector 3':'');if(sport==='swimming'&&event?.pool===25)return'Kortebaanbad van 25 meter';if(sport==='swimming')return'Wedstrijdbad van 50 meter met acht banen';return vloer(sport).plaat}

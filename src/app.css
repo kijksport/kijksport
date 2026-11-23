@@ -402,3 +402,4 @@ dialog.nieuw::backdrop{background:rgba(6,14,12,.6)}
 .baan-band .baan-sectoren{background:rgba(10,18,22,.6)}
 .baan-band .baan-tegels div{background:rgba(10,18,22,.6)}
 .baan-band .baan-kompas{width:30px;height:30px}
+.veld-stapel{position:relative;width:100%;height:100%;background:#26323c}.veld-stapel>svg{position:absolute;inset:0;width:100%;height:100%}
