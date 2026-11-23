@@ -197,3 +197,13 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 - De app vraagt de browser om de opslag als blijvend te behandelen (`navigator.storage.persist`).
 - Dartspijlen trillen niet meer na; invliegen en de kring bij de inslag blijven.
 - Scherm Nieuw in KijkSport na een update (`src/nieuw.tsx`), één keer per versie en niet bij een eerste start. Opnieuw te openen via het colofon.
+
+## Testversie (vanaf 23 november 2026)
+
+- Nieuwe versies gaan eerst naar de branch `test`. De workflow bouwt die onder https://kijksport.github.io/kijksport/test/ met `VITE_KANAAL=test` en `scripts/kanaal-test.sh` (alleen in de branch test): eigen opslag met voorvoegsel `proef:` (bij de eerste start één kopie van de echte stand), eigen cachenaam `proef-vN`, naam "KijkSport test" en een icoon met gele TEST-band.
+- De testers gebruiken /kijksport/speelveld/ uit `main` en zien de testversie niet.
+- Na akkoord van de maker gaat `test` naar `main`. De kalender (`src/data.json`) komt voor alle versies uit `main`.
+
+## Kalender 23 november 2026
+
+- Locaties ingevuld voor de 25 F1-evenementen van 2027 (wintertest en 24 raceweekenden), met bron in `venueSource` (F1 Experiences, officiële F1-kalender 2027, gecontroleerd 23 november 2026).

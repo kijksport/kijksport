@@ -2,7 +2,7 @@
 name: Publiceren
 on:
   push:
-    branches: [main]
+    branches: [main, test]
   workflow_dispatch:
 permissions:
   contents: read
@@ -15,7 +15,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # De live versies komen altijd uit main, ook als een push op test deze workflow start.
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -38,10 +41,32 @@ jobs:
           npm run build
         env:
           BASE_PATH: /kijksport/
+      # Testversie uit de branch test, onder /kijksport/test/. Alleen voor de maker; de testers zien hem niet.
+      # Eigen opslag (voorvoegsel proef:), eigen cache en eigen naam, zodat de live versie niet geraakt wordt. Kalender uit main.
+      - id: test
+        run: |
+          if git ls-remote --exit-code --heads origin test >/dev/null; then echo "bestaat=ja" >> "$GITHUB_OUTPUT"; fi
+      - if: steps.test.outputs.bestaat == 'ja'
+        uses: actions/checkout@v4
+        with:
+          ref: test
+          path: proef
+      - if: steps.test.outputs.bestaat == 'ja'
+        run: |
+          cp src/data.json proef/src/data.json
+          cd proef
+          npm ci
+          npm test
+          npm run build
+          bash scripts/kanaal-test.sh dist
+        env:
+          BASE_PATH: /kijksport/test/
+          VITE_KANAAL: test
       - run: |
           mkdir site
           cp -r parcours/dist/. site/
           cp -r dist site/speelveld
+          if [ -d proef/dist ]; then cp -r proef/dist site/test; fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
