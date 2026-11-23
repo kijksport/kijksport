@@ -14,6 +14,16 @@ Elke maandagochtend worden de evenementen van de komende veertien dagen nagekeke
 - Nederlandse deelname staat in het veld `nl` (`text`, `source`, `label`, `checked`). Alleen invullen als een bron de deelnemers noemt, bijvoorbeeld een loting, startlijst of selectie. Geen bron: het veld weglaten.
 - Viaplay Nederland is sinds 30 oktober 2026 van DPG Media. Formule 1 en darts blijven voorlopig in de Viaplay-app; de overstap naar Videoland is aangekondigd voor later. Controleer bij elke ronde of dat is veranderd.
 
+## Teksten voor gebruikers (vanaf 23 november 2026)
+
+`desc` en `broadcast.note` zijn teksten die de testers lezen. Schrijf ze kort en in gewone taal, zonder werkaantekeningen:
+
+- Geen controledatums of 'gezien op' in de tekst; die staan al in `checked`.
+- Geen namen van bronnen of hulpsites in de tekst (zoals WaarOpTV, DartsKing, OpenFootball); de bron staat in `source` of `broadcast.url`.
+- Geen 'niet afzonderlijk gecontroleerd' of 'door jou opgegeven': de app zet zelf de regel 'Zender heeft de rechten; uitzending niet apart nagekeken' bij `basis: "rechten"`.
+- Wel: wat de kijker moet weten, zoals 'Op ESPN 2.', 'Ook via F1 TV.', 'Begintijd van de sessie, niet van de voorbeschouwing.', 'Tijden volgen.' of een tegenstrijdigheid die ertoe doet ('Ziggo noemt 07.00 uur.').
+- Voetbal: 'Eredivisie 2026/27, speelronde 13.'
+
 ## Werkwijze
 
 1. Lees `src/data.json` in `main` en selecteer de evenementen waarvan `end` binnen veertien dagen valt, plus alles met status `review` in die periode.
