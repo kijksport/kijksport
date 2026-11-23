@@ -7,7 +7,9 @@ import {track,type CircuitInfo} from './circuit';
 
 export const circuits=data as unknown as Record<string,CircuitInfo>;
 const aliases:[RegExp,string][]=[[/^lv26-/,'las-vegas'],[/^qa26-/,'qatar'],[/^ad26-/,'united-arab-emirates'],[/^br26/,'brazil'],[/^mx(?:q)?26/,'mexico'],[/^us26/,'united-states']];
-export function circuitKey(e:Event){if(e.sport!=='f1')return null;return aliases.find(([p])=>p.test(e.id))?.[1]??null}
+/** Raceweekenden van 2027 (kalender-id) naar baanvorm. */
+const weekend2027:Record<string,string>={e013:'bahrain',e014:'bahrain',e015:'saudi-arabia',e016:'australia',e017:'japan',e018:'china',e019:'miami',e020:'canada',e021:'monaco',e022:'portugal',e023:'great-britain',e024:'austria',e025:'belgium',e026:'hungary',e027:'italy',e028:'spain',e029:'azerbaijan',e030:'turkey',e031:'singapore',e032:'united-states',e033:'mexico',e034:'brazil',e035:'las-vegas',e036:'qatar',e037:'united-arab-emirates'};
+export function circuitKey(e:Event){if(e.sport!=='f1')return null;return weekend2027[e.id]??aliases.find(([p])=>p.test(e.id))?.[1]??null}
 
 /** Ondergrond per sport: vloerkleur, tekstkleur op die vloer en een accent voor stippen en lijnen. */
 export const veld:Record<string,{vloer:string;inkt:string;accent:string;plaat:string}>={
@@ -210,7 +212,10 @@ export function Veld({sport,event,play=false,mini,detail,className}:{sport:strin
  const key=event?circuitKey(event):null,c=key?circuits[key]:null,p={play,mini};
  // Circuits krijgen een eigen uitsnede rond de baan, zodat ook een smalle baan het beeld vult.
  let vb='0 0 400 300',kompas:[number,number]=[372,30];
- if(c){const xs=c.points.map(q=>q[0]-40),ys=c.points.map(q=>q[1]+37),m=mini?16:detail?40:26,x=Math.min(...xs)-m,y=Math.min(...ys)-m,w=Math.max(...xs)+m-x,h=Math.max(...ys)+m-y;vb=`${x} ${y} ${w} ${h}`;kompas=[x+w-16,y+16]}
+ if(c){const xs=c.points.map(q=>q[0]-40),ys=c.points.map(q=>q[1]+37),m=mini?16:detail?40:26,x=Math.min(...xs)-m,y=Math.min(...ys)-m,w=Math.max(...xs)+m-x,h=Math.max(...ys)+m-y;vb=`${x} ${y} ${w} ${h}`;
+  // Kompas in de hoek die het verst van de baan ligt; rechtsboven alleen als het niet anders kan (daar staat in het detailscherm de sluitknop).
+  const hoeken:[number,number][]=[[x+16,y+h-16],[x+w-16,y+h-16],[x+16,y+16],[x+w-16,y+16]],vrij=(q:[number,number])=>Math.min(...xs.map((v,i)=>Math.hypot(v-q[0],ys[i]-q[1])));
+  kompas=detail?hoeken.reduce((a,b)=>vrij(b)>vrij(a)+4?b:a):[x+w-16,y+16]}
  const body=c?<Circuit c={c} detail={detail} kompas={kompas} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'||sport==='olympics'?<Atletiek {...p}/>:sport==='rugby'?<Rugby {...p}/>:sport==='hockey'?<Hockey {...p}/>:sport==='winter'?<Piste {...p}/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
  return <svg ref={ref} className={'veld '+(className||'')} viewBox={vb} preserveAspectRatio={c||sport==='darts'?'xMidYMid meet':'xMidYMid slice'} style={{background:c?'#26323c':vloer(sport).vloer}} aria-hidden="true" focusable="false">{body}</svg>;
 }

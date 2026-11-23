@@ -2,7 +2,7 @@ import React,{useEffect,useRef,useState} from 'react';
 import {opslag,kanaal} from './kanaal';
 import {createRoot} from 'react-dom/client';
 import {flushSync} from 'react-dom';
-import {Bell,Bookmark,CalendarDays,Check,ChevronDown,ChevronLeft,Copy,ChevronRight,Download,ExternalLink,Info,Moon,Pause,Play,Search,Settings2,ShieldCheck,SlidersHorizontal,Sun,Tv,Upload,X} from 'lucide-react';
+import {Bell,Bookmark,CalendarDays,Check,ChevronDown,ChevronLeft,Copy,ChevronRight,Download,ExternalLink,Info,MessagesSquare,Moon,Pause,Play,Search,Settings2,ShieldCheck,SlidersHorizontal,Sparkles,Sun,Tv,Upload,X} from 'lucide-react';
 import QRCode from 'qrcode';
 import '@fontsource-variable/bricolage-grotesque/wdth.css';
 import raw from './data.json';
@@ -25,6 +25,12 @@ type Page=typeof pages[number][0];
 /** Weergave per toestel: bij welke sporten de baan of het veld in beeld komt, en of sportfeiten getoond worden. */
 type Weergave={veld:Record<string,boolean>;feiten:boolean;uit:string[]};
 const motorsport=['f1','motogp','wec'];
+// Colofon: naar de App Store op een iPhone of iPad, naar Google Play op Android, anders naar de website.
+const platform=typeof navigator==='undefined'?'web':/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.userAgent.includes('Macintosh')&&navigator.maxTouchPoints>1)?'ios':/Android/.test(navigator.userAgent)?'android':'web';
+const makers=[
+ {naam:'ChatGPT',rol:'Sparringpartner: ideeën, opzet en meedenken over de vormgeving.',icoon:MessagesSquare,ios:'https://apps.apple.com/app/id6448311069',android:'https://play.google.com/store/apps/details?id=com.openai.chatgpt',web:'https://chatgpt.com'},
+ {naam:'Claude',rol:'Bouwer: code, banen tekenen, bronnen nalopen en testen.',icoon:Sparkles,ios:'https://apps.apple.com/app/id6473753684',android:'https://claude.ai',web:'https://claude.ai'},
+].map(m=>({...m,url:platform==='ios'?m.ios:platform==='android'?m.android:m.web,winkel:platform==='ios'?'App Store':platform==='android'&&m.android.includes('play.google')?'Google Play':''}));
 /** Sporten waarbij de tekening standaard aan staat. */
 const metVeld=[...motorsport,'darts'];
 const dagenTussen=(a:string,b:string)=>Math.round((Date.parse(b+'T12:00Z')-Date.parse(a+'T12:00Z'))/864e5);
@@ -107,6 +113,8 @@ function App(){
  useEffect(()=>{try{opslag().setItem('kijksport-weergave',JSON.stringify(weergave))}catch{/* zonder opslag geldt de keuze tot het sluiten van de app */}},[weergave]);
  const veldAan=(sport:string)=>weergave.veld[sport]??metVeld.includes(sport);
  const uitgelichtAan=(sport:string)=>!weergave.uit.includes(sport);
+ const stand=sports.every(x=>veldAan(x.id))&&weergave.feiten?'vol':sports.every(x=>!veldAan(x.id))&&!weergave.feiten?'sober':'eigen';
+ const[open,setOpen]=useState<string[]>([]);
  const update=(f:(q:Profile)=>Profile)=>setSettings(s=>({...s,preferences:f(s.preferences)}));
  const favorite=(e:Event)=>update(q=>({...q,favorites:q.favorites.includes(e.id)?q.favorites.filter(i=>i!==e.id):[...q.favorites,e.id]}));
  const access=(e:Event)=>viewingAccess(e,p.services||[],!!p.servicesConfigured);
@@ -224,11 +232,19 @@ function App(){
   <p className="noot"><Info size={17}/><span>Alle tijden in Nederland. Toernooien zonder sessietijden staan als meerdaags evenement in de agenda.</span></p></>}
 
  {page==='Sporten'&&<>{kop('Sporten','Kies je sporten en competities, en hoeveel je per sport wilt zien.')}
-  <section className="paneel" aria-labelledby="weergave-titel"><h3 id="weergave-titel">Weergave</h3><p>Per sport kies je hieronder of het circuit, de baan of het veld in beeld komt. Uit geeft een strakke weergave met alleen tijd, titel en zender. Deze keuzes gelden voor dit toestel en gaan niet mee met een gedeelde selectie.</p>
+  <section className="paneel" aria-labelledby="weergave-titel"><h3 id="weergave-titel">Weergave</h3><p>Kies hoeveel beeld je wilt. Sober toont alleen tijd, titel en zender, zonder tekeningen en sportfeiten. Per sport kun je het daarna nog aanpassen. Deze keuzes gelden voor dit toestel.</p>
+   <div className="keuzerij" role="group" aria-label="Weergave voor alle sporten">{([['vol','Volledig'],['sober','Sober']] as const).map(([k,t])=><button key={k} aria-pressed={stand===k} onClick={()=>setWeergave(w=>({...w,feiten:k==='vol',veld:Object.fromEntries(sports.map(x=>[x.id,k==='vol']))}))}>{t}</button>)}{stand==='eigen'&&<span>Eigen mix</span>}</div>
    <label className="sport-veld breed"><span><b>Sportfeiten tonen</b><small>Korte feiten met bron bij Uitgelicht en bij de details.</small></span><button role="switch" aria-checked={weergave.feiten} aria-label="Sportfeiten tonen" className="schakel" onClick={()=>setWeergave(w=>({...w,feiten:!w.feiten}))}><span/></button></label></section>
   <button className="diensten" onClick={()=>setServiceOpen(true)}><span className="stapel"><Settings2 size={22}/></span><span><b>Mijn kijkdiensten</b><small>{p.servicesConfigured?(p.services||[]).length+' geselecteerd':'Geef aan waar je toegang toe hebt'}</small></span></button>
-  <div className="sportkeuze">{sports.map(s=>{const aan=p.sports.includes(s.id);return <section className={'sport'+(aan?' aan':'')} key={s.id} style={kleur(s.id)}>{veldAan(s.id)?<Veld sport={s.id} mini/>:<div className="sport-streep"/>}<div className="sport-kop"><h3>{s.name}</h3><button role="switch" aria-checked={aan} aria-label={s.name+' aan of uit'} className="schakel" onClick={()=>update(q=>({...q,sports:aan?q.sports.filter(i=>i!==s.id):[...q.sports,s.id]}))}><span/></button></div><div className="sport-opties">{s.options.map(o=><label key={o.id}><input type="checkbox" disabled={!aan} checked={!p.excluded.includes(s.id+':'+o.id)} onChange={()=>update(q=>({...q,excluded:q.excluded.includes(s.id+':'+o.id)?q.excluded.filter(i=>i!==s.id+':'+o.id):[...q.excluded,s.id+':'+o.id]}))}/>{o.name}</label>)}</div><label className="sport-veld"><span>{motorsport.includes(s.id)?'Circuit en baangegevens tonen':s.id==='darts'?'Dartbord tonen':'Veld of baan tonen'}</span><button role="switch" aria-checked={veldAan(s.id)} disabled={!aan} aria-label={s.name+': baan of veld tonen'} className="schakel klein" onClick={()=>setWeergave(w=>({...w,veld:{...w.veld,[s.id]:!veldAan(s.id)}}))}><span/></button></label>
-   <label className="sport-veld"><span>Tonen bij Uitgelicht</span><button role="switch" aria-checked={uitgelichtAan(s.id)} disabled={!aan} aria-label={s.name+': tonen bij Uitgelicht'} className="schakel klein" onClick={()=>setWeergave(w=>({...w,uit:uitgelichtAan(s.id)?[...w.uit,s.id]:w.uit.filter(x=>x!==s.id)}))}><span/></button></label></section>})}</div>
+  <div className="sportkeuze">{sports.map(s=>{const aan=p.sports.includes(s.id),opties=s.options.filter(o=>!p.excluded.includes(s.id+':'+o.id)).length,alleOpties=opties===s.options.length;
+   const zetOpties=(alles:boolean)=>update(q=>({...q,excluded:alles?q.excluded.filter(i=>!i.startsWith(s.id+':')):[...new Set([...q.excluded,...s.options.map(o=>s.id+':'+o.id)])]}));
+   return <section className={'sport'+(aan?' aan':'')} key={s.id} style={kleur(s.id)}><div className="sport-streep"/>
+   <div className="sport-kop"><button className="sport-open" aria-expanded={open.includes(s.id)} aria-controls={'sport-'+s.id} onClick={()=>setOpen(o=>o.includes(s.id)?o.filter(x=>x!==s.id):[...o,s.id])}><ChevronDown size={18} aria-hidden="true"/><span><b>{s.name}</b><small>{aan?(alleOpties?'Alles':opties+' van '+s.options.length)+(veldAan(s.id)?', met tekening':', sober'):'Uit'}</small></span></button>
+    <button role="switch" aria-checked={aan} aria-label={s.name+' aan of uit'} className="schakel" onClick={()=>update(q=>({...q,sports:aan?q.sports.filter(i=>i!==s.id):[...q.sports,s.id]}))}><span/></button></div>
+   {open.includes(s.id)&&<div id={'sport-'+s.id} className="sport-inhoud">{veldAan(s.id)&&<Veld sport={s.id} mini/>}
+    <div className="sport-opties">{s.options.length>1&&<button className="tekstknop" disabled={!aan} onClick={()=>zetOpties(!alleOpties)}>{alleOpties?'Alles uit':'Alles aan'}</button>}{s.options.map(o=><label key={o.id}><input type="checkbox" disabled={!aan} checked={!p.excluded.includes(s.id+':'+o.id)} onChange={()=>update(q=>({...q,excluded:q.excluded.includes(s.id+':'+o.id)?q.excluded.filter(i=>i!==s.id+':'+o.id):[...q.excluded,s.id+':'+o.id]}))}/>{o.name}</label>)}</div>
+    <label className="sport-veld"><span>{motorsport.includes(s.id)?'Circuit en baangegevens tonen':s.id==='darts'?'Dartbord tonen':'Veld of baan tonen'}</span><button role="switch" aria-checked={veldAan(s.id)} disabled={!aan} aria-label={s.name+': baan of veld tonen'} className="schakel klein" onClick={()=>setWeergave(w=>({...w,veld:{...w.veld,[s.id]:!veldAan(s.id)}}))}><span/></button></label>
+    <label className="sport-veld"><span>Tonen bij Uitgelicht</span><button role="switch" aria-checked={uitgelichtAan(s.id)} disabled={!aan} aria-label={s.name+': tonen bij Uitgelicht'} className="schakel klein" onClick={()=>setWeergave(w=>({...w,uit:uitgelichtAan(s.id)?[...w.uit,s.id]:w.uit.filter(x=>x!==s.id)}))}><span/></button></label></div>}</section>})}</div>
   <p className="noot"><Info size={17}/><span>Delen met een tweede telefoon en de back-up staan onder de i rechtsboven. <button onClick={()=>setInfo(true)}>Open de handleiding</button></span></p></>}
 
  {page==='Kijklijst'&&<>{kop('Kijklijst','Bewaar je sportmomenten en neem ze mee naar je eigen agenda.')}
@@ -284,7 +300,21 @@ function App(){
   <details className="hulp"><summary><h3>Bijwerken en op het beginscherm</h3><ChevronDown size={18} aria-hidden="true"/></summary><div><p>De app werkt zichzelf bij zodra je hem met internet opent; sluit hem daarvoor af en open hem opnieuw. Zonder internet zie je de laatst opgehaalde versie. Elke maandagochtend worden de tijden en zenders van de komende twee weken nagekeken.</p><p>Op het beginscherm zetten: open de app in Safari, tik op Deel en kies <b>Zet op beginscherm</b>. Een app op het beginscherm heeft eigen opslag; neem je selectie mee met de deellink.</p></div></details>
   <details className="hulp"><summary><h3>Over de gegevens</h3><ChevronDown size={18} aria-hidden="true"/></summary><div><p>KijkSport bevat {events.length} evenementen. Het is een selectie, geen complete tv-gids. Bij elk evenement staan de status en de laatste controledatum; een deel van de kalender moet nog opnieuw worden gecontroleerd.</p><p>Aangekondigd, datum bevestigd en begintijd bevestigd zijn afzonderlijke stappen. Een bevestigde zender staat los van de begintijd.</p><p>Velden, banen en het bord zijn getekend met de gangbare reglementaire maten. Circuits komen uit openbare baangegevens en staan met het noorden boven; motorsport zonder baankaart toont een startopstelling.</p><p>Officiële bonden en organisatoren zijn de voorkeursbron; de link staat bij ieder evenement. De Eredivisie komt uit OpenFootball (publiek domein). Wikidata is een aanvullende bron onder CC0.</p><p><a href="https://www.wikidata.org/wiki/Wikidata:Licensing" target="_blank" rel="noreferrer">Wikidata-licentie</a>, <a href="https://github.com/openfootball/football.json#license" target="_blank" rel="noreferrer">OpenFootball</a>, <a href="https://github.com/bacinger/f1-circuits" target="_blank" rel="noreferrer">baanvormen (MIT)</a></p></div></details>
   <details className="hulp"><summary><h3>Privacy</h3><ChevronDown size={18} aria-hidden="true"/></summary><div><p>Geen trackers, advertenties of accounts. Voorkeuren en de kijklijst staan alleen op dit toestel. De hosting kan technisch noodzakelijke toegangsgegevens verwerken. Pushmeldingen en automatische synchronisatie zijn er niet.</p></div></details>
-  <section className="maker" aria-labelledby="maker-titel"><h3 id="maker-titel">Colofon</h3><p>KijkSport is bedacht en gemaakt door <b>Marco</b>.</p><p className="klein">KijkSport Speelveld, versie {packageInfo.version}. <button className="tekstknop" onClick={()=>{setInfo(false);setNieuw(true)}}>Wat is nieuw</button></p></section>
+  <section className="maker" aria-labelledby="maker-titel"><h3 id="maker-titel">Colofon</h3>
+   <p className="maker-lead">KijkSport is gemaakt door een team van drie: één sportliefhebber en twee AI's.</p>
+   <ul className="makers">
+    <li><span className="maker-teken mens" aria-hidden="true">M</span><span><b>Marco</b><small>Bedenker, scheidsrechter en eindredacteur. Kiest wat erin komt en fluit af wat niet klopt.</small></span></li>
+    {makers.map(m=><li key={m.naam}><span className="maker-teken" aria-hidden="true"><m.icoon size={18}/></span><span><b>{m.naam}</b><small>{m.rol}</small></span><a className="maker-link" href={m.url} target="_blank" rel="noreferrer" aria-label={'Open '+m.naam+(m.winkel?' in de '+m.winkel:'')}>{m.winkel||'Website'}<ExternalLink size={13}/></a></li>)}
+   </ul>
+   <p className="klein">De AI's leveren de bouwstenen en zoeken de bronnen op. Wat er uiteindelijk op het veld staat, bepaalt Marco.</p>
+   <dl className="maker-feiten">
+    <div><dt>Wat het is</dt><dd>Een gratis webapp om te zien wanneer jullie sporten op tv of via streaming te zien zijn. Geen account, geen reclame.</dd></div>
+    <div><dt>Gegevens</dt><dd>De kalender wordt elke week nagelopen. Bij elk evenement staan bron en controledatum.</dd></div>
+    <div><dt>Privacy</dt><dd>Je keuzes en kijklijst staan alleen op dit toestel.</dd></div>
+    <div><dt>Met dank aan</dt><dd>Baanvormen: <a href="https://github.com/bacinger/f1-circuits" target="_blank" rel="noreferrer">f1-circuits</a> van Tomislav Bacinger (MIT). Lettertype: Bricolage Grotesque (OFL).</dd></div>
+    <div><dt>Broncode</dt><dd><a href="https://github.com/kijksport/kijksport" target="_blank" rel="noreferrer">github.com/kijksport/kijksport</a></dd></div>
+   </dl>
+   <p className="klein">KijkSport Speelveld, versie {packageInfo.version}. <button className="tekstknop" onClick={()=>{setInfo(false);setNieuw(true)}}>Wat is nieuw</button></p></section>
   <button className="knop vol" onClick={()=>setInfo(false)}>Sluit</button></div></dialog>
 
  <dialog ref={importDialog} className="blad smal" onCancel={()=>setIncoming(null)}>{incoming&&<div className="blad-inhoud"><div className="blad-top"><h2>Selectie overnemen?</h2><button className="rond" aria-label="Sluit" onClick={()=>setIncoming(null)}><X/></button></div><p>Deze link bevat {incoming.sports.length} sporten, {(incoming.services||[]).length} kijkdiensten, {incoming.favorites.length} evenementen op de kijklijst en {Object.keys(incoming.reminders).length} herinneringen. Overnemen vervangt de selectie op dit toestel.</p><div className="acties"><button className="knop" onClick={()=>setIncoming(null)}>Niet nu</button><button className="knop vol" onClick={()=>{setSettings(s=>({...s,preferences:incoming}));setIncoming(null);notify('Selectie overgenomen.')}}><Check size={17}/>Neem selectie over</button></div></div>}</dialog>

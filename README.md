@@ -213,3 +213,9 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 - Agenda-export: wedstrijden met begintijd krijgen een eindtijd (uit de kalender, of geschat per soort sessie: F1-race 2 uur, overige F1-sessies en MotoGP 1 uur, voetbal, rugby en hockey 2 uur, darts en schaatsen 3 uur). De omschrijving meldt een geschatte eindtijd. Meerdaagse evenementen staan als hele dag op 'vrij'.
 - Bij circuits met sectoren legt het bijschrift de kleuren uit. Bij een locatie met bron staat die bron in het detailscherm.
 - Testkanaal (`src/kanaal.ts`, `scripts/kanaal-test.sh`, `public-test/`). Manifest verwijst naar iconen binnen de eigen map.
+
+## KijkSport 1.7.2 (testversie)
+
+- Baanvormen voor alle circuits van 2027 (18 nieuw) uit f1-circuits van Tomislav Bacinger, met `scripts/import-circuits.mjs` in dezelfde projectie als de bestaande banen. Baangegevens (lengte, ronden, record) alleen waar gecontroleerd; voor de nieuwe banen nog niet.
+- Sporten-tab: sporten ingeklapt met samenvatting, Alles aan/uit per sport, en Volledig of Sober voor alle sporten tegelijk.
+- Colofon uitgebreid: makers (Marco, ChatGPT, Claude) met links naar App Store, Google Play of website, plus gegevens, privacy, dank en broncode.

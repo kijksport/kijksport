@@ -2,12 +2,16 @@
 // Verschijnt één keer per versie, alleen voor wie de app al gebruikte. Nieuwe gebruikers slaan het over.
 import {useEffect,useRef,type CSSProperties} from 'react';
 import {opslag} from './kanaal';
-import {Bookmark,History,Target,Sparkles,CalendarClock,MapPin,Flag,type LucideIcon} from 'lucide-react';
+import {Bookmark,History,Target,Sparkles,CalendarClock,MapPin,Flag,SlidersHorizontal,Users,type LucideIcon} from 'lucide-react';
 import packageInfo from '../package.json';
 
 type Punt={icoon:LucideIcon;kleur:string;titel:string;tekst:string};
 /** Nieuwste versie bovenaan. Houd het kort: hoogstens vier punten per versie, in gewone woorden. */
 export const versies:{versie:string;punten:Punt[]}[]=[
+ {versie:'1.7.2',punten:[
+  {icoon:MapPin,kleur:'var(--rood)',titel:'Alle circuits van 2027',tekst:'Elk F1-raceweekend van 2027 heeft nu een eigen baantekening.'},
+  {icoon:SlidersHorizontal,kleur:'var(--focus)',titel:'Overzichtelijke Sporten-tab',tekst:'Sporten zijn ingeklapt. Met Sober zet je in één keer alle tekeningen en feiten uit.'},
+  {icoon:Users,kleur:'var(--ok)',titel:'Nieuw colofon',tekst:'Wie KijkSport hebben gemaakt, met links naar ChatGPT en Claude.'}]},
  {versie:'1.7.1',punten:[
   {icoon:CalendarClock,kleur:'var(--focus)',titel:'Hele wedstrijd in je agenda',tekst:'Races en wedstrijden staan nu van begin tot (geschat) einde in je agenda. Toernooien van meerdere dagen blokkeren je agenda niet.'},
   {icoon:MapPin,kleur:'var(--rood)',titel:'Circuits bij de F1 van 2027',tekst:'Bij elk raceweekend van 2027 staat nu het circuit, met bron.'},
