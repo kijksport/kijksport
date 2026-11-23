@@ -73,12 +73,15 @@ function Weetje({sport}:{sport:string}){
 /** Baaninfo in de tekening zelf, in tv-stijl: circuit en land bovenin, sectoren en baangegevens onderin. */
 function BaanInBeeld({event}:{event:Event}){
  const key=circuitKey(event),c=key?circuits[key]:null;if(!c)return null;const land=landNaam[landVan[key!]]||'';
- return <div className="baan-beeld">
-  <div className="baan-bug"><small>{land}</small><b>{c.name}</b></div>
-  <div className="baan-onder">
-   <div className="baan-rij">{c.markers?.sectors&&<div className="baan-sectoren" aria-label="Sectorkleuren"><span><i style={{background:'#ff4d5e'}}/>Sector 1</span><span><i style={{background:'#4aa6ff'}}/>Sector 2</span><span><i style={{background:'#ffd23f'}}/>Sector 3</span></div>}<span className="baan-kompas" role="img" aria-label="Noorden boven"><svg viewBox="-13 -13 26 26" aria-hidden="true"><circle r="12" fill="#18222a" stroke="#56646f" strokeWidth=".8"/><path d="M0-8.5L3.4 1.8H-3.4Z" fill="#ff4d5e"/><text y="9" textAnchor="middle" fontSize="6.5" fontWeight="700" fill="#f6f8f4">N</text></svg></span></div>
-   {c.length&&<dl className="baan-tegels"><div><dt>Baanlengte</dt><dd>{km(c.length)}</dd></div>{c.laps&&<div><dt>Ronden</dt><dd>{c.laps}</dd></div>}{c.record&&<div><dt>Ronderecord</dt><dd>{c.record.time}<small>{c.record.driver}, {c.record.year}</small></dd></div>}</dl>}
-  </div></div>;
+ return <div className="baan-beeld"><div className="baan-bug"><small>{land}</small><b>{c.name}</b></div></div>;
+}
+/** Band direct onder de baankaart: sectoren, kompas en baangegevens, in tv-stijl. */
+function BaanBand({event}:{event:Event}){
+ const key=circuitKey(event),c=key?circuits[key]:null;if(!c)return null;
+ return <div className="baan-band">
+  <div className="baan-rij">{c.markers?.sectors?<div className="baan-sectoren" aria-label="Sectorkleuren"><span><i style={{background:'#ff4d5e'}}/>Sector 1</span><span><i style={{background:'#4aa6ff'}}/>Sector 2</span><span><i style={{background:'#ffd23f'}}/>Sector 3</span></div>:<span/>}<span className="baan-kompas" role="img" aria-label="Noorden boven"><svg viewBox="-13 -13 26 26" aria-hidden="true"><circle r="12" fill="#18222a" stroke="#56646f" strokeWidth=".8"/><path d="M0-8.5L3.4 1.8H-3.4Z" fill="#ff4d5e"/><text y="9" textAnchor="middle" fontSize="6.5" fontWeight="700" fill="#f6f8f4">N</text></svg></span></div>
+  {c.length&&<dl className="baan-tegels"><div><dt>Baanlengte</dt><dd>{km(c.length)}</dd></div>{c.laps&&<div><dt>Ronden</dt><dd>{c.laps}</dd></div>}{c.record&&<div><dt>Ronderecord</dt><dd>{c.record.time}<small>{c.record.driver}, {c.record.year}</small></dd></div>}</dl>}
+ </div>;
 }
 /** Bronnen bij de baaninfo, klein onder de tekening. */
 function BaanBron({event}:{event:Event}){
@@ -262,7 +265,7 @@ function App(){
  <footer><span>KijkSport <span aria-label={'Versie '+packageInfo.version}>v{packageInfo.version}</span></span><button className="tekstknop" onClick={()=>setInfo(true)}><Info size={15}/>Handleiding en gegevens</button></footer></main>
 
  <dialog ref={dialog} className="blad" onCancel={()=>setSelected(null)} onClick={e=>{if(e.target===dialog.current)setSelected(null)}}>{selected&&<div style={kleur(selected.sport)}>
-  {veldAan(selected.sport)?<div className={'blad-veld'+(circuitKey(selected)?' circuit':'')}><Veld sport={selected.sport} event={selected} play={play} detail vlag={weergave.vlag}/>{circuitKey(selected)&&<BaanInBeeld event={selected}/>}<button className="rond sluit" aria-label="Sluit evenement" onClick={()=>setSelected(null)}><X/></button></div>:<div className="blad-zonder"><button className="rond sluit" aria-label="Sluit evenement" onClick={()=>setSelected(null)}><X/></button></div>}
+  {veldAan(selected.sport)?<><div className={'blad-veld'+(circuitKey(selected)?' circuit':'')}><Veld sport={selected.sport} event={selected} play={play} detail vlag={weergave.vlag}/>{circuitKey(selected)&&<BaanInBeeld event={selected}/>}<button className="rond sluit" aria-label="Sluit evenement" onClick={()=>setSelected(null)}><X/></button></div>{veldAan(selected.sport)&&circuitKey(selected)&&<BaanBand event={selected}/>}</>:<div className="blad-zonder"><button className="rond sluit" aria-label="Sluit evenement" onClick={()=>setSelected(null)}><X/></button></div>}
   <div className="blad-kop"><p>{sportOf(selected.sport).name}</p><h2>{kort(selected.title)}</h2><p>{selected.venue||'Locatie nog niet bekend'}</p></div>
   <div className="blad-inhoud">
    {veldAan(selected.sport)&&!circuitKey(selected)&&<p className="klein">Tekening: {plaat(selected.sport,selected)}.</p>}{veldAan(selected.sport)&&<BaanBron event={selected}/>}

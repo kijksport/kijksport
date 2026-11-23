@@ -226,3 +226,8 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 - Vlag van het land achter het circuit, uit, stil of wapperend (instelling bij Formule 1 in de Sporten-tab; testversie standaard wapperend, gewone versie stil). Vlaggen uit flag-icons (MIT, `public/licenses/flag-icons.txt`). Wapperen staat uit bij Verminder beweging.
 - F1 zonder eigen evenement (Sporten-tab): de baan van de eerstvolgende race, met label.
 - Testbeeld bij een lege dag en bij een lege selectie.
+
+## KijkSport 1.7.4 (testversie)
+
+- Vlag 20 procent beter zichtbaar (stil 0,20, wapperend 0,26).
+- Baankaart op ongeveer een kwart van het scherm; circuitnaam en land in de kaart, sectoren, kompas en baangegevens in een band direct eronder.

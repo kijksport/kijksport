@@ -160,8 +160,8 @@ function Startgrid({play,soort}:S&{soort:'f1'|'motogp'|'wec'}){const asfalt=soor
 /** Vlag achter de baan: vaag, stil of wapperend (stroken die elk in eigen fase op en neer gaan). */
 function Vlag({url,vb,wapper}:{url:string;vb:number[];wapper:boolean}){
  const id=useId().replace(/:/g,''),[x,y,w,h]=vb,n=18,sw=w/n,img=<image href={url} x={x} y={y} width={w} height={h} preserveAspectRatio="xMidYMid slice"/>;
- if(!wapper)return <g opacity=".17">{img}</g>;
- return <g opacity=".22"><defs>{Array.from({length:n},(_,i)=><clipPath key={i} id={id+'s'+i}><rect x={x+i*sw-.4} y={y-30} width={sw+.8} height={h+60}/></clipPath>)}</defs>
+ if(!wapper)return <g opacity=".2">{img}</g>;
+ return <g opacity=".26"><defs>{Array.from({length:n},(_,i)=><clipPath key={i} id={id+'s'+i}><rect x={x+i*sw-.4} y={y-30} width={sw+.8} height={h+60}/></clipPath>)}</defs>
   {Array.from({length:n},(_,i)=><g key={i} clipPath={`url(#${id}s${i})`}><g className="vlagstrook" style={{'--a':(2+i*.6)+'px',animationDelay:(-i*.16)+'s'} as React.CSSProperties}>{img}<rect x={x+i*sw} y={y-30} width={sw+.8} height={h+60} fill="#000" className="vlagschaduw" style={{animationDelay:(-i*.16)+'s'}}/></g></g>)}</g>;
 }
 function Circuit({c,play,mini,detail,kompas,vlag,vb,reserve}:S&{c:CircuitInfo;detail?:boolean;kompas:[number,number];vlag?:{url:string;wapper:boolean}|null;vb:number[];reserve?:string}){
@@ -241,7 +241,7 @@ export function Veld({sport,event,play=false,mini,detail,className,vlag='uit'}:{
  let vb='0 0 400 300',kompas:[number,number]=[372,30],vbn=[0,0,400,300];
  if(c){const xs=c.points.map(q=>q[0]-40),ys=c.points.map(q=>q[1]+37),m=mini?16:detail?40:26;
   // In het detailscherm staat de baaninfo in beeld: ruimte vrijhouden boven (circuitnaam) en onder (sectoren en baangegevens).
-  const boven=detail?30:reserve?22:0,onder=detail?(c.length?62:0)+(c.markers?.sectors?30:0):0;
+  const boven=detail?34:reserve?22:0,onder=0;
   const x=Math.min(...xs)-m,y=Math.min(...ys)-m-boven,w=Math.max(...xs)+m-x,h=Math.max(...ys)+m+onder-y;vb=`${x} ${y} ${w} ${h}`;vbn=[x,y,w,h];
   const yb=y+boven,yo=y+h-onder;
   // Kompas in de hoek die het verst van de baan ligt; rechtsboven alleen als het niet anders kan (daar staat in het detailscherm de sluitknop).
