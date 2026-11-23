@@ -14,7 +14,7 @@ import {services,viewingAccess,accessLabels,tvPerSport,providerLine,viewingOptio
 import {encodeSelection,decodeSelection,shareKey} from './share';
 import {sportFacts} from './sportfacts';
 import {km} from './circuit';
-import {Veld,DartsHoek,Hallijnen,Testbeeld,vloer,plaat,circuitKey,circuits,landVan,landNaam} from './velden';
+import {Veld,DartsHoek,Hallijnen,Testbeeld,vloer,plaat,circuitKey,circuits,landVan,landNaam,gedraaid} from './velden';
 import './app.css';
 
 const sports=raw.sports as Sport[],events=raw.events as Event[];
@@ -79,7 +79,7 @@ function BaanInBeeld({event}:{event:Event}){
 function BaanBand({event}:{event:Event}){
  const key=circuitKey(event),c=key?circuits[key]:null;if(!c)return null;
  return <div className="baan-band">
-  <div className="baan-rij">{c.markers?.sectors?<div className="baan-sectoren" aria-label="Sectorkleuren"><span><i style={{background:'#ff4d5e'}}/>Sector 1</span><span><i style={{background:'#4aa6ff'}}/>Sector 2</span><span><i style={{background:'#ffd23f'}}/>Sector 3</span></div>:<span/>}<span className="baan-kompas" role="img" aria-label="Noorden boven"><svg viewBox="-13 -13 26 26" aria-hidden="true"><circle r="12" fill="#18222a" stroke="#56646f" strokeWidth=".8"/><path d="M0-8.5L3.4 1.8H-3.4Z" fill="#ff4d5e"/><text y="9" textAnchor="middle" fontSize="6.5" fontWeight="700" fill="#f6f8f4">N</text></svg></span></div>
+  <div className="baan-rij">{c.markers?.sectors?<div className="baan-sectoren" aria-label="Sectorkleuren"><span><i style={{background:'#ff4d5e'}}/>Sector 1</span><span><i style={{background:'#4aa6ff'}}/>Sector 2</span><span><i style={{background:'#ffd23f'}}/>Sector 3</span></div>:<span/>}<span className="baan-kompas" role="img" aria-label={gedraaid(key)?'Noorden rechts':'Noorden boven'}><svg viewBox="-13 -13 26 26" aria-hidden="true"><circle r="12" fill="#18222a" stroke="#56646f" strokeWidth=".8"/><path d="M0-8.5L3.4 1.8H-3.4Z" fill="#ff4d5e" transform={gedraaid(key)?'rotate(90)':undefined}/><text y="9" textAnchor="middle" fontSize="6.5" fontWeight="700" fill="#f6f8f4">N</text></svg></span></div>
   {c.length&&<dl className="baan-tegels"><div><dt>Baanlengte</dt><dd>{km(c.length)}</dd></div>{c.laps&&<div><dt>Ronden</dt><dd>{c.laps}</dd></div>}{c.record&&<div><dt>Ronderecord</dt><dd>{c.record.time}<small>{c.record.driver}, {c.record.year}</small></dd></div>}</dl>}
  </div>;
 }

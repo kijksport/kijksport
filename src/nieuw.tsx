@@ -8,6 +8,9 @@ import packageInfo from '../package.json';
 type Punt={icoon:LucideIcon;kleur:string;titel:string;tekst:string};
 /** Nieuwste versie bovenaan. Houd het kort: hoogstens vier punten per versie, in gewone woorden. */
 export const versies:{versie:string;punten:Punt[]}[]=[
+ {versie:'1.7.6',punten:[
+  {icoon:MapPin,kleur:'var(--rood)',titel:'Staande banen liggen nu dwars',tekst:'Lange, smalle circuits zoals Jeddah en Montréal liggen een kwartslag gedraaid, zodat ze het beeld vullen. Het kompas wijst dan naar rechts.'},
+  {icoon:Sparkles,kleur:'var(--focus)',titel:'Status zonder knopvorm',tekst:'De status bij een evenement is een stip met tekst; het was nooit een knop.'}]},
  {versie:'1.7.5',punten:[
   {icoon:Sparkles,kleur:'var(--focus)',titel:'Kortere, duidelijkere teksten',tekst:'Werkaantekeningen uit de beginfase zijn weg. Status, controledatum en bron staan op één regel.'},
   {icoon:Flag,kleur:'var(--rood)',titel:'Groter circuit met vlag',tekst:'Baan en vlag vullen het hele beeld; de baaninfo staat er direct onder.'}]},

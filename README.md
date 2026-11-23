@@ -236,3 +236,8 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 
 - Ondersteunende teksten opgeschoond: statusregel (status, controledatum, bron) op één regel, kortere teksten bij zenders, herinneringen en in de handleiding, geen bijschriften bij tekeningen, één bronnenregel onder de baankaart.
 - Baankaart en vlag vullen het beeldvlak; de vlag is een eigen laag over het hele vlak.
+
+## KijkSport 1.7.6 (testversie)
+
+- Staande banen (hoogte/breedte > 1,3, zoals Jeddah, Montréal, Portimão) liggen in het detailbeeld een kwartslag gedraaid; noorden wijst naar rechts en het kompas draait mee.
+- Status bij een evenement als gekleurde stip met tekst in plaats van een omlijnd label dat op een knop leek.

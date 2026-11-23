@@ -22,6 +22,9 @@ export function volgendeF1(vandaag=new Date().toISOString().slice(0,10)):{key:st
  const es=(kalender as unknown as {events:Event[]}).events.filter(e=>e.sport==='f1'&&e.status!=='cancelled'&&e.end>=vandaag).sort((a,b)=>a.start.localeCompare(b.start));
  for(const e of es){const k=circuitKey(e);if(k)return {key:k,event:e}}return null;
 }
+/** Staande banen (veel hoger dan breed) liggen in het brede detailbeeld een kwartslag gedraaid: noorden wijst dan naar rechts. */
+export function gedraaid(key:string|null){if(!key||!circuits[key])return false;const xs=circuits[key].points.map(q=>q[0]),ys=circuits[key].points.map(q=>q[1]);return (Math.max(...ys)-Math.min(...ys))/(Math.max(...xs)-Math.min(...xs))>1.3}
+function draai(c:CircuitInfo):CircuitInfo{const xs=c.points.map(q=>q[0]),ys=c.points.map(q=>q[1]),cx=(Math.min(...xs)+Math.max(...xs))/2,cy=(Math.min(...ys)+Math.max(...ys))/2;return {...c,points:c.points.map(([x,y])=>[cx-(y-cy),cy+(x-cx)] as [number,number])}}
 export function circuitKey(e:Event){if(e.sport!=='f1')return null;return weekend2027[e.id]??aliases.find(([p])=>p.test(e.id))?.[1]??null}
 
 /** Ondergrond per sport: vloerkleur, tekstkleur op die vloer en een accent voor stippen en lijnen. */
@@ -235,7 +238,7 @@ export function Veld({sport,event,play=false,mini,detail,className,vlag='uit'}:{
  useEffect(()=>{const el=ref.current;if(!el||!play||!('IntersectionObserver'in window))return;const io=new IntersectionObserver(([x])=>{try{x.isIntersecting?el.unpauseAnimations():el.pauseAnimations()}catch{/* geen SMIL */}});io.observe(el);return()=>io.disconnect()},[play]);
  // F1 zonder eigen evenement (zoals de Sporten-tab): de baan van de eerstvolgende race, in het klein.
  const res=!event&&sport==='f1'?volgendeF1():null;
- const key=event?circuitKey(event):res?.key??null,c=key?circuits[key]:null,p={play,mini};
+ const key=event?circuitKey(event):res?.key??null,c=key?(detail&&gedraaid(key)?draai(circuits[key]):circuits[key]):null,p={play,mini};
  const reserve=res&&c?'Volgende race: '+c.location:undefined;
  // Circuits krijgen een eigen uitsnede rond de baan, zodat ook een smalle baan het beeld vult.
  let vb='0 0 400 300',kompas:[number,number]=[372,30],vbn=[0,0,400,300];
