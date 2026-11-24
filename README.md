@@ -241,3 +241,7 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 
 - Staande banen (hoogte/breedte > 1,3, zoals Jeddah, Montréal, Portimão) liggen in het detailbeeld een kwartslag gedraaid; noorden wijst naar rechts en het kompas draait mee.
 - Status bij een evenement als gekleurde stip met tekst in plaats van een omlijnd label dat op een knop leek.
+
+## Live 24 november 2026
+
+- 1.7.1 tot en met 1.7.6 live voor de testers (akkoord van de maker). Publicatie alleen nog bij een push op main of handmatig gestart; een nieuwe testversie: push op `test`, dan `gh workflow run Publiceren --ref main`.

@@ -2,7 +2,7 @@
 name: Publiceren
 on:
   push:
-    branches: [main, test]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
