@@ -129,6 +129,7 @@ function App(){
  const stand=sports.every(x=>veldAan(x.id))&&weergave.feiten?'vol':sports.every(x=>!veldAan(x.id))&&!weergave.feiten?'sober':'eigen';
  const[open,setOpen]=useState<string[]>([]);
  const update=(f:(q:Profile)=>Profile)=>setSettings(s=>({...s,preferences:f(s.preferences)}));
+ const nogTeKomen=events.filter(e=>favorites.includes(e.id)&&e.end>=day()).length;
  const favorite=(e:Event)=>update(q=>({...q,favorites:q.favorites.includes(e.id)?q.favorites.filter(i=>i!==e.id):[...q.favorites,e.id]}));
  const access=(e:Event)=>viewingAccess(e,p.services||[],!!p.servicesConfigured);
  const watch=(e:Event)=>providerLine(e,p.servicesConfigured?p.services||[]:[]);
@@ -167,9 +168,9 @@ function App(){
  const rij=(e:Event,voorbij=false)=>{
   const t=kort(e.title),deel=t.split(' • '),duel=deel[deel.length-1].split(' – '),isDuel=duel.length===2&&!!e.iso,meerdaags=e.start!==e.end,kids=kinderen(e),over=dagenTussen(today,e.start);
   const body=isDuel?<><span className="bug"><b>{duel[0]}</b><em>{time(e.iso!)}</em><b>{duel[1]}</b></span><small>{wanneer(e,today)}{deel.length>1?', '+deel.slice(0,-1).join(' • '):''}</small></>
-   :meerdaags?<><strong className="g-titel">{t}</strong>{(()=>{const n=dagenTussen(e.start,e.end)+1,nu=dagenTussen(e.start,today);return <span className="dagen" role="img" aria-label={over>0?'Begint over '+over+(over===1?' dag':' dagen')+', duurt '+n+' dagen':'Dag '+(nu+1)+' van '+n}>
+   :meerdaags?<><strong className="g-titel">{t}</strong>{(()=>{const n=dagenTussen(e.start,e.end)+1,nu=dagenTussen(e.start,today);return <span className="dagen" role="img" aria-label={over>0?'Begint over '+over+(over===1?' dag':' dagen')+', duurt '+n+' dagen':nu>=n?'Afgelopen':'Dag '+(nu+1)+' van '+n}>
       {n<=16?<span className="dagen-vakjes">{Array.from({length:n},(_,i)=><i key={i} className={over>0?'':i<nu?'was':i===nu?'nu':''}/>)}</span>:<span className="dagen-lijn"><i style={{width:over>0?'0%':Math.min(100,(nu+1)/n*100)+'%'}}/></span>}
-      <span className="dagen-tekst"><span>{label(e.start,e.start.slice(0,7)===e.end.slice(0,7)?{day:'numeric'}:{day:'numeric',month:'short'})} t/m {label(e.end,{day:'numeric',month:'long'})}{e.venue?', '+e.venue:''}</span><em>{over>0?'over '+over+(over===1?' dag':' dagen'):'dag '+(nu+1)+' van '+n}</em></span></span>})()}
+      <span className="dagen-tekst"><span>{label(e.start,e.start.slice(0,7)===e.end.slice(0,7)?{day:'numeric'}:{day:'numeric',month:'short'})} t/m {label(e.end,{day:'numeric',month:'long'})}{e.venue?', '+e.venue:''}</span><em>{over>0?'over '+over+(over===1?' dag':' dagen'):nu>=n?'afgelopen':'dag '+(nu+1)+' van '+n}</em></span></span>})()}
      {kids.length>0&&<span className="splits">{(over>0?kids:kids.filter(c=>c.start>=today).length?kids.filter(c=>c.start>=today):kids.slice(-2)).slice(0,4).map(c=><span key={c.id} className={c.start<today||(c.start===today&&Date.parse(c.iso!)<now)?'was':c.start===today?'nu':''}><b>{label(c.start,{weekday:'short'})}</b><span>{time(c.iso!)}</span><em>{c.start===today&&Date.parse(c.iso!)<now?'vandaag geweest':dagNaam(c.start)}</em></span>)}</span>}</>
    :e.iso?<span className="tijdplaat"><em>{time(e.iso)}</em><span><strong>{t}</strong><small>{wanneer(e,today)}{e.venue?', '+e.venue:''}</small></span></span>
    :<><strong className="g-titel">{t}</strong><span className="togo"><span style={{right:Math.min(96,Math.max(0,over/180*100))+'%'}}/></span><span className="g-voet2"><b>{over>0?'Nog '+over+(over===1?' dag':' dagen'):'Vandaag, tijd volgt'}</b><small>{cap(label(e.start,{weekday:'long',day:'numeric',month:'long',year:'numeric'}))}</small></span></>;
@@ -191,7 +192,7 @@ function App(){
  const kop=(title:string,desc:string)=><header className="paginakop"><h1>{title}</h1><p>{desc}</p></header>;
  const tijdlijn=()=>{const heleDag=todayEvents.filter(e=>!e.iso),met=todayEvents.filter(e=>e.iso),i=zonderKinderen([...heleDag,...met]).filter(e=>e.iso).findIndex(e=>Date.parse(e.iso!)>now),nu=<p className="nu" key="nu"><b>Nu</b> {time(new Date(now).toISOString())}</p>;return <div className="lijst">{heleDag.map(e=>rij(e))}{zonderKinderen([...heleDag,...met]).filter(e=>e.iso).flatMap((e,k)=>[...(k===i&&(i>0||heleDag.length)?[nu]:[]),rij(e,i===-1||k<i)])}</div>};
 
- const tabs=(plek:string)=><nav className={'tabs '+plek} aria-label="Hoofdnavigatie">{pages.map(([n,Icon])=><button key={n} className={page===n?'actief':''} aria-current={page===n?'page':undefined} onClick={()=>nav(n)}><Icon size={21}/><span>{n}</span>{n==='Kijklijst'&&favorites.length>0&&<b>{favorites.length}</b>}</button>)}</nav>;
+ const tabs=(plek:string)=><nav className={'tabs '+plek} aria-label="Hoofdnavigatie">{pages.map(([n,Icon])=><button key={n} className={page===n?'actief':''} aria-current={page===n?'page':undefined} onClick={()=>nav(n)}><Icon size={21}/><span>{n}</span>{n==='Kijklijst'&&nogTeKomen>0&&<b>{nogTeKomen}</b>}</button>)}</nav>;
  return <div className="app">
  {kanaal==='test'&&<div className="testbalk" role="note"><b>Testversie {packageInfo.version}</b> Alleen op het testadres, met een eigen kopie van je gegevens.</div>}
  <header className="balk"><button className="merk" onClick={()=>nav('Vandaag')}><img src={import.meta.env.BASE_URL+'icon-192.png'} alt=""/>KijkSport</button>
@@ -262,8 +263,11 @@ function App(){
   <p className="noot"><Info size={17}/><span>Delen met een tweede telefoon en de back-up staan onder de i rechtsboven. <button onClick={()=>setInfo(true)}>Open de handleiding</button></span></p></>}
 
  {page==='Kijklijst'&&<>{kop('Kijklijst','Bewaar je sportmomenten en neem ze mee naar je eigen agenda.')}
-  <div className="paneel rijtje"><p><b>{favorites.length===1?'1 bewaard evenement':favorites.length+' bewaarde evenementen'}</b><br/>Jullie gezamenlijke kijklijst</p><button className="knop vol" onClick={()=>exportEvents(sortEvents(events.filter(e=>favorites.includes(e.id))))}><Download size={17}/>Naar agenda</button></div>
-  <div className="lijst">{favorites.length?sortEvents(events.filter(e=>favorites.includes(e.id))).map(e=>rij(e)):leeg('Nog niets op jullie kijklijst.')}</div>
+  {(()=>{const bewaard=events.filter(e=>favorites.includes(e.id)),komend=sortEvents(bewaard.filter(e=>e.end>=today)),gezien=bewaard.filter(e=>e.end<today).sort((a,b)=>b.end.localeCompare(a.end)||(b.iso||'').localeCompare(a.iso||''));
+   return <><div className="paneel rijtje"><p><b>{komend.length===1?'1 evenement komt nog':komend.length+' evenementen komen nog'}</b><br/>Jullie gezamenlijke kijklijst</p><button className="knop vol" disabled={!komend.length} onClick={()=>exportEvents(komend)}><Download size={17}/>Naar agenda</button></div>
+   <div className="lijst">{komend.length?komend.map(e=>rij(e)):leeg(gezien.length?'Niets meer gepland op jullie kijklijst.':'Nog niets op jullie kijklijst.')}</div>
+   {gezien.length>0&&<details className="gezien"><summary><span><b>Gezien</b><small>{gezien.length===1?'1 afgelopen evenement':gezien.length+' afgelopen evenementen'}</small></span><ChevronDown size={18} aria-hidden="true"/></summary>
+    <ul>{gezien.map(e=><li key={e.id} style={kleur(e.sport)}><button onClick={()=>setSelected(e)}><time dateTime={e.end}>{e.start===e.end?label(e.start,{day:'numeric',month:'short'}):label(e.start,{day:'numeric'})+'–'+label(e.end,{day:'numeric',month:'short'})}</time><span><b>{kort(e.title)}</b><small>{sportOf(e.sport).name}</small></span></button><button className="rond klein" aria-label={kort(e.title)+' van de kijklijst halen'} onClick={()=>favorite(e)}><X size={15}/></button></li>)}</ul></details>}</>})()}
   <p className="noot"><Bell size={17}/><span>Herinneringen komen via je agenda. Stel ze in bij een evenement.</span></p></>}
 
  <footer><span>KijkSport <span aria-label={'Versie '+packageInfo.version}>v{packageInfo.version}</span></span><button className="tekstknop" onClick={()=>setInfo(true)}><Info size={15}/>Handleiding en gegevens</button></footer></main>

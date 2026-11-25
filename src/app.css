@@ -407,3 +407,15 @@ dialog.nieuw::backdrop{background:rgba(6,14,12,.6)}
 .status span{padding:0;border:0;display:inline-flex;align-items:center;gap:6px;font-weight:650}
 .status span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--let)}
 .status span.ok::before{background:var(--ok)}
+/* Kijklijst: afgelopen evenementen compact en ingeklapt (1.7.7) */
+.gezien{margin-top:18px;border:1px solid var(--lijn);border-radius:16px;overflow:hidden}
+.gezien summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:8px 16px;cursor:pointer}
+.gezien summary::-webkit-details-marker{display:none}
+.gezien summary>span{display:grid;gap:1px}.gezien summary small{color:var(--sub);font-size:.82rem}
+.gezien summary svg{color:var(--sub);transition:transform .2s}.gezien[open] summary svg{transform:rotate(180deg)}
+.gezien ul{list-style:none;margin:0;padding:0 8px 8px;display:grid;gap:2px}
+.gezien li{display:flex;align-items:center;gap:4px;border-left:3px solid var(--accent,var(--lijn));border-radius:8px;background:color-mix(in srgb,var(--kaart) 70%,transparent)}
+.gezien li>button:first-child{flex:1;min-width:0;display:flex;align-items:center;gap:12px;min-height:48px;padding:4px 10px;text-align:left}
+.gezien time{flex:none;width:68px;font-size:.82rem;color:var(--sub);font-variant-numeric:tabular-nums}
+.gezien li span{display:grid;min-width:0}.gezien li b{font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gezien li small{font-size:.76rem;color:var(--sub)}
+.gezien .rond.klein{width:44px;height:44px;flex:none;color:var(--sub)}
