@@ -245,7 +245,12 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 ## Live 24 november 2026
 
 - 1.7.1 tot en met 1.7.6 live voor de testers (akkoord van de maker). Publicatie alleen nog bij een push op main of handmatig gestart; een nieuwe testversie: push op `test`, dan `gh workflow run Publiceren --ref main`.
+
 ## KijkSport 1.7.7 (testversie)
 
 - Kijklijst toont alleen wat nog komt; afgelopen evenementen staan compact en ingeklapt onder Gezien (nieuwste eerst, openen of van de lijst halen). Naar agenda en het getal op de tab tellen alleen wat nog komt.
 - Dagteller van meerdaagse evenementen zegt na afloop "afgelopen" in plaats van bijvoorbeeld "dag 6 van 3".
+
+## Live 26 november 2026
+
+- 1.7.7 live voor de testers (akkoord van de maker).
