@@ -203,7 +203,7 @@ function Circuit({c,play,mini,detail,kompas,vlag,vb,reserve,sessie='weekend',lic
  {sterren.map(([x,y,r],i)=><circle key={i} cx={x} cy={y} r={r} fill="#fff" opacity=".55"/>)}
  {licht!=='dag'&&<path className={an('f1-halo')} d={d} fill="none" stroke="#ffe2a8" strokeWidth={mini?26:22} strokeLinejoin="round" opacity={licht==='nacht'?.13:.07}/>}
  <path d={d} fill="none" stroke={W} strokeWidth={mini?11:9.5} strokeLinejoin="round"/><path d={d} fill="none" stroke="#2c3238" strokeWidth={mini?7:6.8} strokeLinejoin="round"/>
- <path className={an('f1-spoor')} d={d} pathLength={1} fill="none" stroke="#ff4d5e" strokeWidth={mini?2.4:1.6} strokeLinejoin="round" strokeLinecap="round" opacity={detail&&grens?.0:.95}/>
+ <path className={an(detail&&grens?'f1-spoor weg':'f1-spoor')} d={d} pathLength={1} fill="none" stroke="#ff4d5e" strokeWidth={mini?2.4:1.6} strokeLinejoin="round" strokeLinecap="round" opacity={detail&&grens&&!play?0:.95}/>
  {!mini&&grens&&sk.map((k,i)=><path key={k} className={an('f1-sector')} d={deel(grens[i],grens[i+1])} fill="none" stroke={k} strokeWidth="2" strokeLinecap="round"/>)}
  <path d={`M${sf.x-sf.nx*7} ${sf.y-sf.ny*7}L${sf.x+sf.nx*7} ${sf.y+sf.ny*7}`} stroke="#111" strokeWidth="3.6"/><path d={`M${sf.x-sf.nx*7} ${sf.y-sf.ny*7}L${sf.x+sf.nx*7} ${sf.y+sf.ny*7}`} stroke={W} strokeWidth="3.6" strokeDasharray="2.3 2.3"/>
  {!mini&&<path d="M-5-4L4 0L-5 4Z" fill={W} transform={`translate(${pijl.x+pijl.nx*12} ${pijl.y+pijl.ny*12}) rotate(${Math.atan2(pijl.dy,pijl.dx)*180/Math.PI})`}/>}

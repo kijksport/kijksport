@@ -423,6 +423,9 @@ dialog.nieuw::backdrop{background:rgba(6,14,12,.6)}
 /* F1 Broadcast 02: eenmalige beweging. Zonder beweging (pauze, Verminder beweging) staat het eindbeeld er meteen. */
 .f1-spoor{stroke-dasharray:1;animation:f1-spoor 9s cubic-bezier(.4,.1,.6,.9) .3s both}
 @keyframes f1-spoor{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+/* Detail met sectoren: het spoor trekt de ronde en maakt dan plaats voor de sectorkleuren. */
+.f1-spoor.weg{animation:f1-spoor 9s cubic-bezier(.4,.1,.6,.9) .3s both,f1-weg 1s ease-out 9.3s forwards}
+@keyframes f1-weg{to{opacity:0}}
 .f1-sector,.f1-halo{animation:f1-in 1s ease-out 9.3s both}.f1-halo{animation-delay:.2s;animation-duration:1.4s}
 @keyframes f1-in{from{opacity:0}}
 .f1-lamp{animation-name:f1-lamp;animation-timing-function:linear;animation-fill-mode:forwards}
