@@ -2,7 +2,7 @@
 
 Nederlandstalige sportkijkgids voor eigen gebruik: welke sport is er, wanneer begint die en waar is die in Nederland te zien.
 
-**App:** https://kijksport.github.io/kijksport/ (installeren op iPhone: open in Safari > Deel > Zet op beginscherm).
+**App:** https://kijksport.github.io/kijksport/speelveld/ (installeren op iPhone: open in Safari > Deel > Zet op beginscherm).
 
 ## Hoe het werkt
 
@@ -246,7 +246,16 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 
 - 1.7.1 tot en met 1.7.6 live voor de testers (akkoord van de maker). Publicatie alleen nog bij een push op main of handmatig gestart; een nieuwe testversie: push op `test`, dan `gh workflow run Publiceren --ref main`.
 
-## KijkSport 1.8.2 (testversie, nog niet live)
+## Parcours gearchiveerd (28 november 2026)
+
+- Besluit van de maker: Speelveld is de enige versie die nog wordt bijgehouden. De eerste versie, Parcours (0.12.2, en de nooit gepubliceerde 0.12.3), is gearchiveerd buiten GitHub; de branches `parcours` en `parcours-0.12.3` zijn verwijderd.
+- Het oude adres `/kijksport/` stuurt door naar `/kijksport/speelveld/` (map `doorsturen/`, ook voor onbekende adressen via 404.html). Een toevoeging aan het adres gaat mee. De oude service worker en caches van dat adres (`kijksport-`, `sportkijk-`) worden opgeruimd; de opslag van het toestel (selectie, kijklijst) blijft staan.
+
+## Live 28 november 2026
+
+- 1.8.2 live voor de testers (akkoord van de maker).
+
+## KijkSport 1.8.2
 
 - F1 (keuze maker 28 nov): lichtspoor vervangen door een rode stip (SMIL animateMotion, 9 s per ronde). In de eerste ronde onthullen de sectoren zich achter de stip (stroke-dashoffset per sector, zelfde tijdlijn); daarna rijdt de stip door en blijven de sectoren staan. In tegels één ronde. Zonder beweging: stip stil op de start/finish, sectoren direct zichtbaar. Omdat alles nu SMIL is, pauzeert pauseAnimations de beweging buiten beeld ook echt.
 - Shorttrack: tegen de klok in; start naast elkaar op de startlijn, na 1,6 s in één rij op de ideale lijn.

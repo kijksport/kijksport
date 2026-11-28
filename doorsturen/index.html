@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>KijkSport</title>
+<meta http-equiv="refresh" content="3;url=/kijksport/speelveld/">
+<style>
+:root{color-scheme:dark light}
+body{margin:0;min-height:100vh;display:grid;place-items:center;font:17px/1.5 -apple-system,system-ui,sans-serif;background:#0d1117;color:#e6edf3;text-align:center;padding:24px;box-sizing:border-box}
+a{color:#58a6ff}
+@media (prefers-color-scheme:light){body{background:#fff;color:#1f2328}a{color:#0969da}}
+</style>
+</head>
+<body>
+<main>
+<p>KijkSport is verhuisd.</p>
+<p><a id="verder" href="/kijksport/speelveld/">Open KijkSport</a></p>
+</main>
+<script>
+// Het oude adres van KijkSport. De eerste versie (Parcours) is gearchiveerd; dit stuurt door naar de huidige app.
+// Een deellink of andere toevoeging aan het adres gaat mee. De oude offline-opslag van dit adres wordt opgeruimd;
+// de selectie en kijklijst staan in de opslag van het toestel en blijven bewaard.
+(function(){
+  var doel='/kijksport/speelveld/'+location.search+location.hash;
+  document.getElementById('verder').href=doel;
+  var klaar=false;
+  function ga(){if(klaar)return;klaar=true;location.replace(doel)}
+  setTimeout(ga,1500);
+  var werk=[];
+  try{
+    if('serviceWorker'in navigator&&navigator.serviceWorker.getRegistrations){
+      werk.push(navigator.serviceWorker.getRegistrations().then(function(regs){
+        return Promise.all(regs.filter(function(r){return r.scope===location.origin+'/kijksport/'}).map(function(r){return r.unregister()}));
+      }));
+    }
+    if(window.caches&&caches.keys){
+      werk.push(caches.keys().then(function(keys){
+        return Promise.all(keys.filter(function(k){return k.indexOf('kijksport-')===0||k.indexOf('sportkijk-')===0}).map(function(k){return caches.delete(k)}));
+      }));
+    }
+  }catch(e){}
+  Promise.all(werk).then(ga,ga);
+})();
+</script>
+</body>
+</html>

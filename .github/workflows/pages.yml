@@ -29,18 +29,8 @@ jobs:
       - run: npm run build
         env:
           BASE_PATH: /kijksport/speelveld/
-      # Vorige versie (Parcours) uit de branch parcours, op het oude adres /kijksport/. Beide versies delen de kalender uit main.
-      - uses: actions/checkout@v4
-        with:
-          ref: parcours
-          path: parcours
-      - run: |
-          cp src/data.json parcours/src/data.json
-          cd parcours
-          npm ci
-          npm run build
-        env:
-          BASE_PATH: /kijksport/
+      # Het oude adres /kijksport/ (de gearchiveerde eerste versie, Parcours) stuurt door naar /kijksport/speelveld/.
+      # De map doorsturen/ ruimt ook de oude service worker en caches van dat adres op.
       # Testversie uit de branch test, onder /kijksport/test/. Alleen voor de maker; de testers zien hem niet.
       # Eigen opslag (voorvoegsel proef:), eigen cache en eigen naam, zodat de live versie niet geraakt wordt. Kalender uit main.
       - id: test
@@ -64,7 +54,7 @@ jobs:
           VITE_KANAAL: test
       - run: |
           mkdir site
-          cp -r parcours/dist/. site/
+          cp -r doorsturen/. site/
           cp -r dist site/speelveld
           if [ -d proef/dist ]; then cp -r proef/dist site/test; fi
       - uses: actions/upload-pages-artifact@v3
