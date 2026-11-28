@@ -80,7 +80,7 @@ function BaanBand({event}:{event:Event}){
  const key=circuitKey(event),c=key?circuits[key]:null;if(!c)return null;
  return <div className="baan-band">
   <div className="baan-rij">{c.markers?.sectors?<div className="baan-sectoren" aria-label="Sectorkleuren"><span><i style={{background:'#ff4d5e'}}/>Sector 1</span><span><i style={{background:'#4aa6ff'}}/>Sector 2</span><span><i style={{background:'#ffd23f'}}/>Sector 3</span></div>:<span/>}<span className="baan-kompas" role="img" aria-label={gedraaid(key)?'Noorden rechts':'Noorden boven'}><svg viewBox="-13 -13 26 26" aria-hidden="true"><circle r="12" fill="#18222a" stroke="#56646f" strokeWidth=".8"/><path d="M0-8.5L3.4 1.8H-3.4Z" fill="#ff4d5e" transform={gedraaid(key)?'rotate(90)':undefined}/><text y="9" textAnchor="middle" fontSize="6.5" fontWeight="700" fill="#f6f8f4">N</text></svg></span></div>
-  {c.length&&<dl className="baan-tegels"><div><dt>Baanlengte</dt><dd>{km(c.length)}</dd></div>{c.laps&&<div><dt>Ronden</dt><dd>{c.laps}</dd></div>}{c.record&&<div><dt>Ronderecord</dt><dd>{c.record.time}<small>{c.record.driver}, {c.record.year}</small></dd></div>}</dl>}
+  {c.length&&<dl className="baan-tegels"><div><dt>Baanlengte</dt><dd>{km(c.length)}</dd></div>{c.laps?<div><dt>Ronden</dt><dd>{c.laps}</dd></div>:c.firstGp&&<div><dt>Eerste GP</dt><dd>{c.firstGp}</dd></div>}{c.record&&<div><dt>Ronderecord</dt><dd>{c.record.time}<small>{c.record.driver}, {c.record.year}</small></dd></div>}</dl>}
  </div>;
 }
 /** Bronnen bij de baaninfo en de locatie, in één korte regel. */
@@ -89,13 +89,15 @@ function BaanBron({event}:{event:Event}){
  const delen:React.ReactNode[]=[];
  if(v)delen.push(<>locatie <a href={v.url} target="_blank" rel="noreferrer">F1 Experiences</a></>);
  if(c)delen.push(<>baankaart <a href="https://github.com/bacinger/f1-circuits" target="_blank" rel="noreferrer">f1-circuits</a></>);
- if(c?.length)delen.push(<>baangegevens <a href={c.statsSource} target="_blank" rel="noreferrer">formula1.com</a></>);
+ if(c?.length)delen.push(c.statsFrom?<>baangegevens en sectoren F1-app</>:<>baangegevens <a href={c.statsSource} target="_blank" rel="noreferrer">formula1.com</a></>);
  return <p className="klein">Bronnen: {delen.map((d,i)=><span key={i}>{i?', ':''}{d}</span>)}.</p>;
 }
 const sessieNaam=(t:string)=>{const m=t.match(/vrije training\s*(\d)/i);return m?'Training '+m[1]:/sprint/i.test(t)?'Sprint':/kwalificatie/i.test(t)?'Kwalificatie':'Race'};
 const sessieCode=(t:string)=>{const m=t.match(/vrije training\s*(\d)/i);return m?'VT'+m[1]:/sprint/i.test(t)?'SPR':/kwalificatie/i.test(t)?'KWA':'RACE'};
 function Weekend({event,list,now,onSelect}:{event:Event;list:Event[];now:number;onSelect:(e:Event)=>void}){
- const key=circuitKey(event);if(!key)return null;const ses=sortEvents(list.filter(e=>circuitKey(e)===key));if(ses.length<2)return null;
+ const key=circuitKey(event);if(!key)return null;const dag=(d:string)=>Date.parse(d+'T12:00:00Z')/864e5,d0=dag(event.start);
+ // Alleen sessies van hetzelfde raceweekend: dezelfde baan staat ook in andere jaren op de kalender.
+ const ses=sortEvents(list.filter(e=>circuitKey(e)===key&&Math.abs(dag(e.start)-d0)<=3));if(ses.length<2)return null;
  return <div className="weekend"><h3>Raceweekend volgens de kalender</h3><ol>{ses.map(s=>{const past=!!s.iso&&Date.parse(s.iso)<now;return <li key={s.id}><button className={(past?'voorbij ':'')+(s.id===event.id?'deze':'')} onClick={()=>onSelect(s)} aria-label={s.title+', '+label(s.start,{weekday:'long'})+(s.iso?' '+time(s.iso):'')+(past?', geplande start voorbij':'')}><b>{sessieNaam(s.title)}</b><span>{label(s.start,{weekday:'short'})} {s.iso?time(s.iso):''}</span></button></li>})}</ol></div>;
 }
 

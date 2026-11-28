@@ -8,6 +8,9 @@ import packageInfo from '../package.json';
 type Punt={icoon:LucideIcon;kleur:string;titel:string;tekst:string};
 /** Nieuwste versie bovenaan. Houd het kort: hoogstens vier punten per versie, in gewone woorden. */
 export const versies:{versie:string;punten:Punt[]}[]=[
+ {versie:'1.8.1',punten:[
+  {icoon:MapPin,kleur:'var(--rood)',titel:'Baangegevens bij alle circuits',tekst:'Baanlengte, eerste Grand Prix en ronderecord staan nu bij elk circuit, ook als het aantal ronden nog niet bekend is.'},
+  {icoon:CalendarClock,kleur:'var(--focus)',titel:'Raceweekend klopt weer',tekst:'Bij een raceweekend staan alleen de sessies van dat weekend, niet meer die van hetzelfde circuit een jaar later.'}]},
  {versie:'1.8.0',punten:[
   {icoon:MapPin,kleur:'var(--rood)',titel:'Sectoren op bijna alle circuits',tekst:'23 van de 24 Formule 1-banen tonen nu de drie sectoren en de start/finish, overgenomen uit de baankaarten van de F1-app.'},
   {icoon:Flag,kleur:'var(--focus)',titel:'Vlag ook bij MotoGP en WEC',tekst:'In de details staat de vlag van het land nu ook achter MotoGP- en WEC-races.'},

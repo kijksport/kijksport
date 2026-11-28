@@ -380,7 +380,7 @@ dialog.nieuw::backdrop{background:rgba(6,14,12,.6)}
 .baan-sectoren{justify-self:start;display:flex;gap:10px;padding:5px 9px;border-radius:8px;background:rgba(10,18,22,.8);font-size:.72rem;font-weight:650}
 .baan-sectoren span{display:inline-flex;align-items:center;gap:5px}.baan-sectoren i{width:13px;height:4px;border-radius:2px}
 .baan-tegels{display:flex;gap:6px;margin:0}.baan-tegels div{flex:1 1 0;min-width:0;display:grid;gap:1px;padding:6px 9px;border-radius:9px;background:rgba(10,18,22,.8)}
-.baan-tegels dt{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:#9db0aa;font-weight:700}.baan-tegels dd{margin:0;font-size:1rem;font-weight:800;font-stretch:85%;display:grid}.baan-tegels small{font-size:.66rem;font-weight:500;color:#9db0aa;font-stretch:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.baan-tegels dt{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:#9db0aa;font-weight:700}.baan-tegels dd{margin:0;font-size:1rem;font-weight:800;font-stretch:85%;display:grid}.baan-tegels small{font-size:.66rem;font-weight:500;color:#9db0aa;font-stretch:100%;line-height:1.25}.baan-tegels div:last-child{flex-grow:1.3}
 /* Wapperende vlag: stroken op en neer met wisselende schaduw */
 .vlagstrook{animation:wapper 3.2s ease-in-out infinite}
 .vlagschaduw{opacity:0;animation:wapperschaduw 3.2s ease-in-out infinite}

@@ -1,7 +1,7 @@
 // Baangeometrie: posities langs de baanvorm als fractie (0 tot 1) van de totale lengte.
 // Gebruikt voor start/finish, bochtnummers en sectoren zodra die per circuit zijn gecontroleerd.
 export type Markers={startFinish?:number;corners?:{n:number;at:number}[];sectors?:number[];reverse?:boolean;source:string;checked:string;note?:string};
-export type CircuitInfo={name:string;location:string;source:string;statsSource:string;points:number[][];lat:number;lon:number;length?:string;laps?:string;distance?:string;firstGp?:number;record?:{time:string;driver:string;year:number};statsChecked?:string;markers?:Markers|null};
+export type CircuitInfo={name:string;location:string;source:string;statsSource:string;statsFrom?:string;points:number[][];lat:number;lon:number;length?:string;laps?:string;distance?:string;firstGp?:number;record?:{time:string;driver:string;year:number};statsChecked?:string;markers?:Markers|null};
 
 export function track(points:number[][]){
  const all=[...points,points[0]];

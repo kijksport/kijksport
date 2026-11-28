@@ -246,7 +246,13 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 
 - 1.7.1 tot en met 1.7.6 live voor de testers (akkoord van de maker). Publicatie alleen nog bij een push op main of handmatig gestart; een nieuwe testversie: push op `test`, dan `gh workflow run Publiceren --ref main`.
 
-## KijkSport 1.8.0 (testversie, nog niet live)
+## KijkSport 1.8.1 (testversie, nog niet live)
+
+- Bug: Raceweekend volgens de kalender toonde ook sessies van hetzelfde circuit in een ander jaar (Qatar 2026 kreeg de sprint van 2027). Nu alleen sessies binnen 3 dagen van het gekozen evenement.
+- Baangegevens (lengte, eerste GP, ronderecord) voor 17 extra banen uit de F1-app-screenshots, ook zonder ronden en racedistantie (besluit maker 28 nov). Veld `statsFrom` geeft de bron; de test eist ronden en distantie samen of een `statsFrom`. Tegel Eerste GP waar ronden ontbreken.
+- Oostenrijk: geen infoscherm in de screenshots, dus nog zonder baangegevens. Bahrein: baangegevens wel, sectoren niet (kaart in de F1-app zonder kleuren).
+
+## KijkSport 1.8.0 (test, opgevolgd door 1.8.1)
 
 - Sectoren en start/finish voor 23 van de 24 F1-banen, uit F1-app-screenshots van de maker (28 nov), automatisch over de baanvorm gelegd (gelijkvormigheids-ICP op kleurpixels) en visueel gecontroleerd. Bahrein: kaart zonder sectorkleuren, nog open. Singapore en Jeddah: baanvorm omgekeerd zodat hij in rijrichting loopt. Bron in markers.source en in het colofon.
 - Baangegevens (lengte, eerste GP, record) uit dezelfde screenshots niet toegevoegd: aantal ronden en racedistantie ontbreken daar, en de test eist die compleet.
