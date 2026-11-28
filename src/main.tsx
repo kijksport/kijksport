@@ -105,6 +105,9 @@ function App(){
  const[page,setPage]=useState<Page>('Vandaag'),[date,setDate]=useState(day()),[view,setView]=useState('Week'),[search,setSearch]=useState(''),[sportFilter,setSportFilter]=useState('all'),[accessFilter,setAccessFilter]=useState('all');
  const[selected,setSelected]=useState<Event|null>(null),[info,setInfo]=useState(false),[serviceOpen,setServiceOpen]=useState(false),[incoming,setIncoming]=useState<Profile|null>(null);
  const[toast,setToast]=useState(''),[storageError,setStorageError]=useState(''),[qr,setQr]=useState(''),[kopie,setKopie]=useState(''),[infoOpen,setInfoOpen]=useState<string|null>(null),[dag,setDag]=useState(day()),[openVandaag,setOpenVandaag]=useState(0),[weergave,setWeergave]=useState<Weergave>(()=>{try{const w=JSON.parse(opslag().getItem('kijksport-weergave')||'{}');return {veld:w.veld&&typeof w.veld==='object'?w.veld:{},feiten:w.feiten!==false,uit:Array.isArray(w.uit)?w.uit.filter((x:unknown)=>typeof x==='string'):[],vlag:['uit','stil','wapperend'].includes(w.vlag)?w.vlag:standaardVlag}}catch{return {veld:{},feiten:true,uit:[],vlag:standaardVlag}}}),[tvSoort,setTvSoort]=useState('all'),[tvPeriode,setTvPeriode]=useState('all'),[tvSort,setTvSort]=useState('datum'),[beweeg,setBeweeg]=useState(true);
+ // Testkeuze voor de Vandaag-lijst: A met een tegel per kaart, B strak met alleen de kleurstreep. De gewone versie blijft B tot de keuze is gemaakt.
+ const[lijst,setLijst]=useState<'A'|'B'>(()=>{if(kanaal!=='test')return 'B';try{return opslag().getItem('kijksport-lijst')==='B'?'B':'A'}catch{return 'A'}});
+ useEffect(()=>{if(kanaal==='test')try{opslag().setItem('kijksport-lijst',lijst)}catch{/* geen opslag */}},[lijst]);
  const dialog=useRef<HTMLDialogElement>(null),infoDialog=useRef<HTMLDialogElement>(null),serviceDialog=useRef<HTMLDialogElement>(null),importDialog=useRef<HTMLDialogElement>(null),upload=useRef<HTMLInputElement>(null);
  const rustig=useRustig(),now=useNow(30000);
  const p=settings.preferences,favorites=p.favorites,notify=setToast,play=beweeg&&!rustig;
@@ -174,10 +177,10 @@ function App(){
      {kids.length>0&&<span className="splits">{(over>0?kids:kids.filter(c=>c.start>=today).length?kids.filter(c=>c.start>=today):kids.slice(-2)).slice(0,4).map(c=><span key={c.id} className={c.start<today||(c.start===today&&Date.parse(c.iso!)<now)?'was':c.start===today?'nu':''}><b>{label(c.start,{weekday:'short'})}</b><span>{time(c.iso!)}</span><em>{c.start===today&&Date.parse(c.iso!)<now?'vandaag geweest':dagNaam(c.start)}</em></span>)}</span>}</>
    :e.iso?<span className="tijdplaat"><em>{time(e.iso)}</em><span><strong>{t}</strong><small>{wanneer(e,today)}{e.venue?', '+e.venue:''}</small></span></span>
    :<><strong className="g-titel">{t}</strong><span className="togo"><span style={{right:Math.min(96,Math.max(0,over/180*100))+'%'}}/></span><span className="g-voet2"><b>{over>0?'Nog '+over+(over===1?' dag':' dagen'):'Vandaag, tijd volgt'}</b><small>{cap(label(e.start,{weekday:'long',day:'numeric',month:'long',year:'numeric'}))}</small></span></>;
-  const bord=e.sport==='darts'&&meerdaags&&veldAan('darts'),bij=!!e.updated&&dagenTussen(e.updated,today)<=8&&dagenTussen(e.updated,today)>=0;
+  const tegel=lijst==='A'&&e.sport==='f1'&&!!circuitKey(e)&&veldAan('f1'),bord=e.sport==='darts'&&meerdaags&&veldAan('darts'),bij=!!e.updated&&dagenTussen(e.updated,today)<=8&&dagenTussen(e.updated,today)>=0;
   return <article className={'g'+(voorbij?' voorbij':'')+(e.status==='cancelled'?' vervallen':'')+(bord?' met-bord':'')} key={e.id} style={kleur(e.sport)}>{bord&&<DartsHoek play={play}/>}
    <div className="g-kop"><span>{sportOf(e.sport).name}</span>{zender(e)}<button className="info-knop" aria-expanded={infoOpen===e.id} aria-label={'Meer over '+e.title} onClick={()=>setInfoOpen(infoOpen===e.id?null:e.id)}><Info size={19}/></button>{bewaar(e)}</div>
-   <button className="g-open" onClick={()=>setSelected(e)} aria-label={'Bekijk details van '+e.title}>{body}
+   <button className="g-open" onClick={()=>setSelected(e)} aria-label={'Bekijk details van '+e.title}>{tegel?<span className="g-tegelrij"><span className="g-tegel"><Veld sport={e.sport} event={e} mini/></span><span>{body}</span></span>:body}
     {opRechten(e)&&<small className="g-recht">Zender heeft de rechten; uitzending niet apart nagekeken</small>}
     {bij&&<span className="bijgewerkt">Bijgewerkt {label(e.updated!,{day:'numeric',month:'short'})}</span>}
     {(access(e)==='available'||access(e)==='other'||(p.reminders[e.id]?.mode&&p.reminders[e.id].mode!=='none'))&&<span className="g-extra">{(access(e)==='available'||access(e)==='other')&&badge(e)}{p.reminders[e.id]?.mode&&p.reminders[e.id].mode!=='none'&&<span className="herinnering"><Bell size={12}/>Herinnering in agenda-export</span>}</span>}</button>
@@ -194,7 +197,7 @@ function App(){
 
  const tabs=(plek:string)=><nav className={'tabs '+plek} aria-label="Hoofdnavigatie">{pages.map(([n,Icon])=><button key={n} className={page===n?'actief':''} aria-current={page===n?'page':undefined} onClick={()=>nav(n)}><Icon size={21}/><span>{n}</span>{n==='Kijklijst'&&nogTeKomen>0&&<b>{nogTeKomen}</b>}</button>)}</nav>;
  return <div className="app">
- {kanaal==='test'&&<div className="testbalk" role="note"><b>Testversie {packageInfo.version}</b> Alleen op het testadres, met een eigen kopie van je gegevens.</div>}
+ {kanaal==='test'&&<div className="testbalk" role="note"><b>Testversie {packageInfo.version}</b> Alleen op het testadres, met een eigen kopie van je gegevens. <span className="testkeuze" role="group" aria-label="Vandaag-lijst">{(['A','B'] as const).map(v=><button key={v} aria-pressed={lijst===v} onClick={()=>setLijst(v)}>{v==='A'?'A tegels':'B strak'}</button>)}</span></div>}
  <header className="balk"><button className="merk" onClick={()=>nav('Vandaag')}><img src={import.meta.env.BASE_URL+'icon-192.png'} alt=""/>KijkSport</button>
   {tabs('boven')}
   <div className="balk-knoppen"><button className="rond" aria-label="Handleiding en instellingen van de app" onClick={()=>setInfo(true)}><Info size={20}/></button>
@@ -212,7 +215,7 @@ function App(){
    return groot&&ses.length>1?<section className="tv tv8" style={kleur(hero.sport)} aria-labelledby="uit-titel">
      <div className="tv8-kop"><span className="tv-bug">{sportOf(hero.sport).name}</span><b id="uit-titel">{circuits[key!].name}</b>{zender(hero)}</div>
      <div className="tv8-rij"><ol className="toren">{ses.map((x,i)=><li key={x.id}><button className={(x.id===hero.id?'deze ':'')+(x.iso&&Date.parse(x.iso)<now?'was':'')} onClick={()=>setSelected(x)} aria-label={x.title+', '+label(x.start,{weekday:'long'})+(x.iso?' '+time(x.iso):'')}><i>{i+1}</i><b>{sessieCode(x.title)}</b><span>{label(x.start,{weekday:'short'})}</span><em>{x.iso?time(x.iso):''}</em></button></li>)}</ol>
-      <div className="tv8-veld"><button className="uit-open" onClick={()=>setSelected(hero)} aria-label={'Bekijk het circuit van '+hero.title}><Veld sport={hero.sport} event={hero} play={play} className="kaal"/></button>{pauze}</div></div>{onder}</section>
+      <div className="tv8-veld"><button className="uit-open" onClick={()=>setSelected(hero)} aria-label={'Bekijk het circuit van '+hero.title}><Veld sport={hero.sport} event={hero} play={play} className={hero.sport==='f1'?undefined:'kaal'}/></button>{pauze}</div></div>{onder}</section>
     :groot?<section className="tv tv7" style={kleur(hero.sport)} aria-labelledby="uit-titel">
      <div className="tv-beeld"><button className="uit-open" onClick={()=>setSelected(hero)} aria-label={'Bekijk details van '+hero.title}><Veld sport={hero.sport} event={hero} play={play}/></button><span className="tv-bug">{sportOf(hero.sport).name}</span>{zender(hero)}{pauze}</div>{balk}{onder}</section>
     :<section className="tv strak" style={kleur(hero.sport)} aria-labelledby="uit-titel"><div className="tv8-kop"><span className="tv-bug">{sportOf(hero.sport).name}</span><b/>{zender(hero)}</div>{balk}{onder}</section>})()

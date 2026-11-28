@@ -1,6 +1,6 @@
 // Elke sport van bovenaf getekend: het veld, de baan, het bad of het bord, met de echte belijning.
 // Maten zijn de gangbare reglementaire maten; ze dienen als tekening, niet als meetgegeven per stadion.
-import {useEffect,useRef,type ReactNode} from 'react';
+import {useEffect,useRef,useState,type ReactNode} from 'react';
 import type {Event} from './core';
 import kalender from './data.json';
 import {useId} from 'react';
@@ -23,8 +23,18 @@ export function volgendeF1(vandaag=new Date().toISOString().slice(0,10)):{key:st
  for(const e of es){const k=circuitKey(e);if(k)return {key:k,event:e}}return null;
 }
 /** Staande banen (veel hoger dan breed) liggen in het brede detailbeeld een kwartslag gedraaid: noorden wijst dan naar rechts. */
-export function gedraaid(key:string|null){if(!key||!circuits[key])return false;const xs=circuits[key].points.map(q=>q[0]),ys=circuits[key].points.map(q=>q[1]);return (Math.max(...ys)-Math.min(...ys))/(Math.max(...xs)-Math.min(...xs))>1.3}
+export function gedraaid(key:string|null,drempel=1.3){if(!key||!circuits[key])return false;const xs=circuits[key].points.map(q=>q[0]),ys=circuits[key].points.map(q=>q[1]);return (Math.max(...ys)-Math.min(...ys))/(Math.max(...xs)-Math.min(...xs))>drempel}
 function draai(c:CircuitInfo):CircuitInfo{const xs=c.points.map(q=>q[0]),ys=c.points.map(q=>q[1]),cx=(Math.min(...xs)+Math.max(...xs))/2,cy=(Math.min(...ys)+Math.max(...ys))/2;return {...c,points:c.points.map(([x,y])=>[cx-(y-cy),cy+(x-cx)] as [number,number])}}
+/** Soort F1-sessie uit de titel. Zonder losse sessie (heel raceweekend) geen laag. */
+export type Sessie='vt'|'kwa'|'race'|'weekend';
+export function sessieVan(e?:Event|null):Sessie{if(!e||!e.iso)return 'weekend';const t=e.title.toLowerCase();if(/vrije training/.test(t))return 'vt';if(/kwalificatie|shootout/.test(t))return 'kwa';return 'race'}
+/** Daglicht op het circuit bij de start, uit de zonshoogte op die plek en dat moment: dag, schemer of nacht. */
+export type Licht='dag'|'schemer'|'nacht';
+export function zonshoogte(iso:string,lat:number,lon:number){const d=new Date(iso),dag=(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())-Date.UTC(d.getUTCFullYear(),0,0))/864e5,g=2*Math.PI/365*(dag-1+(d.getUTCHours()-12)/24);
+ const decl=.006918-.399912*Math.cos(g)+.070257*Math.sin(g)-.006758*Math.cos(2*g)+.000907*Math.sin(2*g)-.002697*Math.cos(3*g)+.00148*Math.sin(3*g),eqt=229.18*(.000075+.001868*Math.cos(g)-.032077*Math.sin(g)-.014615*Math.cos(2*g)-.040849*Math.sin(2*g));
+ const tst=d.getUTCHours()*60+d.getUTCMinutes()+eqt+4*lon,ha=(tst/4-180)*Math.PI/180,la=lat*Math.PI/180;
+ return Math.asin(Math.sin(la)*Math.sin(decl)+Math.cos(la)*Math.cos(decl)*Math.cos(ha))*180/Math.PI}
+export function lichtVan(e:Event|null|undefined,c:CircuitInfo|null):Licht{if(!e?.iso||!c)return 'dag';const h=zonshoogte(e.iso,c.lat,c.lon);return h>6?'dag':h>-6?'schemer':'nacht'}
 export function circuitKey(e:Event){if(e.sport!=='f1')return null;return weekend2027[e.id]??aliases.find(([p])=>p.test(e.id))?.[1]??null}
 
 /** Ondergrond per sport: vloerkleur, tekstkleur op die vloer en een accent voor stippen en lijnen. */
@@ -167,25 +177,61 @@ function Vlag({url,vb,wapper}:{url:string;vb:number[];wapper:boolean}){
  return <g opacity=".26"><defs>{Array.from({length:n},(_,i)=><clipPath key={i} id={id+'s'+i}><rect x={x+i*sw-.4} y={y-30} width={sw+.8} height={h+60}/></clipPath>)}</defs>
   {Array.from({length:n},(_,i)=><g key={i} clipPath={`url(#${id}s${i})`}><g className="vlagstrook" style={{'--a':(2+i*.6)+'px',animationDelay:(-i*.16)+'s'} as React.CSSProperties}>{img}<rect x={x+i*sw} y={y-30} width={sw+.8} height={h+60} fill="#000" className="vlagschaduw" style={{animationDelay:(-i*.16)+'s'}}/></g></g>)}</g>;
 }
-function Circuit({c,play,mini,detail,kompas,vlag,vb,reserve}:S&{c:CircuitInfo;detail?:boolean;kompas:[number,number];vlag?:{url:string;wapper:boolean}|null;vb:number[];reserve?:string}){
+const lucht:Record<Licht,[string,string]>={dag:['#3b4b58','#26323c'],schemer:['#5a3a52','#222a3b'],nacht:['#0b1222','#151e2d']};
+/**
+ * F1-circuit, eigen KijkSport-ontwerp (Broadcast 02): asfalt met witte rand, lucht naar het licht op het circuit bij de start,
+ * en een laag per sessie: maatlat bij training, Q1-Q3 bij kwalificatie, vijf startlampen bij de race.
+ * Beweging gaat één keer: het lichtspoor trekt een ronde, daarna de sessielaag. Geen bewegende stip: dat zou een live positie suggereren.
+ */
+function Circuit({c,play,mini,detail,kompas,vlag,vb,reserve,sessie='weekend',licht='dag',laag,doorzicht}:S&{doorzicht?:boolean;c:CircuitInfo;detail?:boolean;kompas:[number,number];vlag?:{url:string;wapper:boolean}|null;vb:number[];reserve?:string;sessie?:Sessie;licht?:Licht;laag?:{y:number;h:number}|null}){
+ const id=useId().replace(/:/g,'');
  const pts=c.points.map(([x,y])=>[x-40,y+37]),d='M'+pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join('L')+'Z',t=track(pts),m=c.markers;
  const deel=(a:number,b:number)=>{let s='';for(let f=a;f<b+.002;f+=.004){const p=t.at(Math.min(f,.9999));s+=(s?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1)}return s};
  const sf=t.at(m?.startFinish??0),pijl=t.at((m?.startFinish??0)+.035);
  const grens=m?.sectors?[0,...m.sectors,1]:null,sk=['#ff4d5e','#4aa6ff','#ffd23f'];
  const labels=(detail&&m?.corners||[]).map(k=>{const p=t.at(k.at);return {n:k.n,px:p.x,py:p.y,nx:p.nx,ny:p.ny,r:15}});
  for(let ronde=0;ronde<4;ronde++)labels.forEach((a,i)=>labels.forEach((b,j)=>{if(j<i&&Math.hypot(a.px+a.nx*a.r-b.px-b.nx*b.r,a.py+a.ny*a.r-b.py-b.ny*b.r)<14)a.r+=8}));
+ const [x0,y0,w,h]=vb,[boven,onder]=lucht[licht],an=(c:string)=>play?c:undefined;
+ // Sterren bij nacht: vaste plekken, zodat het beeld niet verspringt.
+ const sterren=licht==='nacht'?Array.from({length:mini?14:26},(_,i)=>[x0-w*.4+((i*73)%97)/97*w*1.8,y0+((i*41)%59)/59*h*.9,(i%3)*.25+.5]):[];
  return <>
- {vlag&&<Vlag url={vlag.url} vb={vb} wapper={vlag.wapper}/>}
- <g fill="none" stroke="#31404c" strokeWidth="1">{[0,60,120,180,240,300].map(y=><path key={y} d={`M-200 ${y}H600`}/>)}{[-80,0,80,160,240,320,400,480].map(x=><path key={x} d={`M${x} -100V400`}/>)}</g>
- <path d={d} fill="none" stroke={W} strokeWidth={mini?11:9.5} strokeLinejoin="round"/><path d={d} fill="none" stroke="#3d4853" strokeWidth={mini?6.5:6.6} strokeLinejoin="round"/>
- {!mini&&grens&&sk.map((k,i)=><path key={k} d={deel(grens[i],grens[i+1])} fill="none" stroke={k} strokeWidth="2" strokeLinecap="round"/>)}
+ <defs><linearGradient id={id+'l'} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={boven}/><stop offset="1" stopColor={onder}/></linearGradient></defs>
+ <rect x={x0-w} y={y0-h*.5} width={w*3} height={h*2} fill={`url(#${id}l)`} opacity={doorzicht?.55:1}/>
+ {sterren.map(([x,y,r],i)=><circle key={i} cx={x} cy={y} r={r} fill="#fff" opacity=".55"/>)}
+ {licht!=='dag'&&<path className={an('f1-halo')} d={d} fill="none" stroke="#ffe2a8" strokeWidth={mini?26:22} strokeLinejoin="round" opacity={licht==='nacht'?.13:.07}/>}
+ <path d={d} fill="none" stroke={W} strokeWidth={mini?11:9.5} strokeLinejoin="round"/><path d={d} fill="none" stroke="#2c3238" strokeWidth={mini?7:6.8} strokeLinejoin="round"/>
+ <path className={an('f1-spoor')} d={d} pathLength={1} fill="none" stroke="#ff4d5e" strokeWidth={mini?2.4:1.6} strokeLinejoin="round" strokeLinecap="round" opacity={detail&&grens?.0:.95}/>
+ {!mini&&grens&&sk.map((k,i)=><path key={k} className={an('f1-sector')} d={deel(grens[i],grens[i+1])} fill="none" stroke={k} strokeWidth="2" strokeLinecap="round"/>)}
  <path d={`M${sf.x-sf.nx*7} ${sf.y-sf.ny*7}L${sf.x+sf.nx*7} ${sf.y+sf.ny*7}`} stroke="#111" strokeWidth="3.6"/><path d={`M${sf.x-sf.nx*7} ${sf.y-sf.ny*7}L${sf.x+sf.nx*7} ${sf.y+sf.ny*7}`} stroke={W} strokeWidth="3.6" strokeDasharray="2.3 2.3"/>
  {!mini&&<path d="M-5-4L4 0L-5 4Z" fill={W} transform={`translate(${pijl.x+pijl.nx*12} ${pijl.y+pijl.ny*12}) rotate(${Math.atan2(pijl.dy,pijl.dx)*180/Math.PI})`}/>}
  {labels.map(l=><g key={l.n}><path d={`M${l.px+l.nx*5.5} ${l.py+l.ny*5.5}L${l.px+l.nx*(l.r-6.5)} ${l.py+l.ny*(l.r-6.5)}`} stroke={W} strokeWidth=".6" opacity=".7"/><circle cx={l.px+l.nx*l.r} cy={l.py+l.ny*l.r} r="6.6" fill="#18222a" stroke={W} strokeWidth=".8"/><text x={l.px+l.nx*l.r} y={l.py+l.ny*l.r+2.9} textAnchor="middle" fontSize="8.2" fontWeight="700" fill={W}>{l.n}</text></g>)}
- <Dot at={[sf.x,sf.y]} path={d} dur={15} play={play}><circle r={mini?5:3.8} fill="#ff4d5e" stroke="#fff" strokeWidth="1.3"/></Dot>
+ {mini&&sessie!=='weekend'&&<SessieBadge sessie={sessie} x={x0+6} y={y0+h-6}/>}
+ {laag&&<SessieLaag sessie={sessie} x={x0} y={laag.y} w={w} h={laag.h} mini={!!mini} play={play} perKm={c.length?t.total/Number(c.length):0}/>}
  {reserve&&<text x={vb[0]+vb[2]/2} y={vb[1]+16} textAnchor="middle" fontSize={mini?12:10} fontWeight="700" fill={W} opacity=".85">{reserve}</text>}
- {!mini&&!detail&&<g transform={`translate(${kompas[0]} ${kompas[1]})`}><circle r="13" fill="#18222a" stroke="#56646f" strokeWidth=".8"/><path d="M0-9L3.6 2H-3.6Z" fill="#ff4d5e"/><text y="9.5" textAnchor="middle" fontSize="7" fontWeight="700" fill={W}>N</text></g>}
+ {!mini&&!detail&&!laag&&<g transform={`translate(${kompas[0]} ${kompas[1]})`}><circle r="13" fill="#18222a" stroke="#56646f" strokeWidth=".8"/><path d="M0-9L3.6 2H-3.6Z" fill="#ff4d5e"/><text y="9.5" textAnchor="middle" fontSize="7" fontWeight="700" fill={W}>N</text></g>}
 </>}
+/** In een tegel: de sessie als klein teken linksonder, zonder tekst. */
+function SessieBadge({sessie,x,y}:{sessie:Sessie;x:number;y:number}){
+ if(sessie==='race')return <g transform={`translate(${x} ${y-16})`}><rect width="58" height="16" rx="4" fill="#0d1116"/>{[0,1,2,3,4].map(i=><circle key={i} cx={8+i*10.5} cy="8" r="3.6" fill="#2a1a1e" stroke="#ff3347" strokeWidth="1.2"/>)}</g>;
+ if(sessie==='kwa')return <g transform={`translate(${x} ${y-16})`}>{[0,1,2].map(i=><rect key={i} x={i*13} y={10-i*5} width="10" height={6+i*5} rx="1.5" fill={i===2?'#ff4d5e':'#f6f8f4'} opacity={i===2?1:.75}/>)}</g>;
+ return <g transform={`translate(${x} ${y-8})`} stroke="#f6f8f4" strokeWidth="1.6" fill="none"><path d="M0 -4V4M0 0H44M44 -4V4"/><path d="M11 -2V2M22 -2V2M33 -2V2" strokeWidth="1"/></g>;
+}
+/** De laag per sessie, in een eigen strook boven (of in het detail onder) de baan. */
+function SessieLaag({sessie,x,y,w,h,mini,play,perKm}:{sessie:Sessie;x:number;y:number;w:number;h:number;mini:boolean;play:boolean;perKm:number}){
+ const mid=x+w/2,cy=y+h/2;
+ if(sessie==='race'){const r=Math.min(h*.24,w*.045),gap=r*2.9,bx=mid-gap*2;
+  return <g><rect x={bx-r*1.9} y={cy-r*1.75} width={gap*4+r*3.8} height={r*3.5} rx={r*.9} fill="#0d1116" stroke="#3a434c" strokeWidth=".8"/>
+   {[0,1,2,3,4].map(i=><g key={i}>{play&&<circle className="f1-gloed" cx={bx+i*gap} cy={cy} r={r*1.7} fill="#ff3347" style={{animationDelay:(.6+i*.45)+'s',animationDuration:(3.4-.45*i)+'s'}}/>}
+    <circle className={play?'f1-lamp':undefined} cx={bx+i*gap} cy={cy} r={r} fill="#2a1a1e" stroke="#ff3347" strokeWidth={mini?.8:1.1} style={play?{animationDelay:(.6+i*.45)+'s',animationDuration:(3.4-.45*i)+'s'}:undefined}/></g>)}</g>}
+ if(sessie==='kwa'){const n=['Q1','Q2','Q3'],bw=Math.min(w*.17,mini?30:44),gap=bw*.18,bx=mid-(bw*3+gap*2)/2,bh=Math.min(h*.62,mini?16:20);
+  return <g>{n.map((q,i)=><g key={q} className={play?'f1-q':undefined} style={play?{animationDelay:(2.2+i*.35)+'s'}:undefined}><rect x={bx+i*(bw+gap)} y={cy-bh/2} width={bw} height={bh} rx="3" fill={i===2?'#ff4d5e':'#0d1116'} stroke={i===2?'#ff4d5e':'#56646f'} strokeWidth=".8"/>
+   <text x={bx+i*(bw+gap)+bw/2} y={cy+bh*.27} textAnchor="middle" fontSize={bh*.72} fontWeight="800" fill={W}>{q}</text></g>)}</g>}
+ if(sessie==='vt'&&perKm>0){let km=1;while(perKm*km>w*.55&&km>.25)km/=2;const L=perKm*km,lx=mid-L/2;
+  return <g className={play?'f1-maat':undefined} style={play?{transformOrigin:`${lx}px ${cy}px`}:undefined}><path d={`M${lx} ${cy-4}V${cy+4}M${lx} ${cy}H${lx+L}M${lx+L} ${cy-4}V${cy+4}`} stroke={W} strokeWidth="1.3" fill="none"/>
+   {[.25,.5,.75].map(f=><path key={f} d={`M${lx+L*f} ${cy-2}V${cy+2}`} stroke={W} strokeWidth=".8"/>)}
+   {!mini&&<text x={lx+L+6} y={cy+3.4} fontSize="10" fontWeight="700" fill={W}>{km>=1?km+' km':km*1000+' m'}</text>}</g>}
+ return null;
+}
 
 function Rugby({play}:S){const pas='M262 104L236 128L210 152L184 176L158 200';return <>
  <rect width="400" height="300" fill="#27683a"/>
@@ -233,25 +279,31 @@ function Sporthal(){return <><rect width="400" height="300" fill="#c69a5a"/>{Arr
 
 /** Het veld van een sport. `detail` toont extra aanduidingen (bochtnummers); `mini` laat fijne details weg. */
 export function Veld({sport,event,play=false,mini,detail,className,vlag='uit'}:{sport:string;event?:Event|null;play?:boolean;mini?:boolean;detail?:boolean;className?:string;vlag?:'uit'|'stil'|'wapperend'}){
- const ref=useRef<SVGSVGElement>(null);
+ const ref=useRef<SVGSVGElement>(null),[ronde,setRonde]=useState(0);
+ // F1: de eenmalige beweging begint opnieuw zodra de tekening weer in beeld komt.
+ useEffect(()=>{const el=ref.current;if(!el||!play||sport!=='f1'||!('IntersectionObserver'in window))return;let uit=false;const io=new IntersectionObserver(([x])=>{if(x.isIntersecting&&uit)setRonde(n=>n+1);uit=!x.isIntersecting});io.observe(el);return()=>io.disconnect()},[play,sport]);
  // Buiten beeld staat de animatie stil.
  useEffect(()=>{const el=ref.current;if(!el||!play||!('IntersectionObserver'in window))return;const io=new IntersectionObserver(([x])=>{try{x.isIntersecting?el.unpauseAnimations():el.pauseAnimations()}catch{/* geen SMIL */}});io.observe(el);return()=>io.disconnect()},[play]);
  // F1 zonder eigen evenement (zoals de Sporten-tab): de baan van de eerstvolgende race, in het klein.
  const res=!event&&sport==='f1'?volgendeF1():null;
- const key=event?circuitKey(event):res?.key??null,c=key?(detail&&gedraaid(key)?draai(circuits[key]):circuits[key]):null,p={play,mini};
+ const key=event?circuitKey(event):res?.key??null,c=key?((detail&&gedraaid(key))||(mini&&gedraaid(key,1.05))?draai(circuits[key]):circuits[key]):null,p={play,mini};
  const reserve=res&&c?'Volgende race: '+c.location:undefined;
+ const ses=c&&event?sessieVan(event):'weekend',lt=c?lichtVan(event,circuits[key!]):'dag';let laag:{y:number;h:number}|null=null;
  // Circuits krijgen een eigen uitsnede rond de baan, zodat ook een smalle baan het beeld vult.
  let vb='0 0 400 300',kompas:[number,number]=[372,30],vbn=[0,0,400,300];
  if(c){const xs=c.points.map(q=>q[0]-40),ys=c.points.map(q=>q[1]+37),m=mini?16:detail?12:26;
   // In het detailscherm staat de baaninfo in beeld: ruimte vrijhouden boven (circuitnaam) en onder (sectoren en baangegevens).
   const boven=detail?40:reserve?22:0,onder=0;
-  const x=Math.min(...xs)-m,y=Math.min(...ys)-m-boven,w=Math.max(...xs)+m-x,h=Math.max(...ys)+m+onder-y;vb=`${x} ${y} ${w} ${h}`;vbn=[x,y,w,h];
+  // Ruimte voor de sessielaag: boven de baan, in het detail onder de baan (boven staat daar de circuitnaam).
+  const lh=ses!=='weekend'&&!mini?(detail?30:34):0;
+  const x=Math.min(...xs)-m,y=Math.min(...ys)-m-boven-(detail?0:lh),w=Math.max(...xs)+m-x,h=Math.max(...ys)+m+onder+(detail?lh:0)-y;vb=`${x} ${y} ${w} ${h}`;vbn=[x,y,w,h];
+  if(lh)laag=detail?{y:y+h-lh-6,h:lh}:{y:y+(reserve?22:0)+4,h:lh};
   const yb=y+boven,yo=y+h-onder;
   // Kompas in de hoek die het verst van de baan ligt; rechtsboven alleen als het niet anders kan (daar staat in het detailscherm de sluitknop).
   const hoeken:[number,number][]=[[x+16,yo-16],[x+w-16,yo-16],[x+16,yb+16],[x+w-16,yb+16]],vrij=(q:[number,number])=>Math.min(...xs.map((v,i)=>Math.hypot(v-q[0],ys[i]-q[1])));
   kompas=detail?hoeken.reduce((a,b)=>vrij(b)>vrij(a)+4?b:a):[x+w-16,y+16]}
  const vurl=c&&detail&&vlag!=='uit'?vlagUrl(landVan[key!]):null;
- const body=c?<Circuit c={c} detail={detail} kompas={kompas} vb={vbn} reserve={reserve} vlag={null} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'||sport==='olympics'?<Atletiek {...p}/>:sport==='rugby'?<Rugby {...p}/>:sport==='hockey'?<Hockey {...p}/>:sport==='winter'?<Piste {...p}/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
+ const body=c?<Circuit key={ronde} c={c} detail={detail} kompas={kompas} vb={vbn} reserve={reserve} vlag={null} doorzicht={!!vurl} sessie={ses} licht={lt} laag={laag} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'||sport==='olympics'?<Atletiek {...p}/>:sport==='rugby'?<Rugby {...p}/>:sport==='hockey'?<Hockey {...p}/>:sport==='winter'?<Piste {...p}/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
  const svg=<svg ref={ref} className={'veld '+(className||'')} viewBox={vb} preserveAspectRatio={c||sport==='darts'?'xMidYMid meet':'xMidYMid slice'} style={{background:vurl?'transparent':c?'#26323c':vloer(sport).vloer}} aria-hidden="true" focusable="false">{body}</svg>;
  // Vlag als eigen laag over het hele vlak, de baan erboven.
  if(vurl)return <div className="veld-stapel"><svg className="vlag-laag" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><Vlag url={vurl} vb={[0,0,400,300]} wapper={vlag==='wapperend'}/></svg>{svg}</div>;

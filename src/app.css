@@ -253,7 +253,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .toren b{font-weight:800;font-stretch:80%;font-size:.92rem}.toren span{color:var(--sub)}.toren em{font-style:normal;font-weight:700;font-variant-numeric:tabular-nums;justify-items:end}
 .toren .was{opacity:.55}
 .toren .deze{background:var(--accent);background:color-mix(in srgb,var(--accent) 80%,#000);color:#fff}.toren .deze span{color:#fff}
-.tv8-veld{position:relative;height:200px;background:var(--vloer);border-radius:14px 0 0 14px}.tv8-veld .pauze{top:auto;bottom:8px;right:8px}
+.tv8-veld{position:relative;height:240px;background:var(--vloer);border-radius:14px 0 0 14px}.tv8-veld .pauze{top:auto;bottom:8px;right:8px}
 svg.kaal{background:transparent!important}svg.kaal>g:first-child{display:none}
 
 .g{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding:10px 12px 12px;border-radius:14px;background:var(--kaart);border:1px solid var(--lijn);border-top:3px solid var(--accent)}
@@ -419,3 +419,24 @@ dialog.nieuw::backdrop{background:rgba(6,14,12,.6)}
 .gezien time{flex:none;width:68px;font-size:.82rem;color:var(--sub);font-variant-numeric:tabular-nums}
 .gezien li span{display:grid;min-width:0}.gezien li b{font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gezien li small{font-size:.76rem;color:var(--sub)}
 .gezien .rond.klein{width:44px;height:44px;flex:none;color:var(--sub)}
+
+/* F1 Broadcast 02: eenmalige beweging. Zonder beweging (pauze, Verminder beweging) staat het eindbeeld er meteen. */
+.f1-spoor{stroke-dasharray:1;animation:f1-spoor 2.4s cubic-bezier(.45,.05,.3,1) .2s both}
+@keyframes f1-spoor{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.f1-sector,.f1-halo{animation:f1-in .7s ease-out 2.3s both}.f1-halo{animation-delay:.2s;animation-duration:1.4s}
+@keyframes f1-in{from{opacity:0}}
+.f1-lamp{animation-name:f1-lamp;animation-timing-function:linear;animation-fill-mode:forwards}
+@keyframes f1-lamp{0%,99%{fill:#ff3347}100%{fill:#2a1a1e}}
+.f1-gloed{opacity:0;animation-name:f1-gloed;animation-timing-function:linear;animation-fill-mode:forwards}
+@keyframes f1-gloed{0%,99%{opacity:.35}100%{opacity:0}}
+.f1-q{animation:f1-q .45s cubic-bezier(.2,.8,.3,1) both}
+@keyframes f1-q{from{opacity:0;transform:translateY(-6px)}}
+.f1-maat{animation:f1-maat .9s cubic-bezier(.2,.8,.3,1) 2.3s both}
+@keyframes f1-maat{from{transform:scaleX(0);opacity:0}}
+/* Testkeuze Vandaag-lijst: A met tegel per kaart, B strak. Alleen in de testversie te kiezen. */
+.g-tegelrij{display:grid;grid-template-columns:112px minmax(0,1fr);gap:10px;align-items:center}
+.g-tegel{display:block;width:112px;aspect-ratio:4/3;border-radius:10px;overflow:hidden;background:#26323c}
+.g-tegel .veld{width:100%;height:100%}
+.testkeuze{display:inline-flex;gap:2px;border-radius:99px;background:rgba(0,0,0,.12);padding:2px}
+.testkeuze button{padding:2px 10px;border-radius:99px;font-weight:700;font-size:.78rem}
+.testkeuze button[aria-pressed=true]{background:#1b1400;color:#f5b400}

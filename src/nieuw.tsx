@@ -8,6 +8,8 @@ import packageInfo from '../package.json';
 type Punt={icoon:LucideIcon;kleur:string;titel:string;tekst:string};
 /** Nieuwste versie bovenaan. Houd het kort: hoogstens vier punten per versie, in gewone woorden. */
 export const versies:{versie:string;punten:Punt[]}[]=[
+ {versie:'1.7.8',punten:[
+  {icoon:Flag,kleur:'var(--rood)',titel:'Formule 1 in een nieuw jasje',tekst:'Elke sessie heeft een eigen beeld: een maatlat bij de training, Q1 tot Q3 bij de kwalificatie en vijf startlampen bij de race. De lucht volgt het licht op het circuit, van dag tot nacht.'}]},
  {versie:'1.7.7',punten:[
   {icoon:History,kleur:'var(--ok)',titel:'Gezien',tekst:'Afgelopen evenementen verdwijnen uit je kijklijst naar een ingeklapt lijstje Gezien onderaan. In de Agenda staan ze gewoon op hun datum.'}]},
  {versie:'1.7.6',punten:[

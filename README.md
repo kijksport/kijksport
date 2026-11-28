@@ -246,7 +246,15 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 
 - 1.7.1 tot en met 1.7.6 live voor de testers (akkoord van de maker). Publicatie alleen nog bij een push op main of handmatig gestart; een nieuwe testversie: push op `test`, dan `gh workflow run Publiceren --ref main`.
 
-## KijkSport 1.7.7 (testversie)
+## KijkSport 1.7.8 (testversie, nog niet live)
+
+- Formule 1, Broadcast 02: eigen ontwerp voor de baan. Asfalt met witte rand; de lucht volgt de zonshoogte op het circuit bij de start (dag, schemer, nacht, berekend uit lat/lon in circuits.json en de starttijd).
+- Laag per sessie: maatlat (1 km of 500 m, uit baanlengte) bij vrije training, Q1–Q3 bij kwalificatie, vijf startlampen bij race en sprint. Heel raceweekend: geen laag.
+- Beweging één keer: lichtspoor trekt een ronde, daarna sectoren en sessielaag; start opnieuw als de tekening weer in beeld komt. Geen bewegende stip meer (leek op een live positie). Pauze en Verminder beweging tonen meteen het eindbeeld.
+- Testkeuze in de testbalk: Vandaag-lijst A (tegel bij F1-kaarten) of B (strak). De gewone versie blijft B tot de keuze is gemaakt.
+- Uitgelicht met sessietoren iets hoger (240 px).
+
+## KijkSport 1.7.7
 
 - Kijklijst toont alleen wat nog komt; afgelopen evenementen staan compact en ingeklapt onder Gezien (nieuwste eerst, openen of van de lijst halen). Naar agenda en het getal op de tab tellen alleen wat nog komt.
 - Dagteller van meerdaagse evenementen zegt na afloop "afgelopen" in plaats van bijvoorbeeld "dag 6 van 3".
