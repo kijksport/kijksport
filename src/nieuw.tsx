@@ -8,6 +8,10 @@ import packageInfo from '../package.json';
 type Punt={icoon:LucideIcon;kleur:string;titel:string;tekst:string};
 /** Nieuwste versie bovenaan. Houd het kort: hoogstens vier punten per versie, in gewone woorden. */
 export const versies:{versie:string;punten:Punt[]}[]=[
+ {versie:'1.8.0',punten:[
+  {icoon:MapPin,kleur:'var(--rood)',titel:'Sectoren op bijna alle circuits',tekst:'23 van de 24 Formule 1-banen tonen nu de drie sectoren en de start/finish, overgenomen uit de baankaarten van de F1-app.'},
+  {icoon:Flag,kleur:'var(--focus)',titel:'Vlag ook bij MotoGP en WEC',tekst:'In de details staat de vlag van het land nu ook achter MotoGP- en WEC-races.'},
+  {icoon:SlidersHorizontal,kleur:'var(--ok)',titel:'Vlag-instelling bij Weergave',tekst:'Vlag aan, uit of wapperend en het schuifje voor de zichtbaarheid staan nu bovenaan bij Weergave in Sporten.'}]},
  {versie:'1.7.9',punten:[
   {icoon:Flag,kleur:'var(--rood)',titel:'Formule 1 in een nieuw jasje',tekst:'Elke sessie heeft een eigen beeld: een maatlat bij de training, Q1 tot Q3 bij de kwalificatie en vijf startlampen bij de race. De lucht volgt het licht op het circuit, van dag tot nacht.'},
   {icoon:Tv,kleur:'var(--focus)',titel:'Circuit in de lijst',tekst:'Bij Formule 1 staat de baan nu ook klein in elke kaart van Vandaag.'},

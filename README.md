@@ -246,7 +246,14 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 
 - 1.7.1 tot en met 1.7.6 live voor de testers (akkoord van de maker). Publicatie alleen nog bij een push op main of handmatig gestart; een nieuwe testversie: push op `test`, dan `gh workflow run Publiceren --ref main`.
 
-## KijkSport 1.7.9 (testversie, nog niet live)
+## KijkSport 1.8.0 (testversie, nog niet live)
+
+- Sectoren en start/finish voor 23 van de 24 F1-banen, uit F1-app-screenshots van de maker (28 nov), automatisch over de baanvorm gelegd (gelijkvormigheids-ICP op kleurpixels) en visueel gecontroleerd. Bahrein: kaart zonder sectorkleuren, nog open. Singapore en Jeddah: baanvorm omgekeerd zodat hij in rijrichting loopt. Bron in markers.source en in het colofon.
+- Baangegevens (lengte, eerste GP, record) uit dezelfde screenshots niet toegevoegd: aantal ronden en racedistantie ontbreken daar, en de test eist die compleet.
+- Vlag ook bij MotoGP en WEC (land uit titel en plaats, `motorLand` in velden.tsx), alleen in de details.
+- Vlag-instellingen verplaatst naar Weergave (geldt voor alle motorsport); standaard zichtbaarheid 90 %.
+
+## KijkSport 1.7.9 (test, opgevolgd door 1.8.0)
 
 - Keuze maker (28 nov): Vandaag-lijst variant A, tegel in de kaart. Testknoppen A/B weg. Voorlopig alleen F1-kaarten met tegel.
 - Vlag achter het circuit: schuifje 0 tot 100 % zichtbaarheid (standaard 45 %) bij Formule 1 in Sporten. Lucht over de vlag lichter gemaakt.

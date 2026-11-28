@@ -14,8 +14,11 @@ const weekend2027:Record<string,string>={e013:'bahrain',e014:'bahrain',e015:'sau
 /** Land van elk circuit (ISO-code), voor de vlag achter de baan. */
 export const landVan:Record<string,string>={qatar:'qa',brazil:'br','united-arab-emirates':'ae','las-vegas':'us',mexico:'mx','united-states':'us',bahrain:'bh','saudi-arabia':'sa',australia:'au',japan:'jp',china:'cn',miami:'us',canada:'ca',monaco:'mc',portugal:'pt','great-britain':'gb',austria:'at',belgium:'be',hungary:'hu',italy:'it',spain:'es',azerbaijan:'az',turkey:'tr',singapore:'sg'};
 export const landNaam:Record<string,string>={qa:'Qatar',br:'Brazilië',ae:'Verenigde Arabische Emiraten',us:'Verenigde Staten',mx:'Mexico',bh:'Bahrein',sa:'Saoedi-Arabië',au:'Australië',jp:'Japan',cn:'China',ca:'Canada',mc:'Monaco',pt:'Portugal',gb:'Groot-Brittannië',at:'Oostenrijk',be:'België',hu:'Hongarije',it:'Italië',es:'Spanje',az:'Azerbeidzjan',tr:'Turkije',sg:'Singapore'};
-// Vlaggen uit flag-icons (MIT); alleen de landen met een circuit.
-const vlagBestanden=import.meta.glob('../node_modules/flag-icons/flags/4x3/{qa,br,ae,us,mx,bh,sa,au,jp,cn,ca,mc,pt,gb,at,be,hu,it,es,az,tr,sg}.svg',{query:'?url',import:'default',eager:true}) as Record<string,string>;
+// Vlaggen uit flag-icons (MIT); alleen de landen met een circuit (F1, MotoGP, WEC).
+const vlagBestanden=import.meta.glob('../node_modules/flag-icons/flags/4x3/{qa,br,ae,us,mx,bh,sa,au,jp,cn,ca,mc,pt,gb,at,be,hu,it,es,az,tr,sg,th,ar,fr,nl,de,cz,sm,my,id}.svg',{query:'?url',import:'default',eager:true}) as Record<string,string>;
+/** Land van een MotoGP- of WEC-race, afgeleid uit titel en plaats. Volgorde telt: San Marino vóór Italië. */
+const motorLanden:[RegExp,string][]=[[/San Marino|Misano/,'sm'],[/Thailand|Buriram/,'th'],[/Qatar|Lusail/,'qa'],[/Brazili|Goiânia|Interlagos|São Paulo/,'br'],[/Argentini/,'ar'],[/Verenigde Staten|Austin|Lone Star/,'us'],[/Spanje|Jerez|Catalon|Barcelona|Aragón|Valencia|Cheste/,'es'],[/Frankrijk|Le Mans/,'fr'],[/Itali|Mugello|Imola/,'it'],[/Nederland|Assen/,'nl'],[/Duitsland|Sachsenring/,'de'],[/Tsjechi|Brno/,'cz'],[/Groot-Brittanni|Silverstone/,'gb'],[/Oostenrijk|Spielberg/,'at'],[/Portugal|Portimão/,'pt'],[/Japan|Motegi|Fuji/,'jp'],[/Maleisi|Sepang/,'my'],[/Indonesi|Mandalika/,'id'],[/Australi|Adelaide|Phillip Island/,'au'],[/Bahrein|Bahrain/,'bh'],[/Spa-Francorchamps|Belgi/,'be']];
+export function motorLand(e:Event){if(e.sport!=='motogp'&&e.sport!=='wec')return null;const t=e.title+' '+e.venue;return motorLanden.find(([r])=>r.test(t))?.[1]??null}
 export const vlagUrl=(land:string)=>Object.entries(vlagBestanden).find(([k])=>k.endsWith('/'+land+'.svg'))?.[1]??null;
 /** Baan van de eerstvolgende F1-race met een baankaart: voor plekken zonder eigen evenement, zoals de Sporten-tab. */
 export function volgendeF1(vandaag=new Date().toISOString().slice(0,10)):{key:string;event:Event}|null{
@@ -156,11 +159,11 @@ function Wielrennen({play}:S){const weg='M-20 232C60 236 82 176 150 170S236 214 
  {Array.from({length:14},(_,i)=>renner(i,0,['#e33e3e','#2a7fc2','#f6f8f4','#ff8a1f','#2fa862'][i%5],[-6,0,6,-3,3][i%5]))}
 </>}
 
-function Startgrid({play,soort}:S&{soort:'f1'|'motogp'|'wec'}){const asfalt=soort==='wec'?'#3c4057':soort==='motogp'?'#55504a':'#4a5560',gras=soort==='wec'?'#1e2444':soort==='motogp'?'#3b332b':'#26323c';
+function Startgrid({play,soort,doorzicht}:S&{soort:'f1'|'motogp'|'wec';doorzicht?:boolean}){const asfalt=soort==='wec'?'#3c4057':soort==='motogp'?'#55504a':'#4a5560',gras=soort==='wec'?'#1e2444':soort==='motogp'?'#3b332b':'#26323c';
  const vak:[number,number][]=soort==='motogp'?Array.from({length:12},(_,i)=>[300-Math.floor(i/3)*52-(i%3)*10,124+(i%3)*26]):soort==='wec'?Array.from({length:12},(_,i)=>[296-Math.floor(i/2)*40,134+(i%2)*32]):Array.from({length:12},(_,i)=>[300-i*22,i%2?166:134]);
  return <>
- <rect width="400" height="300" fill={gras}/>
- <rect y="98" width="400" height="104" fill={asfalt}/>
+ <rect width="400" height="300" fill={gras} opacity={doorzicht?.25:1}/>
+ <rect y="98" width="400" height="104" fill={asfalt} opacity={doorzicht?.65:1}/>
  <path d="M0 98H400M0 202H400" stroke={W} strokeWidth="2"/>
  <path d="M0 93H400" stroke="#e33e3e" strokeWidth="6" strokeDasharray="14 14"/><path d="M14 93H400" stroke={W} strokeWidth="6" strokeDasharray="14 14"/>
  <rect y="214" width="400" height="14" fill="#11161b" opacity=".5"/><path d="M0 214H400" stroke="#e0a800" strokeWidth="1.5"/>
@@ -302,11 +305,12 @@ export function Veld({sport,event,play=false,mini,detail,className,vlag='uit',vl
   // Kompas in de hoek die het verst van de baan ligt; rechtsboven alleen als het niet anders kan (daar staat in het detailscherm de sluitknop).
   const hoeken:[number,number][]=[[x+16,yo-16],[x+w-16,yo-16],[x+16,yb+16],[x+w-16,yb+16]],vrij=(q:[number,number])=>Math.min(...xs.map((v,i)=>Math.hypot(v-q[0],ys[i]-q[1])));
   kompas=detail?hoeken.reduce((a,b)=>vrij(b)>vrij(a)+4?b:a):[x+w-16,y+16]}
- const vurl=c&&detail&&vlag!=='uit'?vlagUrl(landVan[key!]):null;
- const body=c?<Circuit key={ronde} c={c} detail={detail} kompas={kompas} vb={vbn} reserve={reserve} vlag={null} doorzicht={!!vurl} sessie={ses} licht={lt} laag={laag} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'||sport==='olympics'?<Atletiek {...p}/>:sport==='rugby'?<Rugby {...p}/>:sport==='hockey'?<Hockey {...p}/>:sport==='winter'?<Piste {...p}/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
+ const mland=!c&&event?motorLand(event):null;
+ const vurl=detail&&vlag!=='uit'?(c?vlagUrl(landVan[key!]):mland?vlagUrl(mland):null):null;
+ const body=c?<Circuit key={ronde} c={c} detail={detail} kompas={kompas} vb={vbn} reserve={reserve} vlag={null} doorzicht={!!vurl} sessie={ses} licht={lt} laag={laag} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} doorzicht={!!vurl} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'||sport==='olympics'?<Atletiek {...p}/>:sport==='rugby'?<Rugby {...p}/>:sport==='hockey'?<Hockey {...p}/>:sport==='winter'?<Piste {...p}/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
  const svg=<svg ref={ref} className={'veld '+(className||'')} viewBox={vb} preserveAspectRatio={c||sport==='darts'?'xMidYMid meet':'xMidYMid slice'} style={{background:vurl?'transparent':c?'#26323c':vloer(sport).vloer}} aria-hidden="true" focusable="false">{body}</svg>;
  // Vlag als eigen laag over het hele vlak, de baan erboven.
- if(vurl)return <div className="veld-stapel"><svg className="vlag-laag" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><Vlag url={vurl} vb={[0,0,400,300]} wapper={vlag==='wapperend'} sterkte={vlagSterkte}/></svg>{svg}</div>;
+ if(vurl)return <div className="veld-stapel" style={c?undefined:{background:vloer(sport).vloer}}><svg className="vlag-laag" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><Vlag url={vurl} vb={[0,0,400,300]} wapper={vlag==='wapperend'} sterkte={vlagSterkte}/></svg>{svg}</div>;
  return svg;
 }
 /** Wat de tekening laat zien, in woorden. */
