@@ -8,6 +8,9 @@ import packageInfo from '../package.json';
 type Punt={icoon:LucideIcon;kleur:string;titel:string;tekst:string};
 /** Nieuwste versie bovenaan. Houd het kort: hoogstens vier punten per versie, in gewone woorden. */
 export const versies:{versie:string;punten:Punt[]}[]=[
+ {versie:'1.8.2',punten:[
+  {icoon:Flag,kleur:'var(--rood)',titel:'Rode stip over het circuit',tekst:'Bij Formule 1 rijdt een rode stip rondjes. In de eerste ronde kleuren de sectoren achter de stip in.'},
+  {icoon:Sparkles,kleur:'var(--focus)',titel:'Shorttrack zoals in het echt',tekst:'De schaatsers starten naast elkaar op de lijn, gaan daarna achter elkaar rijden en schaatsen tegen de klok in.'}]},
  {versie:'1.8.1',punten:[
   {icoon:MapPin,kleur:'var(--rood)',titel:'Baangegevens bij alle circuits',tekst:'Baanlengte, eerste Grand Prix en ronderecord staan nu bij elk circuit, ook als het aantal ronden nog niet bekend is.'},
   {icoon:CalendarClock,kleur:'var(--focus)',titel:'Raceweekend klopt weer',tekst:'Bij een raceweekend staan alleen de sessies van dat weekend, niet meer die van hetzelfde circuit een jaar later.'}]},

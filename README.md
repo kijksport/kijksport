@@ -246,7 +246,12 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 
 - 1.7.1 tot en met 1.7.6 live voor de testers (akkoord van de maker). Publicatie alleen nog bij een push op main of handmatig gestart; een nieuwe testversie: push op `test`, dan `gh workflow run Publiceren --ref main`.
 
-## KijkSport 1.8.1 (testversie, nog niet live)
+## KijkSport 1.8.2 (testversie, nog niet live)
+
+- F1 (keuze maker 28 nov): lichtspoor vervangen door een rode stip (SMIL animateMotion, 9 s per ronde). In de eerste ronde onthullen de sectoren zich achter de stip (stroke-dashoffset per sector, zelfde tijdlijn); daarna rijdt de stip door en blijven de sectoren staan. In tegels één ronde. Zonder beweging: stip stil op de start/finish, sectoren direct zichtbaar. Omdat alles nu SMIL is, pauzeert pauseAnimations de beweging buiten beeld ook echt.
+- Shorttrack: tegen de klok in; start naast elkaar op de startlijn, na 1,6 s in één rij op de ideale lijn.
+
+## KijkSport 1.8.1 (test, opgevolgd door 1.8.2)
 
 - Bug: Raceweekend volgens de kalender toonde ook sessies van hetzelfde circuit in een ander jaar (Qatar 2026 kreeg de sprint van 2027). Nu alleen sessies binnen 3 dagen van het gekozen evenement.
 - Baangegevens (lengte, eerste GP, ronderecord) voor 17 extra banen uit de F1-app-screenshots, ook zonder ronden en racedistantie (besluit maker 28 nov). Veld `statsFrom` geeft de bron; de test eist ronden en distantie samen of een `statsFrom`. Tegel Eerste GP waar ronden ontbreken.

@@ -123,15 +123,23 @@ function Langebaan({play}:S){const lap='M125 208.5H275A58.5 58.5 0 0 0 275 91.5L
  <Dot at={[190,221.5]} path={lap} dur={15} begin={-7.35} play={play}><circle r="5" fill="#1d4f86" stroke="#fff" strokeWidth="1.2"/></Dot>
 </>}
 
-function Shorttrack({play}:S){const x1=119.2,x2=280.8,r=44.8,line=stad(x1,x2,150,56),kleur=['#e33e3e','#1c2452','#e0a800','#2b9a5f','#5d54c4'];
+/** Shorttrack: tegen de klok in. Start naast elkaar op de lijn, daarna in één rij achter elkaar. */
+function Shorttrack({play}:S){const x1=119.2,x2=280.8,r=44.8,kleur=['#e33e3e','#1c2452','#e0a800','#2b9a5f','#5d54c4'];
  const blok=(cx:number,s:number)=>Array.from({length:7},(_,i)=>{const a=(-90+i*30)*Math.PI/180;return <circle key={cx+'-'+i} cx={cx+s*Math.cos(a)*r} cy={150+Math.sin(a)*r} r="2.3" fill="#16181d"/>});
+ // Ideale lijn: ovaal met straal 56 rond de blokjes, onderaan naar rechts (tegen de klok in).
+ const R=56,yb=150+R,yt=150-R,ronde=2*(x2-x1)+2*Math.PI*R,D=7.5,start=150,T=1.6,gap=14;
+ const rondje=(x:number)=>`M${x} ${yb}H${x2}A${R} ${R} 0 0 0 ${x2} ${yt}H${x1}A${R} ${R} 0 0 0 ${x1} ${yb}H${x}`;
+ const baan=[186,196,206,216,226],plek=[1,0,2,4,3];
  return <>
  <rect width="400" height="300" fill="#c9d1dd"/>
  <rect x="26" y="60" width="348" height="180" rx="50" fill="#2b3f93"/><rect x="32" y="66" width="336" height="168" rx="45" fill="#e6eff4"/>
  <path d="M200 66V234" stroke="#e33e3e" strokeWidth="1.2" opacity=".5"/><circle cx="200" cy="150" r="20" fill="none" stroke="#2a7fc2" strokeWidth="1" opacity=".5"/>
  {blok(x2,1)}{blok(x1,-1)}
- <path d="M215 194.8V222" stroke="#1c2452" strokeWidth="1.6"/>
- {kleur.map((k,i)=><Dot key={k} at={[150+i*13,206]} path={line} dur={7.5} begin={-i*.33} play={play}><circle r="4.2" fill={k} stroke="#fff" strokeWidth="1"/></Dot>)}
+ <path d={`M${start-6} 181V231`} stroke="#1c2452" strokeWidth="1.6"/>
+ {kleur.map((k,i)=>{const y=baan[i],X=start+110-plek[i]*gap,mid=(start+X)/2;
+  return <g key={k} transform={play?undefined:`translate(${start} ${y})`}><circle r="4.2" fill={k} stroke="#fff" strokeWidth="1"/>
+   {play&&<animateMotion path={`M${start} ${y}C${mid} ${y} ${mid} ${yb} ${X} ${yb}`} dur={T+'s'} fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".5 0 .6 1"/>}
+   {play&&<animateMotion path={rondje(X)} dur={D+'s'} begin={T+'s'} repeatCount="indefinite"/>}</g>})}
 </>}
 
 const nummers=[20,1,18,4,13,6,10,15,2,17,3,19,7,16,8,11,14,9,12,5];
@@ -184,7 +192,7 @@ const lucht:Record<Licht,[string,string]>={dag:['#3b4b58','#26323c'],schemer:['#
 /**
  * F1-circuit, eigen KijkSport-ontwerp (Broadcast 02): asfalt met witte rand, lucht naar het licht op het circuit bij de start,
  * en een laag per sessie: maatlat bij training, Q1-Q3 bij kwalificatie, vijf startlampen bij de race.
- * Beweging gaat één keer: het lichtspoor trekt een ronde, daarna de sessielaag. Geen bewegende stip: dat zou een live positie suggereren.
+ * Beweging: een rode stip rijdt rondjes (in een tegel één ronde). Achter de stip verschijnen in de eerste ronde de sectorkleuren; die blijven staan (keuze maker, 28 nov).
  */
 function Circuit({c,play,mini,detail,kompas,vlag,vb,reserve,sessie='weekend',licht='dag',laag,doorzicht}:S&{doorzicht?:boolean;c:CircuitInfo;detail?:boolean;kompas:[number,number];vlag?:{url:string;wapper:boolean}|null;vb:number[];reserve?:string;sessie?:Sessie;licht?:Licht;laag?:{y:number;h:number}|null}){
  const id=useId().replace(/:/g,'');
@@ -194,7 +202,7 @@ function Circuit({c,play,mini,detail,kompas,vlag,vb,reserve,sessie='weekend',lic
  const grens=m?.sectors?[0,...m.sectors,1]:null,sk=['#ff4d5e','#4aa6ff','#ffd23f'];
  const labels=([] as {n:number;at:number}[]).map(k=>{const p=t.at(k.at);return {n:k.n,px:p.x,py:p.y,nx:p.nx,ny:p.ny,r:15}});
  for(let ronde=0;ronde<4;ronde++)labels.forEach((a,i)=>labels.forEach((b,j)=>{if(j<i&&Math.hypot(a.px+a.nx*a.r-b.px-b.nx*b.r,a.py+a.ny*a.r-b.py-b.ny*b.r)<14)a.r+=8}));
- const [x0,y0,w,h]=vb,[boven,onder]=lucht[licht],an=(c:string)=>play?c:undefined;
+ const [x0,y0,w,h]=vb,[boven,onder]=lucht[licht],an=(c:string)=>play?c:undefined,L=9;
  // Sterren bij nacht: vaste plekken, zodat het beeld niet verspringt.
  const sterren=licht==='nacht'?Array.from({length:mini?14:26},(_,i)=>[x0-w*.4+((i*73)%97)/97*w*1.8,y0+((i*41)%59)/59*h*.9,(i%3)*.25+.5]):[];
  return <>
@@ -203,9 +211,11 @@ function Circuit({c,play,mini,detail,kompas,vlag,vb,reserve,sessie='weekend',lic
  {sterren.map(([x,y,r],i)=><circle key={i} cx={x} cy={y} r={r} fill="#fff" opacity=".55"/>)}
  {licht!=='dag'&&<path className={an('f1-halo')} d={d} fill="none" stroke="#ffe2a8" strokeWidth={mini?26:22} strokeLinejoin="round" opacity={licht==='nacht'?.13:.07}/>}
  <path d={d} fill="none" stroke={W} strokeWidth={mini?11:9.5} strokeLinejoin="round"/><path d={d} fill="none" stroke="#2c3238" strokeWidth={mini?7:6.8} strokeLinejoin="round"/>
- <path className={an(detail&&grens?'f1-spoor weg':'f1-spoor')} d={d} pathLength={1} fill="none" stroke="#ff4d5e" strokeWidth={mini?2.4:1.6} strokeLinejoin="round" strokeLinecap="round" opacity={detail&&grens&&!play?0:.95}/>
- {!mini&&grens&&sk.map((k,i)=><path key={k} className={an('f1-sector')} d={deel(grens[i],grens[i+1])} fill="none" stroke={k} strokeWidth="2" strokeLinecap="round"/>)}
+ {!mini&&grens&&sk.map((k,i)=><path key={k} d={deel(grens[i],grens[i+1])} pathLength={1} fill="none" stroke={k} strokeWidth="2" strokeLinecap="round" strokeDasharray={play?1:undefined} strokeDashoffset={play?1:undefined}>
+  {play&&<animate attributeName="stroke-dashoffset" from="1" to="0" begin={(.3+L*grens[i]).toFixed(2)+'s'} dur={(L*(grens[i+1]-grens[i])).toFixed(2)+'s'} fill="freeze"/>}</path>)}
  <path d={`M${sf.x-sf.nx*7} ${sf.y-sf.ny*7}L${sf.x+sf.nx*7} ${sf.y+sf.ny*7}`} stroke="#111" strokeWidth="3.6"/><path d={`M${sf.x-sf.nx*7} ${sf.y-sf.ny*7}L${sf.x+sf.nx*7} ${sf.y+sf.ny*7}`} stroke={W} strokeWidth="3.6" strokeDasharray="2.3 2.3"/>
+ {play?<g opacity="0"><set attributeName="opacity" to="1" begin=".3s" fill="freeze"/><circle r={mini?6:7} fill="#ff4d5e" opacity=".3"/><circle r={mini?3.4:4} fill="#ff4d5e" stroke={W} strokeWidth=".9"/><animateMotion path={d} dur={L+'s'} begin=".3s" calcMode="paced" repeatCount={mini?'1':'indefinite'} fill="freeze"/></g>
+  :<circle cx={sf.x} cy={sf.y} r={mini?3.4:4} fill="#ff4d5e" stroke={W} strokeWidth=".9"/>}
  {!mini&&<path d="M-5-4L4 0L-5 4Z" fill={W} transform={`translate(${pijl.x+pijl.nx*12} ${pijl.y+pijl.ny*12}) rotate(${Math.atan2(pijl.dy,pijl.dx)*180/Math.PI})`}/>}
  {labels.map(l=><g key={l.n}><path d={`M${l.px+l.nx*5.5} ${l.py+l.ny*5.5}L${l.px+l.nx*(l.r-6.5)} ${l.py+l.ny*(l.r-6.5)}`} stroke={W} strokeWidth=".6" opacity=".7"/><circle cx={l.px+l.nx*l.r} cy={l.py+l.ny*l.r} r="6.6" fill="#18222a" stroke={W} strokeWidth=".8"/><text x={l.px+l.nx*l.r} y={l.py+l.ny*l.r+2.9} textAnchor="middle" fontSize="8.2" fontWeight="700" fill={W}>{l.n}</text></g>)}
  {mini&&sessie!=='weekend'&&<SessieBadge sessie={sessie} x={x0+6} y={y0+h-6}/>}
