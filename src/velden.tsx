@@ -171,10 +171,10 @@ function Startgrid({play,soort}:S&{soort:'f1'|'motogp'|'wec'}){const asfalt=soor
 </>}
 
 /** Vlag achter de baan: vaag, stil of wapperend (stroken die elk in eigen fase op en neer gaan). */
-function Vlag({url,vb,wapper}:{url:string;vb:number[];wapper:boolean}){
+function Vlag({url,vb,wapper,sterkte=45}:{url:string;vb:number[];wapper:boolean;sterkte?:number}){ const op=sterkte/100;
  const id=useId().replace(/:/g,''),[x,y,w,h]=vb,n=18,sw=w/n,img=<image href={url} x={x} y={y} width={w} height={h} preserveAspectRatio="xMidYMid slice"/>;
- if(!wapper)return <g opacity=".2">{img}</g>;
- return <g opacity=".26"><defs>{Array.from({length:n},(_,i)=><clipPath key={i} id={id+'s'+i}><rect x={x+i*sw-.4} y={y-30} width={sw+.8} height={h+60}/></clipPath>)}</defs>
+ if(!wapper)return <g opacity={op}>{img}</g>;
+ return <g opacity={op}><defs>{Array.from({length:n},(_,i)=><clipPath key={i} id={id+'s'+i}><rect x={x+i*sw-.4} y={y-30} width={sw+.8} height={h+60}/></clipPath>)}</defs>
   {Array.from({length:n},(_,i)=><g key={i} clipPath={`url(#${id}s${i})`}><g className="vlagstrook" style={{'--a':(2+i*.6)+'px',animationDelay:(-i*.16)+'s'} as React.CSSProperties}>{img}<rect x={x+i*sw} y={y-30} width={sw+.8} height={h+60} fill="#000" className="vlagschaduw" style={{animationDelay:(-i*.16)+'s'}}/></g></g>)}</g>;
 }
 const lucht:Record<Licht,[string,string]>={dag:['#3b4b58','#26323c'],schemer:['#5a3a52','#222a3b'],nacht:['#0b1222','#151e2d']};
@@ -189,14 +189,14 @@ function Circuit({c,play,mini,detail,kompas,vlag,vb,reserve,sessie='weekend',lic
  const deel=(a:number,b:number)=>{let s='';for(let f=a;f<b+.002;f+=.004){const p=t.at(Math.min(f,.9999));s+=(s?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1)}return s};
  const sf=t.at(m?.startFinish??0),pijl=t.at((m?.startFinish??0)+.035);
  const grens=m?.sectors?[0,...m.sectors,1]:null,sk=['#ff4d5e','#4aa6ff','#ffd23f'];
- const labels=(detail&&m?.corners||[]).map(k=>{const p=t.at(k.at);return {n:k.n,px:p.x,py:p.y,nx:p.nx,ny:p.ny,r:15}});
+ const labels=([] as {n:number;at:number}[]).map(k=>{const p=t.at(k.at);return {n:k.n,px:p.x,py:p.y,nx:p.nx,ny:p.ny,r:15}});
  for(let ronde=0;ronde<4;ronde++)labels.forEach((a,i)=>labels.forEach((b,j)=>{if(j<i&&Math.hypot(a.px+a.nx*a.r-b.px-b.nx*b.r,a.py+a.ny*a.r-b.py-b.ny*b.r)<14)a.r+=8}));
  const [x0,y0,w,h]=vb,[boven,onder]=lucht[licht],an=(c:string)=>play?c:undefined;
  // Sterren bij nacht: vaste plekken, zodat het beeld niet verspringt.
  const sterren=licht==='nacht'?Array.from({length:mini?14:26},(_,i)=>[x0-w*.4+((i*73)%97)/97*w*1.8,y0+((i*41)%59)/59*h*.9,(i%3)*.25+.5]):[];
  return <>
  <defs><linearGradient id={id+'l'} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={boven}/><stop offset="1" stopColor={onder}/></linearGradient></defs>
- <rect x={x0-w} y={y0-h*.5} width={w*3} height={h*2} fill={`url(#${id}l)`} opacity={doorzicht?.55:1}/>
+ <rect x={x0-w} y={y0-h*.5} width={w*3} height={h*2} fill={`url(#${id}l)`} opacity={doorzicht?.3:1}/>
  {sterren.map(([x,y,r],i)=><circle key={i} cx={x} cy={y} r={r} fill="#fff" opacity=".55"/>)}
  {licht!=='dag'&&<path className={an('f1-halo')} d={d} fill="none" stroke="#ffe2a8" strokeWidth={mini?26:22} strokeLinejoin="round" opacity={licht==='nacht'?.13:.07}/>}
  <path d={d} fill="none" stroke={W} strokeWidth={mini?11:9.5} strokeLinejoin="round"/><path d={d} fill="none" stroke="#2c3238" strokeWidth={mini?7:6.8} strokeLinejoin="round"/>
@@ -224,7 +224,7 @@ function SessieLaag({sessie,x,y,w,h,mini,play,perKm}:{sessie:Sessie;x:number;y:n
    {[0,1,2,3,4].map(i=><g key={i}>{play&&<circle className="f1-gloed" cx={bx+i*gap} cy={cy} r={r*1.7} fill="#ff3347" style={{animationDelay:(.6+i*.45)+'s',animationDuration:(3.4-.45*i)+'s'}}/>}
     <circle className={play?'f1-lamp':undefined} cx={bx+i*gap} cy={cy} r={r} fill="#2a1a1e" stroke="#ff3347" strokeWidth={mini?.8:1.1} style={play?{animationDelay:(.6+i*.45)+'s',animationDuration:(3.4-.45*i)+'s'}:undefined}/></g>)}</g>}
  if(sessie==='kwa'){const n=['Q1','Q2','Q3'],bw=Math.min(w*.17,mini?30:44),gap=bw*.18,bx=mid-(bw*3+gap*2)/2,bh=Math.min(h*.62,mini?16:20);
-  return <g>{n.map((q,i)=><g key={q} className={play?'f1-q':undefined} style={play?{animationDelay:(2.2+i*.35)+'s'}:undefined}><rect x={bx+i*(bw+gap)} y={cy-bh/2} width={bw} height={bh} rx="3" fill={i===2?'#ff4d5e':'#0d1116'} stroke={i===2?'#ff4d5e':'#56646f'} strokeWidth=".8"/>
+  return <g>{n.map((q,i)=><g key={q} className={play?'f1-q':undefined} style={play?{animationDelay:(1+i*.35)+'s'}:undefined}><rect x={bx+i*(bw+gap)} y={cy-bh/2} width={bw} height={bh} rx="3" fill={i===2?'#ff4d5e':'#0d1116'} stroke={i===2?'#ff4d5e':'#56646f'} strokeWidth=".8"/>
    <text x={bx+i*(bw+gap)+bw/2} y={cy+bh*.27} textAnchor="middle" fontSize={bh*.72} fontWeight="800" fill={W}>{q}</text></g>)}</g>}
  if(sessie==='vt'&&perKm>0){let km=1;while(perKm*km>w*.55&&km>.25)km/=2;const L=perKm*km,lx=mid-L/2;
   return <g className={play?'f1-maat':undefined} style={play?{transformOrigin:`${lx}px ${cy}px`}:undefined}><path d={`M${lx} ${cy-4}V${cy+4}M${lx} ${cy}H${lx+L}M${lx+L} ${cy-4}V${cy+4}`} stroke={W} strokeWidth="1.3" fill="none"/>
@@ -277,8 +277,8 @@ export function Testbeeld(){const b=['#f4f6f2','#ffd23f','#33d1d1','#33d17a','#d
 export function Hallijnen(){return <g fill="none" strokeWidth="2"><rect x="20" y="24" width="360" height="252" stroke="#f6f8f4"/><path d="M200 24V276" stroke="#f6f8f4"/><circle cx="200" cy="150" r="34" stroke="#f6f8f4"/><rect x="62" y="60" width="276" height="180" stroke="#e0a800"/><path d="M62 150H338M154 60V240M246 60V240" stroke="#e0a800"/><path d="M20 80A72 72 0 0 1 20 220M380 80A72 72 0 0 0 380 220" stroke="#e33e3e"/><rect x="20" y="108" width="62" height="84" stroke="#e33e3e"/><rect x="318" y="108" width="62" height="84" stroke="#e33e3e"/><rect x="104" y="42" width="192" height="216" stroke="#2456b8"/><path d="M104 114H296M104 186H296" stroke="#2456b8"/></g>}
 function Sporthal(){return <><rect width="400" height="300" fill="#c69a5a"/>{Array.from({length:10},(_,i)=><path key={i} d={`M0 ${15+i*30}H400`} stroke="#b88a4a" strokeWidth="1"/>)}<Hallijnen/></>}
 
-/** Het veld van een sport. `detail` toont extra aanduidingen (bochtnummers); `mini` laat fijne details weg. */
-export function Veld({sport,event,play=false,mini,detail,className,vlag='uit'}:{sport:string;event?:Event|null;play?:boolean;mini?:boolean;detail?:boolean;className?:string;vlag?:'uit'|'stil'|'wapperend'}){
+/** Het veld van een sport. `detail` toont extra aanduidingen (sectoren, kompas); `mini` laat fijne details weg. */
+export function Veld({sport,event,play=false,mini,detail,className,vlag='uit',vlagSterkte=45}:{sport:string;event?:Event|null;play?:boolean;mini?:boolean;detail?:boolean;className?:string;vlag?:'uit'|'stil'|'wapperend';vlagSterkte?:number}){
  const ref=useRef<SVGSVGElement>(null),[ronde,setRonde]=useState(0);
  // F1: de eenmalige beweging begint opnieuw zodra de tekening weer in beeld komt.
  useEffect(()=>{const el=ref.current;if(!el||!play||sport!=='f1'||!('IntersectionObserver'in window))return;let uit=false;const io=new IntersectionObserver(([x])=>{if(x.isIntersecting&&uit)setRonde(n=>n+1);uit=!x.isIntersecting});io.observe(el);return()=>io.disconnect()},[play,sport]);
@@ -306,7 +306,7 @@ export function Veld({sport,event,play=false,mini,detail,className,vlag='uit'}:{
  const body=c?<Circuit key={ronde} c={c} detail={detail} kompas={kompas} vb={vbn} reserve={reserve} vlag={null} doorzicht={!!vurl} sessie={ses} licht={lt} laag={laag} {...p}/>:sport==='f1'||sport==='motogp'||sport==='wec'?<Startgrid soort={sport} {...p}/>:sport==='football'?<Voetbal {...p}/>:sport==='tennis'?<Tennis {...p}/>:sport==='swimming'?<Zwembad pool={event?.pool} {...p}/>:sport==='speed'?<Langebaan {...p}/>:sport==='short'?<Shorttrack {...p}/>:sport==='darts'?<Dartbord {...p}/>:sport==='cycling'?<Wielrennen {...p}/>:sport==='athletics'||sport==='olympics'?<Atletiek {...p}/>:sport==='rugby'?<Rugby {...p}/>:sport==='hockey'?<Hockey {...p}/>:sport==='winter'?<Piste {...p}/>:sport==='gym'?<Turnvloer/>:sport==='mma'?<Kooi/>:<Sporthal/>;
  const svg=<svg ref={ref} className={'veld '+(className||'')} viewBox={vb} preserveAspectRatio={c||sport==='darts'?'xMidYMid meet':'xMidYMid slice'} style={{background:vurl?'transparent':c?'#26323c':vloer(sport).vloer}} aria-hidden="true" focusable="false">{body}</svg>;
  // Vlag als eigen laag over het hele vlak, de baan erboven.
- if(vurl)return <div className="veld-stapel"><svg className="vlag-laag" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><Vlag url={vurl} vb={[0,0,400,300]} wapper={vlag==='wapperend'}/></svg>{svg}</div>;
+ if(vurl)return <div className="veld-stapel"><svg className="vlag-laag" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><Vlag url={vurl} vb={[0,0,400,300]} wapper={vlag==='wapperend'} sterkte={vlagSterkte}/></svg>{svg}</div>;
  return svg;
 }
 /** Wat de tekening laat zien, in woorden. */

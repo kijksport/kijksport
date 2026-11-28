@@ -246,7 +246,15 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 
 - 1.7.1 tot en met 1.7.6 live voor de testers (akkoord van de maker). Publicatie alleen nog bij een push op main of handmatig gestart; een nieuwe testversie: push op `test`, dan `gh workflow run Publiceren --ref main`.
 
-## KijkSport 1.7.8 (testversie, nog niet live)
+## KijkSport 1.7.9 (testversie, nog niet live)
+
+- Keuze maker (28 nov): Vandaag-lijst variant A, tegel in de kaart. Testknoppen A/B weg. Voorlopig alleen F1-kaarten met tegel.
+- Vlag achter het circuit: schuifje 0 tot 100 % zichtbaarheid (standaard 45 %) bij Formule 1 in Sporten. Lucht over de vlag lichter gemaakt.
+- Lichtspoor trekt de ronde in 9 s in plaats van 2,4 s; sessielaag verschijnt na 1 s, sectoren na de ronde.
+- Geen bochtnummers meer in het detail; alleen sectoren (die zijn er nu voor 4 van de 24 banen).
+- Agenda opent standaard op Maand.
+
+## KijkSport 1.7.8 (test, opgevolgd door 1.7.9)
 
 - Formule 1, Broadcast 02: eigen ontwerp voor de baan. Asfalt met witte rand; de lucht volgt de zonshoogte op het circuit bij de start (dag, schemer, nacht, berekend uit lat/lon in circuits.json en de starttijd).
 - Laag per sessie: maatlat (1 km of 500 m, uit baanlengte) bij vrije training, Q1–Q3 bij kwalificatie, vijf startlampen bij race en sprint. Heel raceweekend: geen laag.
