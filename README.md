@@ -248,7 +248,7 @@ Preview als één bestand bouwen: `PREVIEW=1 npx vite build` zet lettertypen inl
 
 ## Parcours gearchiveerd (28 november 2026)
 
-- Besluit van de maker: Speelveld is de enige versie die nog wordt bijgehouden. De eerste versie, Parcours (0.12.2, en de nooit gepubliceerde 0.12.3), is gearchiveerd buiten GitHub; de branches `parcours` en `parcours-0.12.3` zijn verwijderd.
+- Besluit van de maker: Speelveld is de enige versie die nog wordt bijgehouden. De eerste versie, Parcours (0.12.2, en de nooit gepubliceerde 0.12.3), is gearchiveerd buiten GitHub; de branches `parcours` en `parcours-0.12.3` gaan van GitHub af.
 - Het oude adres `/kijksport/` stuurt door naar `/kijksport/speelveld/` (map `doorsturen/`, ook voor onbekende adressen via 404.html). Een toevoeging aan het adres gaat mee. De oude service worker en caches van dat adres (`kijksport-`, `sportkijk-`) worden opgeruimd; de opslag van het toestel (selectie, kijklijst) blijft staan.
 
 ## Live 28 november 2026
